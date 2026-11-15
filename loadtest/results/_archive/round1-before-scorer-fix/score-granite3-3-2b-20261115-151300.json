@@ -1,0 +1,176 @@
+{
+ "model": "granite3.3:2b",
+ "date": "2026-11-15T15:13:00",
+ "summary": {
+  "n": 12,
+  "tool_correct": 3,
+  "args_correct": 3,
+  "answer_correct": 5,
+  "empty": 0,
+  "errors": 0,
+  "errors_total": 0,
+  "median_s": 0.8,
+  "max_s": 5.1
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 5.1,
+   "tools": [],
+   "args": [],
+   "answer": "list-topics"
+  },
+  {
+   "id": "q02",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.5,
+   "tools": [],
+   "args": [],
+   "answer": "list-consumer-groups"
+  },
+  {
+   "id": "q03",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.7,
+   "tools": [],
+   "args": [],
+   "answer": "Answer: list-topics({\"topicName\": \"bikes.payments\"})"
+  },
+  {
+   "id": "q04",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.7,
+   "tools": [],
+   "args": [],
+   "answer": "{\"type\":\"get-consumer-group-lag\",\"parameters\":{\"groupId\":\"orders-slow\"}}"
+  },
+  {
+   "id": "q05",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.8,
+   "tools": [],
+   "args": [],
+   "answer": "{\"type\":\"get-consumer-group-lag\",\"params\":{\"groupId\":\"orders-fast\"}}"
+  },
+  {
+   "id": "q06",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 0.9,
+   "tools": [],
+   "args": [],
+   "answer": "The function to use is \"describe-consumer-group\".\nParameters: {\"groupId\": \"orders-slow\"}"
+  },
+  {
+   "id": "q07",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.1,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "Partition 0 of topic \"bikes.orders\" has a low watermark of 0, high watermark of 6480, and a message count of 6480."
+  },
+  {
+   "id": "q08",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.0,
+   "tools": [],
+   "args": [],
+   "answer": "The tool \"get-consumer-group-lag\" would be needed to compare the lag of the consumer groups orders-fast and orders-slow."
+  },
+  {
+   "id": "q09",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.1,
+   "tools": [
+    "list-consumer-groups",
+    "list-consumer-groups"
+   ],
+   "args": [
+    {
+     "type": "list-consumer-groups",
+     "arguments": {}
+    },
+    {}
+   ],
+   "answer": "The consumer groups are:\n1. \"orders-fast\" (state: Stable, type: Classic, protocol: consumer)\n2. \"orders-slow\" (state: Empty, type: Classic, protocol: consumer)"
+  },
+  {
+   "id": "q10",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.5,
+   "tools": [],
+   "args": [],
+   "answer": "No."
+  },
+  {
+   "id": "q11",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 0.8,
+   "tools": [],
+   "args": [],
+   "answer": "N/A. The provided tools do not have the capability to list users capable of reading a specific Kafka topic."
+  },
+  {
+   "id": "q12",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 0.7,
+   "tools": [],
+   "args": [],
+   "answer": "Sorry, the available functions do not provide the retention time of a Kafka topic."
+  }
+ ]
+}

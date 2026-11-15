@@ -1,0 +1,43 @@
+# S13: LLM metrics proxy. __OLLAMA_URL__ is filled by `make proxy-deploy` (the Makefile var OLLAMA_URL is the only place).
+# Image is built locally with podman and loaded into kind (no registry). Tag is pinned: bump it with proxy/ changes.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: llm
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-proxy
+  namespace: llm
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: llm-proxy}
+  template:
+    metadata:
+      labels: {app: llm-proxy}
+    spec:
+      containers:
+        - name: llm-proxy
+          image: localhost/llm-proxy:0.2.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - {name: OLLAMA_URL, value: "__OLLAMA_URL__"}
+          ports:
+            - {name: http, containerPort: 8080}
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+          resources:
+            requests: {memory: 64Mi, cpu: 20m}
+            limits: {memory: 128Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-proxy
+  namespace: llm
+spec:
+  selector: {app: llm-proxy}
+  ports:
+    - {name: http, port: 8080, targetPort: http}

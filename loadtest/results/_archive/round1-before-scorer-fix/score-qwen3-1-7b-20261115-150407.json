@@ -1,0 +1,227 @@
+{
+ "model": "qwen3:1.7b",
+ "date": "2026-11-15T15:04:07",
+ "summary": {
+  "n": 12,
+  "tool_correct": 11,
+  "args_correct": 11,
+  "answer_correct": 10,
+  "empty": 1,
+  "errors": 0,
+  "errors_total": 1,
+  "median_s": 6.1,
+  "max_s": 11.2
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 8.5,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "The topics exist: bikes.orders, bikes.payments, bikes.sensor-events, and __consumer_offsets."
+  },
+  {
+   "id": "q02",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 5.1,
+   "tools": [
+    "list-consumer-groups"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "The existing consumer groups are \"orders-fast\" (Stable) and \"orders-slow\" (Empty)."
+  },
+  {
+   "id": "q03",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 10.5,
+   "tools": [
+    "list-topics",
+    "list-topics"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.payments"
+    },
+    {}
+   ],
+   "answer": "Yes, there is a topic called bikes.payments."
+  },
+  {
+   "id": "q04",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 5.5,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" has a total lag of 16,253 messages across 3 topics."
+  },
+  {
+   "id": "q05",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 10.7,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast",
+     "topics": []
+    },
+    {
+     "groupId": "orders-fast",
+     "topics": [
+      "orders-fast"
+     ]
+    }
+   ],
+   "answer": "The consumer group \"orders-fast\" does not exist on this cluster."
+  },
+  {
+   "id": "q06",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 5.1,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "Consumer group \"orders-slow\" is in state \"Empty\" with 0 members, and its coordinator is `poc-combined-0.poc-kafka-brokers.kafka.svc:9092`."
+  },
+  {
+   "id": "q07",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 4.9,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "The partition offsets for \"bikes.orders\" are: partition 0 has a low watermark of 0, a high watermark of 5921, and 5921 messages."
+  },
+  {
+   "id": "q08",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 6.7,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    },
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" is further behind with 16333 message(s) of lag compared to \"orders-fast\" which has 0."
+  },
+  {
+   "id": "q09",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 11.2,
+   "tools": [
+    "list-consumer-groups",
+    "describe-consumer-group"
+   ],
+   "args": [
+    {},
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "Consumer group \"orders-slow\" is Empty with 0 member(s); coordinator poc-combined-0.poc-kafka-brokers.kafka.svc:9092."
+  },
+  {
+   "id": "q10",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": true,
+   "error": "empty answer (model hit the token cap while thinking)",
+   "seconds": 9.3,
+   "tools": [],
+   "args": [],
+   "answer": ""
+  },
+  {
+   "id": "q11",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.8,
+   "tools": [],
+   "args": [],
+   "answer": "The question cannot be answered with the provided tools, as they do not support retrieving user permissions or access controls for Kafka topics."
+  },
+  {
+   "id": "q12",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.7,
+   "tools": [],
+   "args": [],
+   "answer": "The retention time of a Kafka topic is not available via the provided tools, as they do not include functionality to retrieve topic retention policies or metadata."
+  }
+ ]
+}

@@ -1,0 +1,3 @@
+# Default gitleaks rules plus nothing else (yagni). Add allowlists here only with a reason.
+[extend]
+useDefault = true

@@ -1,0 +1,73 @@
+# One combined KRaft node (controller + broker). Single replica: all replication settings are 1.
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaNodePool
+metadata:
+  name: combined
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: poc
+spec:
+  replicas: 1
+  roles: [controller, broker]
+  storage:
+    type: jbod
+    volumes:
+      - id: 0
+        type: persistent-claim
+        size: 2Gi
+        deleteClaim: false
+  resources:
+    requests: {memory: 1Gi, cpu: 250m}
+    limits: {memory: 1280Mi}
+  jvmOptions:
+    "-Xms": 512m
+    "-Xmx": 512m
+---
+apiVersion: kafka.strimzi.io/v1
+kind: Kafka
+metadata:
+  name: poc
+  namespace: kafka
+spec:
+  kafka:
+    version: 4.3.2
+    listeners:
+      # Internal only, no external listener. Plain transport, SCRAM login (PoC, in-cluster).
+      - name: scram
+        port: 9092
+        type: internal
+        tls: false
+        authentication:
+          type: scram-sha-512
+    authorization:
+      type: simple
+      superUsers: [poc-admin]   # setup and tests only (reviewed S06); never used by MCP, agent or proxy
+    config:
+      offsets.topic.replication.factor: 1
+      transaction.state.log.replication.factor: 1
+      transaction.state.log.min.isr: 1
+      default.replication.factor: 1
+      min.insync.replicas: 1
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: kafka-metrics-config.yml
+  kafkaExporter:
+    topicRegex: ".*"
+    groupRegex: ".*"
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: poc-admin
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: poc
+spec:
+  authentication:
+    type: scram-sha-512

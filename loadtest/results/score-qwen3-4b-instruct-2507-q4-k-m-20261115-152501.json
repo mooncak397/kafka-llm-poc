@@ -1,0 +1,249 @@
+{
+ "model": "qwen3:4b-instruct-2507-q4_K_M",
+ "date": "2026-11-15T15:25:01",
+ "summary": {
+  "n": 12,
+  "tool_correct": 9,
+  "args_correct": 9,
+  "answer_correct": 9,
+  "empty": 1,
+  "errors": 0,
+  "errors_total": 1,
+  "median_s": 2.1,
+  "max_s": 8.9
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 8.9,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "The existing topics in the Kafka cluster are: bikes.orders, bikes.payments, bikes.sensor-events, and __consumer_offsets."
+  },
+  {
+   "id": "q02",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.1,
+   "tools": [
+    "list-consumer-groups"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "The existing consumer groups are \"orders-fast\" (Stable) and \"orders-slow\" (Empty)."
+  },
+  {
+   "id": "q03",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.6,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "Yes, there is a topic called bikes.payments."
+  },
+  {
+   "id": "q04",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.1,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" has 20,016 messages of lag across 3 topics."
+  },
+  {
+   "id": "q05",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.9,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "The consumer group \"orders-fast\" has a total lag of 3 messages across 3 topics."
+  },
+  {
+   "id": "q06",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.5,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" is empty and has no members, with its coordinator located at poc-combined-0.poc-kafka-brokers.kafka.svc:9092."
+  },
+  {
+   "id": "q07",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.9,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "The partition offsets for the topic \"bikes.orders\" show a low watermark of 0, a high watermark of 7188, and a total message count of 7188 for partition 0."
+  },
+  {
+   "id": "q08",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": true,
+   "error": "stopped: more than 5 tool turns",
+   "seconds": 6.6,
+   "tools": [
+    "list-consumer-groups",
+    "list-consumer-groups",
+    "get-consumer-group-lag",
+    "list-topics",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "matchStates": [
+      "Stable"
+     ]
+    },
+    {
+     "matchStates": [
+      "Stable"
+     ]
+    },
+    {
+     "groupId": "orders-fast",
+     "topics": [
+      "orders"
+     ]
+    },
+    {},
+    {
+     "groupId": "orders-fast",
+     "topics": [
+      "bikes.orders"
+     ]
+    }
+   ],
+   "answer": ""
+  },
+  {
+   "id": "q09",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.0,
+   "tools": [
+    "list-consumer-groups"
+   ],
+   "args": [
+    {
+     "matchStates": [
+      "Stable"
+     ]
+    }
+   ],
+   "answer": "No consumer group ends with \"slow\"."
+  },
+  {
+   "id": "q10",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 4.4,
+   "tools": [
+    "list-consumer-groups",
+    "list-consumer-groups"
+   ],
+   "args": [
+    {
+     "matchStates": [
+      "Stable"
+     ]
+    },
+    {
+     "matchStates": [
+      "Stable"
+     ]
+    }
+   ],
+   "answer": "No, orders-slow does not have more lag than orders-fast because the consumer group \"orders-slow\" was not found in the list of stable consumer groups. There is no data to compare lag for \"orders-slow\" with \"orders-fast\"."
+  },
+  {
+   "id": "q11",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.2,
+   "tools": [],
+   "args": [],
+   "answer": "I cannot determine which users can read the topic \"bikes.orders\" as no available tool provides access control or user permissions information."
+  },
+  {
+   "id": "q12",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.2,
+   "tools": [],
+   "args": [],
+   "answer": "I cannot determine the retention time of the topic \"bikes.orders\" as none of the available functions provide this information."
+  }
+ ]
+}

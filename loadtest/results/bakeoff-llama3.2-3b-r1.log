@@ -1,0 +1,25 @@
+vram_before_MiB 2024 avail_MB 4488
+q01 tool=ok args=ok answer=ok   7.3s tools=list-topics err=-
+q02 tool=ok args=ok answer=NO   4.2s tools=list-consumer-groups err=-
+q03 tool=NO args=NO answer=NO   2.7s tools=- err=-
+q04 tool=ok args=ok answer=ok   1.9s tools=get-consumer-group-lag err=-
+q05 tool=ok args=ok answer=ok   3.8s tools=get-consumer-group-lag err=-
+q06 tool=ok args=ok answer=ok   3.5s tools=describe-consumer-group err=-
+q07 tool=ok args=ok answer=ok   4.2s tools=get-partition-offsets err=-
+q08 tool=ok args=ok answer=NO   2.4s tools=get-consumer-group-lag,get-consumer-group-lag err=-
+q09 tool=ok args=NO answer=NO   2.4s tools=list-consumer-groups,describe-consumer-group err=-
+q10 tool=ok args=NO answer=NO   1.8s tools=get-consumer-group-lag err=-
+q11 tool=NO args=NO answer=NO   3.3s tools=list-topics err=-
+q12 tool=NO args=NO answer=NO   5.3s tools=get-partition-offsets err=-
+
+model llama3.2:3b | n = 12
+tool correct   9/12
+args correct   7/12
+answer correct 5/12
+empty answers  0
+errors         0 (+0 empty)
+seconds/answer median 3.4  max 7.3
+wrote loadtest/results/score-llama3-2-3b-20261115-152222.json
+vram_after_MiB 4479 avail_MB 3376
+NAME           ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL               
+llama3.2:3b    a80c4f17acd5    2.6 GB    100% GPU     4096       llamacpp    29 minutes from now    

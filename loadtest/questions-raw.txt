@@ -1,0 +1,6 @@
+Which topics exist?
+List all topics in the cluster.
+What is a Kafka consumer group, in one sentence?
+Show me the topic names.
+What does a partition do?
+Is there a topic called bikes.payments?

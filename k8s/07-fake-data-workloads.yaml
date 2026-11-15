@@ -1,0 +1,93 @@
+# S07 fake data, part 2: producer and two consumer groups. Applied and stopped by `make data-start` / `make data-stop`.
+# Kafka CLI image (already on the node). JVM heap is capped small: RAM is tight.
+# Passwords come from the Secrets into env, then into a file in the pod. Never printed.
+# Names are fictional, domain is example.com. awk srand(seed) is fixed, so the values repeat.
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: fake-producer, namespace: kafka}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: fake-producer}}
+  template:
+    metadata: {labels: {app: fake-producer}}
+    spec:
+      containers:
+        - name: producer
+          image: quay.io/strimzi/kafka:1.3.1-kafka-4.3.2
+          env:
+            - {name: KAFKA_HEAP_OPTS, value: "-Xms24m -Xmx48m"}
+            - {name: PW, valueFrom: {secretKeyRef: {name: fake-producer, key: password}}}
+          resources: {requests: {memory: 256Mi, cpu: 50m}, limits: {memory: 512Mi}}
+          command: ["bash", "-c"]
+          args:
+            - |
+              printf 'security.protocol=SASL_PLAINTEXT\nsasl.mechanism=SCRAM-SHA-512\nsasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="fake-producer" password="%s";\n' "$PW" > /tmp/p.props
+              unset PW
+              # one message per second per topic, then wait. Three JVMs, one per topic.
+              gen() { awk -v t="$1" 'BEGIN{
+                srand(42); split("Ada Example,Bo Sample,Cy Placeholder,Di Testcase,Ed Mockson",n,",");
+                split("Trail-100,City-200,Road-300,Cargo-400",b,",");
+                for(i=1;;i++){ c=int(rand()*5)+1; k=int(rand()*4)+1; q=int(rand()*3)+1;
+                  if(t=="orders") printf "{\"order_id\":%d,\"customer\":\"%s\",\"email\":\"cust%d@example.com\",\"bike\":\"%s\",\"qty\":%d}\n",i,n[c],c,b[k],q;
+                  else if(t=="payments") printf "{\"payment_id\":%d,\"order_id\":%d,\"amount_eur\":%.2f,\"status\":\"%s\"}\n",i,i,(k*250+q*10),(rand()<0.9?"paid":"failed");
+                  else printf "{\"event_id\":%d,\"bike\":\"%s\",\"battery_pct\":%d,\"temp_c\":%.1f}\n",i,b[k],int(rand()*100),15+rand()*20;
+                  fflush(); system("sleep 1") } }'; }
+              for t in orders payments sensor-events; do
+                gen "${t%%-*}" | bin/kafka-console-producer.sh --bootstrap-server poc-kafka-bootstrap:9092 \
+                  --producer.config /tmp/p.props --topic "bikes.$t" >/dev/null &
+              done
+              wait -n; exit 1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: consumer-orders-fast, namespace: kafka}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: consumer-orders-fast}}
+  template:
+    metadata: {labels: {app: consumer-orders-fast}}
+    spec:
+      containers:
+        - name: consumer
+          image: quay.io/strimzi/kafka:1.3.1-kafka-4.3.2
+          env:
+            - {name: KAFKA_HEAP_OPTS, value: "-Xms24m -Xmx64m"}
+            - {name: PW, valueFrom: {secretKeyRef: {name: fake-consumer, key: password}}}
+          resources: {requests: {memory: 128Mi, cpu: 50m}, limits: {memory: 384Mi}}
+          command: ["bash", "-c"]
+          args:
+            - |
+              printf 'security.protocol=SASL_PLAINTEXT\nsasl.mechanism=SCRAM-SHA-512\nsasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="fake-consumer" password="%s";\n' "$PW" > /tmp/c.props
+              unset PW
+              exec bin/kafka-console-consumer.sh --bootstrap-server poc-kafka-bootstrap:9092 --consumer.config /tmp/c.props \
+                --include 'bikes\..*' --group orders-fast --from-beginning >/dev/null
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: consumer-orders-slow, namespace: kafka}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: consumer-orders-slow}}
+  template:
+    metadata: {labels: {app: consumer-orders-slow}}
+    spec:
+      containers:
+        - name: consumer
+          image: quay.io/strimzi/kafka:1.3.1-kafka-4.3.2
+          env:
+            - {name: KAFKA_HEAP_OPTS, value: "-Xms24m -Xmx64m"}
+            - {name: PW, valueFrom: {secretKeyRef: {name: fake-consumer, key: password}}}
+          resources: {requests: {memory: 128Mi, cpu: 50m}, limits: {memory: 384Mi}}
+          command: ["bash", "-c"]
+          args:
+            - |
+              printf 'security.protocol=SASL_PLAINTEXT\nsasl.mechanism=SCRAM-SHA-512\nsasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="fake-consumer" password="%s";\n' "$PW" > /tmp/c.props
+              unset PW
+              # Slow on purpose: one new short consumer run per loop, one message each, then 10 s pause.
+              # (A pipe with a sleeping reader did not work: the pipe buffer is large, lag stayed 0.)
+              # Input is about 3 msg/s, so lag grows by about 3 per second.
+              while true; do
+                bin/kafka-console-consumer.sh --bootstrap-server poc-kafka-bootstrap:9092 --consumer.config /tmp/c.props \
+                  --include 'bikes\..*' --group orders-slow --from-beginning --max-messages 1 --timeout-ms 20000 >/dev/null 2>&1
+                sleep 10
+              done

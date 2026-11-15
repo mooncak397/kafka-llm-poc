@@ -1,0 +1,239 @@
+{
+ "model": "qwen2.5:3b",
+ "date": "2026-11-15T15:05:51",
+ "summary": {
+  "n": 12,
+  "tool_correct": 10,
+  "args_correct": 10,
+  "answer_correct": 8,
+  "empty": 0,
+  "errors": 0,
+  "errors_total": 0,
+  "median_s": 2.5,
+  "max_s": 7.3
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 7.3,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "The following Kafka topics exist: bikes.orders, bikes.payments, bikes.sensor-events, and __consumer_offsets."
+  },
+  {
+   "id": "q02",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.9,
+   "tools": [
+    "list-consumer-groups"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "You have two consumer groups in your Kafka cluster:\n\n1. The group named `orders-fast` is in a stable state and is of type `Classic` and protocol type `consumer`.\n2. The group named `orders-slow` is in an empty state and is also of type `Classic` and protocol type `consumer`.\n\nBoth are of type `Classic`."
+  },
+  {
+   "id": "q03",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.8,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "bikes.payments"
+    }
+   ],
+   "answer": "The consumer group \"bikes.payments\" does not exist on this cluster. Please check the group ID and try again."
+  },
+  {
+   "id": "q04",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.8,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" has a total of 16662 messages of lag across 3 topics."
+  },
+  {
+   "id": "q05",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.6,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "The consumer group \"orders-fast\" has a total lag of 15 messages across 3 topics."
+  },
+  {
+   "id": "q06",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.4,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" is in the \"Empty\" state, which means there are no active members in this group. The group's coordinator is at the address poc-combined-0.poc-kafka-brokers.kafka.svc:9092."
+  },
+  {
+   "id": "q07",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.5,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "The topic \"bikes.orders\" has 1 partition. The partition 0 has a low watermark of 0, a high watermark of 6046, and contains 6046 messages."
+  },
+  {
+   "id": "q08",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.1,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    },
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" has a higher total lag (16691 messages) compared to the consumer group \"orders-fast\" (9 messages). Therefore, \"orders-slow\" is further behind."
+  },
+  {
+   "id": "q09",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.3,
+   "tools": [
+    "list-consumer-groups",
+    "describe-consumer-group"
+   ],
+   "args": [
+    {},
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" is in the \"Empty\" state, meaning it has no members. It does not have a coordinator."
+  },
+  {
+   "id": "q10",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.8,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow",
+     "topics": [
+      "orders"
+     ]
+    },
+    {
+     "groupId": "orders-fast",
+     "topics": [
+      "orders"
+     ]
+    }
+   ],
+   "answer": "None of the specified topics could be found in the cluster. Please specify valid topics."
+  },
+  {
+   "id": "q11",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.3,
+   "tools": [],
+   "args": [],
+   "answer": "None of the provided functions can be used to determine which users can read the topic \"bikes.orders\". The question appears to be about authorization or permissions rather than about querying Kafka cluster metadata."
+  },
+  {
+   "id": "q12",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.3,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "orders_consumer_group"
+    }
+   ],
+   "answer": "It seems that there is no consumer group named \"orders_consumer_group\" on the cluster. Could you please provide the name of the consumer group or topic you are interested in? If you're looking for topic retention settings, I can assist with that. Please specify the topic name."
+  }
+ ]
+}

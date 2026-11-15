@@ -1,0 +1,14 @@
+kafka-llm-poc
+Copyright (c) 2026 mooncak397. Licensed under the MIT License (see LICENSE).
+
+Third-party software is used but not bundled. Each part keeps its own licence:
+- Apache-2.0: Apache Kafka, Strimzi, kind, Helm, Prometheus.
+- MIT: Ollama, mcp-confluent.
+- AGPL-3.0: Grafana, used as an unchanged container image that is pulled, not bundled.
+Model weights are pulled by the user and keep their own licence (Qwen3 is Apache-2.0).
+Product names are trademarks of their owners. No endorsement by any of these projects is implied.
+
+grafana/strimzi-kafka.json and grafana/strimzi-kafka-exporter.json: dashboards from the Strimzi
+examples (strimzi-kafka-operator, tag 1.3.1, examples/metrics/grafana-dashboards), Apache License 2.0,
+Copyright the Strimzi authors. Changed: the data source variable is fixed to the provisioned Prometheus
+and hidden; the JSON is re-indented. Licence text: https://www.apache.org/licenses/LICENSE-2.0

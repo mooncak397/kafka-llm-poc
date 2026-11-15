@@ -1,0 +1,43 @@
+# JMX exporter rules for Kafka (S09 scrapes them). Kept minimal: generic rules from the Strimzi examples.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-metrics
+  namespace: kafka
+data:
+  kafka-metrics-config.yml: |
+    lowercaseOutputName: true
+    rules:
+      # S09/S10: BrokerTopicMetrics as counters named ..._total (messagesin, bytesin, bytesout, produce/fetch requests), as the Strimzi dashboards expect
+      - pattern: kafka.server<type=(.+), name=(.+)PerSec\w*, topic=(.+)><>Count
+        name: kafka_server_$1_$2_total
+        type: COUNTER
+        labels: {topic: "$3"}
+      - pattern: kafka.server<type=(.+), name=(.+)PerSec\w*><>Count
+        name: kafka_server_$1_$2_total
+        type: COUNTER
+      # S10: partition ISR gauges (at / under min ISR, replicas count)
+      - pattern: kafka.cluster<type=(.+), name=(.+), topic=(.+), partition=(.+)><>Value
+        name: kafka_cluster_$1_$2
+        type: GAUGE
+        labels: {topic: "$3", partition: "$4"}
+      - pattern: kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>OneMinuteRate
+        name: kafka_server_kafkarequesthandlerpool_requesthandleravgidle_percent
+        type: GAUGE
+      - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), topic=(.+), partition=(.*)><>Value
+        name: kafka_server_$1_$2
+        type: GAUGE
+        labels: {clientId: "$3", topic: "$4", partition: "$5"}
+      - pattern: kafka.server<type=(.+), name=(.+)><>(Count|Value)
+        name: kafka_server_$1_$2
+        type: GAUGE
+      - pattern: kafka.controller<type=(.+), name=(.+)><>(Count|Value)
+        name: kafka_controller_$1_$2
+        type: GAUGE
+      - pattern: kafka.network<type=(.+), name=(.+)><>(Count|Value)
+        name: kafka_network_$1_$2
+        type: GAUGE
+      - pattern: kafka.log<type=Log, name=(.+), topic=(.+), partition=(.+)><>Value
+        name: kafka_log_log_$1
+        type: GAUGE
+        labels: {topic: "$2", partition: "$3"}

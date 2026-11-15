@@ -1,0 +1,25 @@
+vram_before_MiB 1990 avail_MB 4559
+q01 tool=ok args=ok answer=ok   8.6s tools=list-topics err=-
+q02 tool=ok args=ok answer=ok   3.8s tools=list-consumer-groups err=-
+q03 tool=ok args=ok answer=ok   1.3s tools=list-topics err=-
+q04 tool=ok args=ok answer=ok   2.0s tools=get-consumer-group-lag err=-
+q05 tool=ok args=ok answer=ok   1.9s tools=get-consumer-group-lag err=-
+q06 tool=ok args=ok answer=ok   2.4s tools=describe-consumer-group err=-
+q07 tool=ok args=ok answer=ok   2.5s tools=get-partition-offsets err=-
+q08 tool=ok args=ok answer=NO   2.9s tools=get-consumer-group-lag,get-consumer-group-lag err=-
+q09 tool=ok args=ok answer=ok   3.5s tools=list-consumer-groups,describe-consumer-group err=-
+q10 tool=ok args=ok answer=ok   2.7s tools=get-consumer-group-lag,get-consumer-group-lag err=-
+q11 tool=NO args=NO answer=NO   1.5s tools=list-topics err=-
+q12 tool=NO args=NO answer=ok   3.8s tools=get-partition-offsets err=-
+
+model granite4:3b | n = 12
+tool correct   10/12
+args correct   10/12
+answer correct 10/12
+empty answers  0
+errors         0 (+0 empty)
+seconds/answer median 2.6  max 8.6
+wrote loadtest/results/score-granite4-3b-20261115-151233.json
+vram_after_MiB 4397 avail_MB 4252
+NAME           ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL               
+granite4:3b    89962fcc7523    2.5 GB    100% GPU     4096       llamacpp    29 minutes from now    

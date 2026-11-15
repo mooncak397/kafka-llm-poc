@@ -1,0 +1,13 @@
+[Unit]
+Description=Ollama for the kafka-llm-poc (second instance, user)
+
+[Service]
+# Rootless podman: the kind gateway 10.89.1.1 exists only inside the rootless netns (pasta blocks
+# container-to-host traffic). So Ollama runs INSIDE that netns and binds the gateway IP: no LAN exposure.
+ExecStart=/usr/bin/podman unshare --rootless-netns /usr/bin/ollama serve
+Environment=OLLAMA_HOST=10.89.1.1:11435
+Environment=OLLAMA_MODELS=%h/.ollama/models
+Environment=OLLAMA_NUM_PARALLEL=1
+Environment=OLLAMA_KEEP_ALIVE=30m
+Environment=OLLAMA_MAX_LOADED_MODELS=1
+Restart=on-failure

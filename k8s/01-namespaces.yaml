@@ -1,0 +1,10 @@
+# Operator lives in "strimzi". Kafka (S05) lives in "kafka".
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: strimzi
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kafka

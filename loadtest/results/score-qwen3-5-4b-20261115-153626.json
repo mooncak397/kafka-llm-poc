@@ -1,0 +1,243 @@
+{
+ "model": "qwen3.5:4b",
+ "date": "2026-11-15T15:36:26",
+ "summary": {
+  "n": 12,
+  "tool_correct": 11,
+  "args_correct": 11,
+  "answer_correct": 11,
+  "empty": 0,
+  "errors": 0,
+  "errors_total": 0,
+  "median_s": 16.6,
+  "max_s": 69.0
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 18.0,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "The existing topics are: bikes.orders, bikes.payments, bikes.sensor-events, and __consumer_offsets."
+  },
+  {
+   "id": "q02",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 12.4,
+   "tools": [
+    "list-consumer-groups"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "There are two consumer groups: orders-fast (Stable) and orders-slow (Empty)."
+  },
+  {
+   "id": "q03",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 9.4,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "Yes, the topic bikes.payments exists in the Kafka cluster."
+  },
+  {
+   "id": "q04",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 14.1,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group orders-slow has 21,529 message(s) of lag across 3 topic(s)."
+  },
+  {
+   "id": "q05",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 13.7,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "The consumer group \"orders-fast\" has a total lag of 2 message(s) across 3 topic(s)."
+  },
+  {
+   "id": "q06",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 14.4,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group orders-slow is Empty with 0 member(s) and its coordinator is at poc-combined-0.poc-kafka-brokers.kafka.svc:9092."
+  },
+  {
+   "id": "q07",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 18.2,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "The bikes.orders topic has one partition (partition 0) with a low watermark of 0, high watermark of 7741, and a total message count of 7741."
+  },
+  {
+   "id": "q08",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 16.6,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    },
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The orders-slow consumer group is further behind with 21,717 messages of lag compared to orders-fast's 3 messages."
+  },
+  {
+   "id": "q09",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 17.6,
+   "tools": [
+    "list-consumer-groups",
+    "describe-consumer-group"
+   ],
+   "args": [
+    {},
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group ending in \"slow\" is \"orders-slow\", which is currently Empty with 0 members."
+  },
+  {
+   "id": "q10",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 19.5,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    },
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "Yes, orders-slow has 21,820 messages of lag while orders-fast has only 3 messages of lag."
+  },
+  {
+   "id": "q11",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 69.0,
+   "tools": [
+    "list-topics",
+    "list-consumer-groups",
+    "describe-consumer-group",
+    "describe-consumer-group",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {},
+    {},
+    {
+     "groupId": "orders-fast"
+    },
+    {
+     "groupId": "orders-slow"
+    },
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "The consumer group \"orders-fast\" can read the bikes.orders topic (it has 3 messages of lag across multiple topics), while \"orders-slow\" is currently empty with no members."
+  },
+  {
+   "id": "q12",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 16.6,
+   "tools": [],
+   "args": [],
+   "answer": "I don't have access to tools that can retrieve topic retention configuration - the retention time is a Kafka broker setting not included in my available functions."
+  }
+ ]
+}

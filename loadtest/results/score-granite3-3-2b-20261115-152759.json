@@ -1,0 +1,196 @@
+{
+ "model": "granite3.3:2b",
+ "date": "2026-11-15T15:27:59",
+ "summary": {
+  "n": 12,
+  "tool_correct": 4,
+  "args_correct": 3,
+  "answer_correct": 2,
+  "empty": 1,
+  "errors": 0,
+  "errors_total": 1,
+  "median_s": 0.8,
+  "max_s": 5.1
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 5.1,
+   "tools": [],
+   "args": [],
+   "answer": "list-topics"
+  },
+  {
+   "id": "q02",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.5,
+   "tools": [],
+   "args": [],
+   "answer": "list-consumer-groups"
+  },
+  {
+   "id": "q03",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.1,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "Yes, there is a topic called bikes.payments."
+  },
+  {
+   "id": "q04",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.8,
+   "tools": [],
+   "args": [],
+   "answer": "{\"type\":\"get-consumer-group-lag\",\"parameters\":{\"groupId\":\"orders-slow\"}}"
+  },
+  {
+   "id": "q05",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.8,
+   "tools": [],
+   "args": [],
+   "answer": "{\"type\":\"get-consumer-group-lag\",\"parameters\":{\"groupId\":\"orders-fast\"}}"
+  },
+  {
+   "id": "q06",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.6,
+   "tools": [],
+   "args": [],
+   "answer": "The function to use is \"describe-consumer-group\"."
+  },
+  {
+   "id": "q07",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.7,
+   "tools": [],
+   "args": [],
+   "answer": "get-partition-offsets(topicName=\"bikes.orders\")"
+  },
+  {
+   "id": "q08",
+   "tool_ok": true,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 3.1,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "type": "get-consumer-group-lag",
+     "parameters": {
+      "groupId": "orders-fast",
+      "topics": [
+       "orders"
+      ]
+     }
+    },
+    {
+     "type": "get-consumer-group-lag",
+     "parameters": {
+      "groupId": "orders-slow",
+      "topics": [
+       "orders"
+      ]
+     }
+    }
+   ],
+   "answer": "Sorry, there seems to be an error in the request format. Please ensure that the \"groupId\" parameter is provided as a string. I cannot compare the lags of the consumer groups \"orders-fast\" and \"orders-slow\" without correct inputs."
+  },
+  {
+   "id": "q09",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.6,
+   "tools": [
+    "list-consumer-groups",
+    "list-consumer-groups"
+   ],
+   "args": [
+    {
+     "type": "list-consumer-groups",
+     "arguments": {}
+    },
+    {}
+   ],
+   "answer": "The consumer group with name ending in 'slow' is \"orders-slow\" with state \"Empty\"."
+  },
+  {
+   "id": "q10",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.8,
+   "tools": [],
+   "args": [],
+   "answer": "No, the tools don't provide the ability to directly compare lag numbers for different topics."
+  },
+  {
+   "id": "q11",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.6,
+   "tools": [],
+   "args": [],
+   "answer": "N/A"
+  },
+  {
+   "id": "q12",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": true,
+   "error": "empty answer (model hit the token cap while thinking)",
+   "seconds": 0.6,
+   "tools": [],
+   "args": [],
+   "answer": ""
+  }
+ ]
+}

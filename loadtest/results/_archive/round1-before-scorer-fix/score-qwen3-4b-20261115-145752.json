@@ -1,0 +1,197 @@
+{
+ "model": "qwen3:4b",
+ "date": "2026-11-15T14:57:52",
+ "summary": {
+  "n": 12,
+  "tool_correct": 9,
+  "args_correct": 9,
+  "answer_correct": 6,
+  "empty": 5,
+  "errors": 0,
+  "errors_total": 5,
+  "median_s": 16.6,
+  "max_s": 29.8
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": true,
+   "error": "empty answer (model hit the token cap while thinking)",
+   "seconds": 26.5,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": ""
+  },
+  {
+   "id": "q02",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 12.6,
+   "tools": [
+    "list-consumer-groups"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "There are 2 consumer groups: `orders-fast` (Stable) and `orders-slow` (Empty)."
+  },
+  {
+   "id": "q03",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 8.4,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "Yes, the topic \"bikes.payments\" exists in the Kafka cluster."
+  },
+  {
+   "id": "q04",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 29.8,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group orders-slow has 14,935 messages of lag across 3 topics."
+  },
+  {
+   "id": "q05",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 18.2,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "The consumer group orders-fast currently has a lag of 9 messages across 3 topics."
+  },
+  {
+   "id": "q06",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 10.7,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" is Empty with 0 member(s) and coordinator at poc-combined-0.poc-kafka-brokers.kafka.svc:9092."
+  },
+  {
+   "id": "q07",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 14.0,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "The topic \"bikes.orders\" has 1 partition (partition 0) with low watermark 0, high watermark 5501, and 5501 messages."
+  },
+  {
+   "id": "q08",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": true,
+   "error": "empty answer (model hit the token cap while thinking)",
+   "seconds": 16.9,
+   "tools": [],
+   "args": [],
+   "answer": ""
+  },
+  {
+   "id": "q09",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": true,
+   "error": "empty answer (model hit the token cap while thinking)",
+   "seconds": 16.6,
+   "tools": [],
+   "args": [],
+   "answer": ""
+  },
+  {
+   "id": "q10",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": true,
+   "error": "empty answer (model hit the token cap while thinking)",
+   "seconds": 16.7,
+   "tools": [],
+   "args": [],
+   "answer": ""
+  },
+  {
+   "id": "q11",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": true,
+   "error": "empty answer (model hit the token cap while thinking)",
+   "seconds": 16.7,
+   "tools": [],
+   "args": [],
+   "answer": ""
+  },
+  {
+   "id": "q12",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 8.1,
+   "tools": [],
+   "args": [],
+   "answer": "The user asked about the retention time of the topic \"bikes.orders\", but none of the provided Kafka tools can retrieve topic retention configuration parameters."
+  }
+ ]
+}

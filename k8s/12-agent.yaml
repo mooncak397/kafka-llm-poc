@@ -1,0 +1,46 @@
+# S19: agent loop (question -> Ollama via llm-proxy -> MCP tools -> answer). Ns llm, small pod.
+# Secret `mcp-api-key` in ns llm is a COPY made by `make agent-deploy` through a pipe (never printed, never in git).
+# Placeholders __AGENT_MODEL__ and __AGENT_EXTRA_TOOLS__ are filled by the Makefile: never `kubectl apply` this file by hand.
+# Image is built locally with podman and loaded into kind (no registry). Bump the tag with agent/ changes.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent
+  namespace: llm
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: agent}
+  template:
+    metadata:
+      labels: {app: agent}
+    spec:
+      containers:
+        - name: agent
+          image: localhost/kafka-agent:0.1.3
+          imagePullPolicy: IfNotPresent
+          env:
+            - {name: LLM_URL, value: "http://llm-proxy.llm.svc.cluster.local:8080/api/chat"}
+            - {name: MCP_URL, value: "http://mcp-confluent.kafka:8080/mcp"}
+            - {name: MODEL, value: "__AGENT_MODEL__"}   # the one place is AGENT_MODEL in the Makefile (sed at deploy)
+            # Empty = closed (five read tools). Set to "delete-topics" ONLY by `make unsafe-demo`, for the negative test.
+            - {name: AGENT_EXTRA_TOOLS, value: "__AGENT_EXTRA_TOOLS__"}
+            - name: MCP_API_KEY
+              valueFrom: {secretKeyRef: {name: mcp-api-key, key: key}}
+          ports:
+            - {name: http, containerPort: 8080}
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+          resources:
+            requests: {memory: 96Mi, cpu: 20m}
+            limits: {memory: 192Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agent
+  namespace: llm
+spec:
+  selector: {app: agent}
+  ports:
+    - {name: http, port: 8080, targetPort: http}

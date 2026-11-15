@@ -1,0 +1,1265 @@
+{
+ "date": "2026-11-15T15:03:11+00:00",
+ "mode": "raw",
+ "run": "u1",
+ "users": 1,
+ "duration_s": 240,
+ "max_requests": 0,
+ "model": "qwen3:4b-instruct-2507-q4_K_M",
+ "ollama_version": "0.40.16",
+ "ollama_num_parallel": 1,
+ "num_ctx": 4096,
+ "num_predict": 600,
+ "gpu": {
+  "gpu_baseline_mib": 3581,
+  "gpu_min_mib": 3867,
+  "gpu_peak_mib": 3995
+ },
+ "summary": {
+  "requests_ok": 137,
+  "requests_total": 137,
+  "error_rate": 0.0,
+  "total_p50": 0.6236088379991997,
+  "total_p95": 1.154570183603209,
+  "ttft_p50": 0.6019083760002104,
+  "ttft_p95": 0.6387031611979183,
+  "tokens_per_s_median": 42.25649693640397,
+  "queue_wait_derived_p50": 0.4056650829998585,
+  "queue_wait_derived_p95": 0.4388208946003879
+ },
+ "requests": [
+  {
+   "i": 0,
+   "user": 0,
+   "start": 0.002,
+   "total": 0.469,
+   "status": "ok",
+   "ttft": 0.469,
+   "tokens": 17
+  },
+  {
+   "i": 1,
+   "user": 0,
+   "start": 1.472,
+   "total": 0.623,
+   "status": "ok",
+   "ttft": 0.622,
+   "tokens": 17
+  },
+  {
+   "i": 2,
+   "user": 0,
+   "start": 3.096,
+   "total": 1.102,
+   "status": "ok",
+   "ttft": 0.232,
+   "tokens": 36
+  },
+  {
+   "i": 3,
+   "user": 0,
+   "start": 5.2,
+   "total": 0.612,
+   "status": "ok",
+   "ttft": 0.612,
+   "tokens": 17
+  },
+  {
+   "i": 4,
+   "user": 0,
+   "start": 6.813,
+   "total": 0.919,
+   "status": "ok",
+   "ttft": 0.212,
+   "tokens": 29
+  },
+  {
+   "i": 5,
+   "user": 0,
+   "start": 8.734,
+   "total": 0.607,
+   "status": "ok",
+   "ttft": 0.607,
+   "tokens": 17
+  },
+  {
+   "i": 6,
+   "user": 0,
+   "start": 10.341,
+   "total": 0.635,
+   "status": "ok",
+   "ttft": 0.635,
+   "tokens": 17
+  },
+  {
+   "i": 7,
+   "user": 0,
+   "start": 11.977,
+   "total": 0.645,
+   "status": "ok",
+   "ttft": 0.645,
+   "tokens": 17
+  },
+  {
+   "i": 8,
+   "user": 0,
+   "start": 13.622,
+   "total": 1.296,
+   "status": "ok",
+   "ttft": 0.224,
+   "tokens": 44
+  },
+  {
+   "i": 9,
+   "user": 0,
+   "start": 15.919,
+   "total": 0.627,
+   "status": "ok",
+   "ttft": 0.627,
+   "tokens": 17
+  },
+  {
+   "i": 10,
+   "user": 0,
+   "start": 17.547,
+   "total": 0.845,
+   "status": "ok",
+   "ttft": 0.209,
+   "tokens": 28
+  },
+  {
+   "i": 11,
+   "user": 0,
+   "start": 19.393,
+   "total": 0.592,
+   "status": "ok",
+   "ttft": 0.592,
+   "tokens": 17
+  },
+  {
+   "i": 12,
+   "user": 0,
+   "start": 20.987,
+   "total": 0.602,
+   "status": "ok",
+   "ttft": 0.602,
+   "tokens": 17
+  },
+  {
+   "i": 13,
+   "user": 0,
+   "start": 22.59,
+   "total": 0.617,
+   "status": "ok",
+   "ttft": 0.617,
+   "tokens": 17
+  },
+  {
+   "i": 14,
+   "user": 0,
+   "start": 24.208,
+   "total": 1.24,
+   "status": "ok",
+   "ttft": 0.193,
+   "tokens": 43
+  },
+  {
+   "i": 15,
+   "user": 0,
+   "start": 26.449,
+   "total": 0.586,
+   "status": "ok",
+   "ttft": 0.586,
+   "tokens": 17
+  },
+  {
+   "i": 16,
+   "user": 0,
+   "start": 28.036,
+   "total": 0.854,
+   "status": "ok",
+   "ttft": 0.214,
+   "tokens": 27
+  },
+  {
+   "i": 17,
+   "user": 0,
+   "start": 29.891,
+   "total": 0.618,
+   "status": "ok",
+   "ttft": 0.618,
+   "tokens": 17
+  },
+  {
+   "i": 18,
+   "user": 0,
+   "start": 31.511,
+   "total": 0.634,
+   "status": "ok",
+   "ttft": 0.634,
+   "tokens": 17
+  },
+  {
+   "i": 19,
+   "user": 0,
+   "start": 33.146,
+   "total": 0.616,
+   "status": "ok",
+   "ttft": 0.616,
+   "tokens": 17
+  },
+  {
+   "i": 20,
+   "user": 0,
+   "start": 34.763,
+   "total": 1.136,
+   "status": "ok",
+   "ttft": 0.23,
+   "tokens": 37
+  },
+  {
+   "i": 21,
+   "user": 0,
+   "start": 36.9,
+   "total": 0.62,
+   "status": "ok",
+   "ttft": 0.62,
+   "tokens": 17
+  },
+  {
+   "i": 22,
+   "user": 0,
+   "start": 38.52,
+   "total": 0.893,
+   "status": "ok",
+   "ttft": 0.203,
+   "tokens": 29
+  },
+  {
+   "i": 23,
+   "user": 0,
+   "start": 40.415,
+   "total": 0.602,
+   "status": "ok",
+   "ttft": 0.602,
+   "tokens": 17
+  },
+  {
+   "i": 24,
+   "user": 0,
+   "start": 42.019,
+   "total": 0.598,
+   "status": "ok",
+   "ttft": 0.598,
+   "tokens": 17
+  },
+  {
+   "i": 25,
+   "user": 0,
+   "start": 43.618,
+   "total": 0.614,
+   "status": "ok",
+   "ttft": 0.614,
+   "tokens": 17
+  },
+  {
+   "i": 26,
+   "user": 0,
+   "start": 45.233,
+   "total": 1.112,
+   "status": "ok",
+   "ttft": 0.233,
+   "tokens": 36
+  },
+  {
+   "i": 27,
+   "user": 0,
+   "start": 47.346,
+   "total": 0.622,
+   "status": "ok",
+   "ttft": 0.622,
+   "tokens": 17
+  },
+  {
+   "i": 28,
+   "user": 0,
+   "start": 48.97,
+   "total": 0.881,
+   "status": "ok",
+   "ttft": 0.228,
+   "tokens": 27
+  },
+  {
+   "i": 29,
+   "user": 0,
+   "start": 50.852,
+   "total": 0.608,
+   "status": "ok",
+   "ttft": 0.608,
+   "tokens": 17
+  },
+  {
+   "i": 30,
+   "user": 0,
+   "start": 52.461,
+   "total": 0.618,
+   "status": "ok",
+   "ttft": 0.617,
+   "tokens": 17
+  },
+  {
+   "i": 31,
+   "user": 0,
+   "start": 54.079,
+   "total": 0.602,
+   "status": "ok",
+   "ttft": 0.602,
+   "tokens": 17
+  },
+  {
+   "i": 32,
+   "user": 0,
+   "start": 55.682,
+   "total": 1.068,
+   "status": "ok",
+   "ttft": 0.193,
+   "tokens": 36
+  },
+  {
+   "i": 33,
+   "user": 0,
+   "start": 57.751,
+   "total": 0.625,
+   "status": "ok",
+   "ttft": 0.625,
+   "tokens": 17
+  },
+  {
+   "i": 34,
+   "user": 0,
+   "start": 59.378,
+   "total": 0.876,
+   "status": "ok",
+   "ttft": 0.204,
+   "tokens": 27
+  },
+  {
+   "i": 35,
+   "user": 0,
+   "start": 61.255,
+   "total": 0.645,
+   "status": "ok",
+   "ttft": 0.645,
+   "tokens": 17
+  },
+  {
+   "i": 36,
+   "user": 0,
+   "start": 62.902,
+   "total": 0.637,
+   "status": "ok",
+   "ttft": 0.637,
+   "tokens": 17
+  },
+  {
+   "i": 37,
+   "user": 0,
+   "start": 64.539,
+   "total": 0.598,
+   "status": "ok",
+   "ttft": 0.598,
+   "tokens": 17
+  },
+  {
+   "i": 38,
+   "user": 0,
+   "start": 66.139,
+   "total": 1.305,
+   "status": "ok",
+   "ttft": 0.229,
+   "tokens": 43
+  },
+  {
+   "i": 39,
+   "user": 0,
+   "start": 68.445,
+   "total": 0.591,
+   "status": "ok",
+   "ttft": 0.591,
+   "tokens": 17
+  },
+  {
+   "i": 40,
+   "user": 0,
+   "start": 70.038,
+   "total": 0.875,
+   "status": "ok",
+   "ttft": 0.225,
+   "tokens": 27
+  },
+  {
+   "i": 41,
+   "user": 0,
+   "start": 71.914,
+   "total": 0.607,
+   "status": "ok",
+   "ttft": 0.607,
+   "tokens": 17
+  },
+  {
+   "i": 42,
+   "user": 0,
+   "start": 73.522,
+   "total": 0.6,
+   "status": "ok",
+   "ttft": 0.6,
+   "tokens": 17
+  },
+  {
+   "i": 43,
+   "user": 0,
+   "start": 75.123,
+   "total": 0.587,
+   "status": "ok",
+   "ttft": 0.586,
+   "tokens": 17
+  },
+  {
+   "i": 44,
+   "user": 0,
+   "start": 76.711,
+   "total": 1.309,
+   "status": "ok",
+   "ttft": 0.221,
+   "tokens": 43
+  },
+  {
+   "i": 45,
+   "user": 0,
+   "start": 79.02,
+   "total": 0.597,
+   "status": "ok",
+   "ttft": 0.597,
+   "tokens": 17
+  },
+  {
+   "i": 46,
+   "user": 0,
+   "start": 80.62,
+   "total": 0.982,
+   "status": "ok",
+   "ttft": 0.237,
+   "tokens": 30
+  },
+  {
+   "i": 47,
+   "user": 0,
+   "start": 82.603,
+   "total": 0.624,
+   "status": "ok",
+   "ttft": 0.623,
+   "tokens": 17
+  },
+  {
+   "i": 48,
+   "user": 0,
+   "start": 84.228,
+   "total": 0.653,
+   "status": "ok",
+   "ttft": 0.652,
+   "tokens": 17
+  },
+  {
+   "i": 49,
+   "user": 0,
+   "start": 85.882,
+   "total": 0.606,
+   "status": "ok",
+   "ttft": 0.606,
+   "tokens": 17
+  },
+  {
+   "i": 50,
+   "user": 0,
+   "start": 87.489,
+   "total": 1.083,
+   "status": "ok",
+   "ttft": 0.202,
+   "tokens": 36
+  },
+  {
+   "i": 51,
+   "user": 0,
+   "start": 89.572,
+   "total": 0.587,
+   "status": "ok",
+   "ttft": 0.587,
+   "tokens": 17
+  },
+  {
+   "i": 52,
+   "user": 0,
+   "start": 91.16,
+   "total": 0.959,
+   "status": "ok",
+   "ttft": 0.219,
+   "tokens": 31
+  },
+  {
+   "i": 53,
+   "user": 0,
+   "start": 93.119,
+   "total": 0.616,
+   "status": "ok",
+   "ttft": 0.616,
+   "tokens": 17
+  },
+  {
+   "i": 54,
+   "user": 0,
+   "start": 94.737,
+   "total": 0.647,
+   "status": "ok",
+   "ttft": 0.647,
+   "tokens": 17
+  },
+  {
+   "i": 55,
+   "user": 0,
+   "start": 96.386,
+   "total": 0.607,
+   "status": "ok",
+   "ttft": 0.607,
+   "tokens": 17
+  },
+  {
+   "i": 56,
+   "user": 0,
+   "start": 97.994,
+   "total": 1.09,
+   "status": "ok",
+   "ttft": 0.227,
+   "tokens": 36
+  },
+  {
+   "i": 57,
+   "user": 0,
+   "start": 100.085,
+   "total": 0.639,
+   "status": "ok",
+   "ttft": 0.639,
+   "tokens": 17
+  },
+  {
+   "i": 58,
+   "user": 0,
+   "start": 101.726,
+   "total": 0.898,
+   "status": "ok",
+   "ttft": 0.197,
+   "tokens": 29
+  },
+  {
+   "i": 59,
+   "user": 0,
+   "start": 103.625,
+   "total": 0.602,
+   "status": "ok",
+   "ttft": 0.602,
+   "tokens": 17
+  },
+  {
+   "i": 60,
+   "user": 0,
+   "start": 105.229,
+   "total": 0.64,
+   "status": "ok",
+   "ttft": 0.64,
+   "tokens": 17
+  },
+  {
+   "i": 61,
+   "user": 0,
+   "start": 106.871,
+   "total": 0.621,
+   "status": "ok",
+   "ttft": 0.621,
+   "tokens": 17
+  },
+  {
+   "i": 62,
+   "user": 0,
+   "start": 108.493,
+   "total": 1.145,
+   "status": "ok",
+   "ttft": 0.213,
+   "tokens": 36
+  },
+  {
+   "i": 63,
+   "user": 0,
+   "start": 110.639,
+   "total": 0.585,
+   "status": "ok",
+   "ttft": 0.585,
+   "tokens": 17
+  },
+  {
+   "i": 64,
+   "user": 0,
+   "start": 112.225,
+   "total": 0.945,
+   "status": "ok",
+   "ttft": 0.23,
+   "tokens": 30
+  },
+  {
+   "i": 65,
+   "user": 0,
+   "start": 114.171,
+   "total": 0.592,
+   "status": "ok",
+   "ttft": 0.592,
+   "tokens": 17
+  },
+  {
+   "i": 66,
+   "user": 0,
+   "start": 115.764,
+   "total": 0.634,
+   "status": "ok",
+   "ttft": 0.634,
+   "tokens": 17
+  },
+  {
+   "i": 67,
+   "user": 0,
+   "start": 117.399,
+   "total": 0.608,
+   "status": "ok",
+   "ttft": 0.608,
+   "tokens": 17
+  },
+  {
+   "i": 68,
+   "user": 0,
+   "start": 119.009,
+   "total": 1.096,
+   "status": "ok",
+   "ttft": 0.202,
+   "tokens": 36
+  },
+  {
+   "i": 69,
+   "user": 0,
+   "start": 121.106,
+   "total": 0.607,
+   "status": "ok",
+   "ttft": 0.607,
+   "tokens": 17
+  },
+  {
+   "i": 70,
+   "user": 0,
+   "start": 122.714,
+   "total": 0.907,
+   "status": "ok",
+   "ttft": 0.216,
+   "tokens": 29
+  },
+  {
+   "i": 71,
+   "user": 0,
+   "start": 124.621,
+   "total": 0.598,
+   "status": "ok",
+   "ttft": 0.598,
+   "tokens": 17
+  },
+  {
+   "i": 72,
+   "user": 0,
+   "start": 126.221,
+   "total": 0.618,
+   "status": "ok",
+   "ttft": 0.618,
+   "tokens": 17
+  },
+  {
+   "i": 73,
+   "user": 0,
+   "start": 127.841,
+   "total": 0.655,
+   "status": "ok",
+   "ttft": 0.654,
+   "tokens": 17
+  },
+  {
+   "i": 74,
+   "user": 0,
+   "start": 129.496,
+   "total": 1.134,
+   "status": "ok",
+   "ttft": 0.228,
+   "tokens": 36
+  },
+  {
+   "i": 75,
+   "user": 0,
+   "start": 131.631,
+   "total": 0.595,
+   "status": "ok",
+   "ttft": 0.595,
+   "tokens": 17
+  },
+  {
+   "i": 76,
+   "user": 0,
+   "start": 133.228,
+   "total": 0.857,
+   "status": "ok",
+   "ttft": 0.21,
+   "tokens": 27
+  },
+  {
+   "i": 77,
+   "user": 0,
+   "start": 135.085,
+   "total": 0.599,
+   "status": "ok",
+   "ttft": 0.599,
+   "tokens": 17
+  },
+  {
+   "i": 78,
+   "user": 0,
+   "start": 136.684,
+   "total": 0.612,
+   "status": "ok",
+   "ttft": 0.612,
+   "tokens": 17
+  },
+  {
+   "i": 79,
+   "user": 0,
+   "start": 138.297,
+   "total": 0.603,
+   "status": "ok",
+   "ttft": 0.603,
+   "tokens": 17
+  },
+  {
+   "i": 80,
+   "user": 0,
+   "start": 139.901,
+   "total": 1.138,
+   "status": "ok",
+   "ttft": 0.237,
+   "tokens": 37
+  },
+  {
+   "i": 81,
+   "user": 0,
+   "start": 142.04,
+   "total": 0.624,
+   "status": "ok",
+   "ttft": 0.623,
+   "tokens": 17
+  },
+  {
+   "i": 82,
+   "user": 0,
+   "start": 143.665,
+   "total": 0.941,
+   "status": "ok",
+   "ttft": 0.211,
+   "tokens": 29
+  },
+  {
+   "i": 83,
+   "user": 0,
+   "start": 145.608,
+   "total": 0.588,
+   "status": "ok",
+   "ttft": 0.588,
+   "tokens": 17
+  },
+  {
+   "i": 84,
+   "user": 0,
+   "start": 147.197,
+   "total": 0.629,
+   "status": "ok",
+   "ttft": 0.629,
+   "tokens": 17
+  },
+  {
+   "i": 85,
+   "user": 0,
+   "start": 148.828,
+   "total": 0.619,
+   "status": "ok",
+   "ttft": 0.619,
+   "tokens": 17
+  },
+  {
+   "i": 86,
+   "user": 0,
+   "start": 150.448,
+   "total": 1.105,
+   "status": "ok",
+   "ttft": 0.207,
+   "tokens": 36
+  },
+  {
+   "i": 87,
+   "user": 0,
+   "start": 152.554,
+   "total": 0.608,
+   "status": "ok",
+   "ttft": 0.608,
+   "tokens": 17
+  },
+  {
+   "i": 88,
+   "user": 0,
+   "start": 154.163,
+   "total": 0.921,
+   "status": "ok",
+   "ttft": 0.197,
+   "tokens": 29
+  },
+  {
+   "i": 89,
+   "user": 0,
+   "start": 156.085,
+   "total": 0.616,
+   "status": "ok",
+   "ttft": 0.616,
+   "tokens": 17
+  },
+  {
+   "i": 90,
+   "user": 0,
+   "start": 157.702,
+   "total": 0.59,
+   "status": "ok",
+   "ttft": 0.59,
+   "tokens": 17
+  },
+  {
+   "i": 91,
+   "user": 0,
+   "start": 159.294,
+   "total": 0.632,
+   "status": "ok",
+   "ttft": 0.632,
+   "tokens": 17
+  },
+  {
+   "i": 92,
+   "user": 0,
+   "start": 160.927,
+   "total": 1.096,
+   "status": "ok",
+   "ttft": 0.231,
+   "tokens": 36
+  },
+  {
+   "i": 93,
+   "user": 0,
+   "start": 163.026,
+   "total": 0.637,
+   "status": "ok",
+   "ttft": 0.637,
+   "tokens": 17
+  },
+  {
+   "i": 94,
+   "user": 0,
+   "start": 164.663,
+   "total": 0.904,
+   "status": "ok",
+   "ttft": 0.205,
+   "tokens": 29
+  },
+  {
+   "i": 95,
+   "user": 0,
+   "start": 166.569,
+   "total": 0.599,
+   "status": "ok",
+   "ttft": 0.599,
+   "tokens": 17
+  },
+  {
+   "i": 96,
+   "user": 0,
+   "start": 168.169,
+   "total": 0.626,
+   "status": "ok",
+   "ttft": 0.626,
+   "tokens": 17
+  },
+  {
+   "i": 97,
+   "user": 0,
+   "start": 169.796,
+   "total": 0.608,
+   "status": "ok",
+   "ttft": 0.608,
+   "tokens": 17
+  },
+  {
+   "i": 98,
+   "user": 0,
+   "start": 171.405,
+   "total": 1.092,
+   "status": "ok",
+   "ttft": 0.23,
+   "tokens": 36
+  },
+  {
+   "i": 99,
+   "user": 0,
+   "start": 173.499,
+   "total": 0.619,
+   "status": "ok",
+   "ttft": 0.618,
+   "tokens": 17
+  },
+  {
+   "i": 100,
+   "user": 0,
+   "start": 175.118,
+   "total": 0.839,
+   "status": "ok",
+   "ttft": 0.197,
+   "tokens": 27
+  },
+  {
+   "i": 101,
+   "user": 0,
+   "start": 176.958,
+   "total": 0.604,
+   "status": "ok",
+   "ttft": 0.604,
+   "tokens": 17
+  },
+  {
+   "i": 102,
+   "user": 0,
+   "start": 178.563,
+   "total": 0.607,
+   "status": "ok",
+   "ttft": 0.607,
+   "tokens": 17
+  },
+  {
+   "i": 103,
+   "user": 0,
+   "start": 180.17,
+   "total": 0.614,
+   "status": "ok",
+   "ttft": 0.613,
+   "tokens": 17
+  },
+  {
+   "i": 104,
+   "user": 0,
+   "start": 181.786,
+   "total": 1.192,
+   "status": "ok",
+   "ttft": 0.199,
+   "tokens": 41
+  },
+  {
+   "i": 105,
+   "user": 0,
+   "start": 183.979,
+   "total": 0.595,
+   "status": "ok",
+   "ttft": 0.594,
+   "tokens": 17
+  },
+  {
+   "i": 106,
+   "user": 0,
+   "start": 185.574,
+   "total": 0.929,
+   "status": "ok",
+   "ttft": 0.234,
+   "tokens": 29
+  },
+  {
+   "i": 107,
+   "user": 0,
+   "start": 187.504,
+   "total": 0.61,
+   "status": "ok",
+   "ttft": 0.61,
+   "tokens": 17
+  },
+  {
+   "i": 108,
+   "user": 0,
+   "start": 189.116,
+   "total": 0.621,
+   "status": "ok",
+   "ttft": 0.621,
+   "tokens": 17
+  },
+  {
+   "i": 109,
+   "user": 0,
+   "start": 190.738,
+   "total": 0.611,
+   "status": "ok",
+   "ttft": 0.611,
+   "tokens": 17
+  },
+  {
+   "i": 110,
+   "user": 0,
+   "start": 192.351,
+   "total": 1.14,
+   "status": "ok",
+   "ttft": 0.22,
+   "tokens": 37
+  },
+  {
+   "i": 111,
+   "user": 0,
+   "start": 194.491,
+   "total": 0.634,
+   "status": "ok",
+   "ttft": 0.634,
+   "tokens": 17
+  },
+  {
+   "i": 112,
+   "user": 0,
+   "start": 196.127,
+   "total": 0.966,
+   "status": "ok",
+   "ttft": 0.234,
+   "tokens": 29
+  },
+  {
+   "i": 113,
+   "user": 0,
+   "start": 198.095,
+   "total": 0.637,
+   "status": "ok",
+   "ttft": 0.637,
+   "tokens": 17
+  },
+  {
+   "i": 114,
+   "user": 0,
+   "start": 199.733,
+   "total": 0.627,
+   "status": "ok",
+   "ttft": 0.627,
+   "tokens": 17
+  },
+  {
+   "i": 115,
+   "user": 0,
+   "start": 201.36,
+   "total": 0.629,
+   "status": "ok",
+   "ttft": 0.629,
+   "tokens": 17
+  },
+  {
+   "i": 116,
+   "user": 0,
+   "start": 202.991,
+   "total": 1.113,
+   "status": "ok",
+   "ttft": 0.228,
+   "tokens": 36
+  },
+  {
+   "i": 117,
+   "user": 0,
+   "start": 205.104,
+   "total": 0.639,
+   "status": "ok",
+   "ttft": 0.639,
+   "tokens": 17
+  },
+  {
+   "i": 118,
+   "user": 0,
+   "start": 206.745,
+   "total": 0.922,
+   "status": "ok",
+   "ttft": 0.22,
+   "tokens": 29
+  },
+  {
+   "i": 119,
+   "user": 0,
+   "start": 208.669,
+   "total": 0.605,
+   "status": "ok",
+   "ttft": 0.605,
+   "tokens": 17
+  },
+  {
+   "i": 120,
+   "user": 0,
+   "start": 210.275,
+   "total": 0.624,
+   "status": "ok",
+   "ttft": 0.624,
+   "tokens": 17
+  },
+  {
+   "i": 121,
+   "user": 0,
+   "start": 211.899,
+   "total": 0.613,
+   "status": "ok",
+   "ttft": 0.613,
+   "tokens": 17
+  },
+  {
+   "i": 122,
+   "user": 0,
+   "start": 213.515,
+   "total": 1.108,
+   "status": "ok",
+   "ttft": 0.229,
+   "tokens": 36
+  },
+  {
+   "i": 123,
+   "user": 0,
+   "start": 215.624,
+   "total": 0.597,
+   "status": "ok",
+   "ttft": 0.597,
+   "tokens": 17
+  },
+  {
+   "i": 124,
+   "user": 0,
+   "start": 217.222,
+   "total": 0.898,
+   "status": "ok",
+   "ttft": 0.207,
+   "tokens": 29
+  },
+  {
+   "i": 125,
+   "user": 0,
+   "start": 219.121,
+   "total": 0.593,
+   "status": "ok",
+   "ttft": 0.593,
+   "tokens": 17
+  },
+  {
+   "i": 126,
+   "user": 0,
+   "start": 220.715,
+   "total": 0.611,
+   "status": "ok",
+   "ttft": 0.611,
+   "tokens": 17
+  },
+  {
+   "i": 127,
+   "user": 0,
+   "start": 222.328,
+   "total": 0.62,
+   "status": "ok",
+   "ttft": 0.62,
+   "tokens": 17
+  },
+  {
+   "i": 128,
+   "user": 0,
+   "start": 223.949,
+   "total": 1.261,
+   "status": "ok",
+   "ttft": 0.223,
+   "tokens": 43
+  },
+  {
+   "i": 129,
+   "user": 0,
+   "start": 226.211,
+   "total": 0.623,
+   "status": "ok",
+   "ttft": 0.623,
+   "tokens": 17
+  },
+  {
+   "i": 130,
+   "user": 0,
+   "start": 227.835,
+   "total": 0.906,
+   "status": "ok",
+   "ttft": 0.199,
+   "tokens": 29
+  },
+  {
+   "i": 131,
+   "user": 0,
+   "start": 229.742,
+   "total": 0.606,
+   "status": "ok",
+   "ttft": 0.606,
+   "tokens": 17
+  },
+  {
+   "i": 132,
+   "user": 0,
+   "start": 231.349,
+   "total": 0.62,
+   "status": "ok",
+   "ttft": 0.62,
+   "tokens": 17
+  },
+  {
+   "i": 133,
+   "user": 0,
+   "start": 232.969,
+   "total": 0.612,
+   "status": "ok",
+   "ttft": 0.611,
+   "tokens": 17
+  },
+  {
+   "i": 134,
+   "user": 0,
+   "start": 234.582,
+   "total": 1.268,
+   "status": "ok",
+   "ttft": 0.226,
+   "tokens": 43
+  },
+  {
+   "i": 135,
+   "user": 0,
+   "start": 236.851,
+   "total": 0.616,
+   "status": "ok",
+   "ttft": 0.616,
+   "tokens": 17
+  },
+  {
+   "i": 136,
+   "user": 0,
+   "start": 238.469,
+   "total": 0.86,
+   "status": "ok",
+   "ttft": 0.221,
+   "tokens": 27
+  }
+ ]
+}

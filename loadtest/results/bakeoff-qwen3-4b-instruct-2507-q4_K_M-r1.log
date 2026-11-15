@@ -1,0 +1,25 @@
+vram_before_MiB 2035 avail_MB 4672
+q01 tool=ok args=ok answer=ok   8.9s tools=list-topics err=-
+q02 tool=ok args=ok answer=ok   2.1s tools=list-consumer-groups err=-
+q03 tool=ok args=ok answer=ok   1.6s tools=list-topics err=-
+q04 tool=ok args=ok answer=ok   2.1s tools=get-consumer-group-lag err=-
+q05 tool=ok args=ok answer=ok   1.9s tools=get-consumer-group-lag err=-
+q06 tool=ok args=ok answer=ok   2.5s tools=describe-consumer-group err=-
+q07 tool=ok args=ok answer=ok   2.9s tools=get-partition-offsets err=-
+q08 tool=NO args=NO answer=NO   6.6s tools=list-consumer-groups,list-consumer-groups,get-consumer-group-lag,list-topics,get-consumer-group-lag err=stopped: more than 5 tool turns
+q09 tool=NO args=NO answer=NO   2.0s tools=list-consumer-groups err=-
+q10 tool=NO args=NO answer=NO   4.4s tools=list-consumer-groups,list-consumer-groups err=-
+q11 tool=ok args=ok answer=ok   1.2s tools=- err=-
+q12 tool=ok args=ok answer=ok   1.2s tools=- err=-
+
+model qwen3:4b-instruct-2507-q4_K_M | n = 12
+tool correct   9/12
+args correct   9/12
+answer correct 9/12
+empty answers  1
+errors         0 (+1 empty)
+seconds/answer median 2.1  max 8.9
+wrote loadtest/results/score-qwen3-4b-instruct-2507-q4-k-m-20261115-152501.json
+vram_after_MiB 5085 avail_MB 4166
+NAME                             ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL               
+qwen3:4b-instruct-2507-q4_K_M    0edcdef34593    3.2 GB    100% GPU     4096       llamacpp    29 minutes from now    

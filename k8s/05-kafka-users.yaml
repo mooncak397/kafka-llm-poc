@@ -1,0 +1,44 @@
+# Users for the PoC. (poc-admin is in 04-kafka.yaml.)
+#
+# poc-admin = super user. For setup and tests ONLY (create topics, seed data, test fixtures).
+#   No MCP server, agent or proxy may use it. Its Secret is never mounted into those pods.
+#
+# mcp-reader = the read-only user for the MCP layer (layer 2 of the three read-only layers).
+#   ACL set (exact, no more): Describe + Read on topic *, Describe + Read on group *,
+#   Describe on cluster. No Write, Create, Delete, Alter, DescribeConfigs, ClusterAction.
+#   Finding on DescribeUserScramCredentials: see the block at the end of this file.
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: mcp-reader
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: poc
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      - {resource: {type: topic, name: "*", patternType: literal}, operations: [Describe, Read]}
+      - {resource: {type: group, name: "*", patternType: literal}, operations: [Describe, Read]}
+      - {resource: {type: cluster}, operations: [Describe]}
+#
+# FINDINGS (S06, tested 2026-11-15 with scripts/kafka-acl-test.sh and throw-away probe users, now deleted)
+# Works with the ACL set above: list topics, list groups, describe group (lag), describe cluster.
+# Denied (as wanted): create/delete topic, write, delete group, alter ACLs, alter SCRAM.
+# DescribeUserScramCredentials (kafka-configs --describe --entity-type users):
+#   DENIED for mcp-reader (ClusterAuthorizationException), even with Describe on cluster.
+#   Probes: cluster Describe + ClusterAction -> denied. + Alter -> denied.
+#           + DescribeConfigs -> allowed. + AlterConfigs -> allowed (it implies DescribeConfigs).
+#   => the minimum right is DescribeConfigs on the cluster. It is a different operation from Describe.
+#   Decision: mcp-reader is NOT widened. Plan section 15: a second user, only for the SCRAM tool (S18):
+#   cluster {Describe, DescribeConfigs}, nothing else. Not created yet (S18 creates it).
+# kafka-topics --describe <topic> also fails for mcp-reader: the CLI reads topic configs, which needs
+#   DescribeConfigs on the topic (probe: Describe + Read + DescribeConfigs on topic * -> allowed).
+#   Metadata through list and consumer-groups works. Open for S17/S08: if an MCP tool needs topic
+#   configs, decide then; do not widen now.
+# S17 (2026-11-15): decided NOT to add DescribeConfigs on topics. The MCP tool `get-topic-config` of mcp-confluent v1.6.1
+#   uses the Confluent Cloud Kafka REST API, not the Kafka admin client. With a Kafka-only `direct` connection the
+#   server disables the tool itself (it needs kafka.rest_endpoint), so no Kafka right is involved. The five other
+#   allowed tools work with the ACL set above (tested through scripts/mcp-tools-list.sh).

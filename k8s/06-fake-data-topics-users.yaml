@@ -1,0 +1,40 @@
+# S07 fake data, part 1: topics and the two users. Always applied by `make up`. No workloads here.
+# Small on purpose: 1 partition, replication 1. Retention caps the disk: the broker PVC is 2Gi.
+# Per topic: retention.bytes 64Mi + one active segment of 16Mi => 3 topics stay under about 250Mi.
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata: {name: bikes.orders, namespace: kafka, labels: {strimzi.io/cluster: poc}}
+spec: {partitions: 1, replicas: 1, config: {retention.bytes: "67108864", segment.bytes: "16777216"}}
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata: {name: bikes.payments, namespace: kafka, labels: {strimzi.io/cluster: poc}}
+spec: {partitions: 1, replicas: 1, config: {retention.bytes: "67108864", segment.bytes: "16777216"}}
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata: {name: bikes.sensor-events, namespace: kafka, labels: {strimzi.io/cluster: poc}}
+spec: {partitions: 1, replicas: 1, config: {retention.bytes: "67108864", segment.bytes: "16777216"}}
+---
+# fake-producer: Write + Describe on topics bikes.* only. No Create, no Read, no group.
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata: {name: fake-producer, namespace: kafka, labels: {strimzi.io/cluster: poc}}
+spec:
+  authentication: {type: scram-sha-512}
+  authorization:
+    type: simple
+    acls:
+      - {resource: {type: topic, name: "bikes.", patternType: prefix}, operations: [Write, Describe]}
+---
+# fake-consumer: Read + Describe on topics bikes.*, Read on groups orders-* only.
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata: {name: fake-consumer, namespace: kafka, labels: {strimzi.io/cluster: poc}}
+spec:
+  authentication: {type: scram-sha-512}
+  authorization:
+    type: simple
+    acls:
+      - {resource: {type: topic, name: "bikes.", patternType: prefix}, operations: [Read, Describe]}
+      - {resource: {type: group, name: "orders-", patternType: prefix}, operations: [Read]}

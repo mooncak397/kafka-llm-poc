@@ -1,0 +1,50 @@
+{
+ "date": "2026-11-15T15:00:31+00:00",
+ "mode": "raw",
+ "run": "dry",
+ "users": 1,
+ "duration_s": 60,
+ "max_requests": 2,
+ "model": "qwen3:4b-instruct-2507-q4_K_M",
+ "ollama_version": "0.40.16",
+ "ollama_num_parallel": 1,
+ "num_ctx": 4096,
+ "num_predict": 600,
+ "gpu": {
+  "gpu_baseline_mib": 4775,
+  "gpu_min_mib": 5046,
+  "gpu_peak_mib": 5059
+ },
+ "summary": {
+  "requests_ok": 2,
+  "requests_total": 2,
+  "error_rate": 0.0,
+  "total_p50": 0.5352049369994347,
+  "total_p95": 0.6347412199986138,
+  "ttft_p50": 0.5349784364998413,
+  "ttft_p95": 0.6345069637493908,
+  "tokens_per_s_median": 42.87408888564519,
+  "queue_wait_derived_p50": 0.4139234024998414,
+  "queue_wait_derived_p95": 0.42679452704939075
+ },
+ "requests": [
+  {
+   "i": 0,
+   "user": 0,
+   "start": 0.001,
+   "total": 0.425,
+   "status": "ok",
+   "ttft": 0.424,
+   "tokens": 17
+  },
+  {
+   "i": 1,
+   "user": 0,
+   "start": 1.427,
+   "total": 0.646,
+   "status": "ok",
+   "ttft": 0.646,
+   "tokens": 17
+  }
+ ]
+}

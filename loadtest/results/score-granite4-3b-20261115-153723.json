@@ -1,0 +1,237 @@
+{
+ "model": "granite4:3b",
+ "date": "2026-11-15T15:37:23",
+ "summary": {
+  "n": 12,
+  "tool_correct": 10,
+  "args_correct": 10,
+  "answer_correct": 10,
+  "empty": 0,
+  "errors": 0,
+  "errors_total": 0,
+  "median_s": 2.6,
+  "max_s": 7.2
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 7.2,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "The Kafka cluster currently contains the following topics: **bikes.orders**, **bikes.payments**, **bikes.sensor-events**, and **__consumer_offsets**."
+  },
+  {
+   "id": "q02",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.4,
+   "tools": [
+    "list-consumer-groups"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "The Kafka cluster has two consumer groups:\n\n1. **orders-fast** \u2013 State: Stable  \n2. **orders-slow** \u2013 State: Empty  \n\nBoth are Classic consumer groups using the consumer protocol."
+  },
+  {
+   "id": "q03",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.4,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "Yes, the topic **bikes.payments** exists."
+  },
+  {
+   "id": "q04",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.0,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group **orders-slow** has **22,184 messages** of lag across **3 topics**."
+  },
+  {
+   "id": "q05",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.0,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "The consumer group **orders-fast** currently has a total of **6 lagging messages** spread across **3 topics**."
+  },
+  {
+   "id": "q06",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.5,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group **orders-slow** is currently marked as **Empty** with no members assigned, and its coordinator is **poc-combined-0.poc-kafka-brokers.kafka.svc:9092**."
+  },
+  {
+   "id": "q07",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.5,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "The topic **bikes.orders** has **1 partition**. Its offset details are:\n\n- **Partition 0**  \n  - Low watermark: `0`  \n  - High watermark: `7926`  \n  - Message count: `7926` messages (both low and high watermarks are the same, indicating the end of the log)."
+  },
+  {
+   "id": "q08",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.3,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    },
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The **orders\u2011slow** consumer group has significantly more lag, with 22,220 messages lagging compared to only 3 messages lagging for **orders\u2011fast**. Thus, `orders\u2011slow` is further behind."
+  },
+  {
+   "id": "q09",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.5,
+   "tools": [
+    "list-consumer-groups",
+    "describe-consumer-group"
+   ],
+   "args": [
+    {},
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group **orders-slow** is currently **Empty** with no members, and it is using the coordinator at `poc-combined-0.poc-kafka-brokers.kafka.svc:9092`."
+  },
+  {
+   "id": "q10",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.4,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    },
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "No"
+  },
+  {
+   "id": "q11",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.7,
+   "tools": [
+    "list-topics",
+    "list-consumer-groups"
+   ],
+   "args": [
+    {},
+    {}
+   ],
+   "answer": "The Kafka topic **bikes.orders** is readable by the consumer groups **orders-fast** and **orders-slow**."
+  },
+  {
+   "id": "q12",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.9,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "The retention time for the **bikes.orders** topic cannot be determined from the available offsets alone. Retention is set at the broker level (e.g., in `retention.ms` or `retention.bytes`) and is not reflected in the per\u2011partition offset data returned by `get-partition-offsets`. You\u2019ll need to check the Kafka broker configuration (or the `ALTER TOPIC` command) to see the exact retention settings."
+  }
+ ]
+}

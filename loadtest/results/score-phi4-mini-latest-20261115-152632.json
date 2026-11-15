@@ -1,0 +1,161 @@
+{
+ "model": "phi4-mini:latest",
+ "date": "2026-11-15T15:26:32",
+ "summary": {
+  "n": 12,
+  "tool_correct": 2,
+  "args_correct": 2,
+  "answer_correct": 1,
+  "empty": 0,
+  "errors": 0,
+  "errors_total": 0,
+  "median_s": 1.4,
+  "max_s": 6.9
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 6.9,
+   "tools": [],
+   "args": [],
+   "answer": "[list-topics]"
+  },
+  {
+   "id": "q02",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.5,
+   "tools": [],
+   "args": [],
+   "answer": "[list-consumer-groups]"
+  },
+  {
+   "id": "q03",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.3,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"name\":\"list-topics\",\"description\":\"List all topics in the Kafka cluster.\",\"parameters\":{\"type\":\"object\",\"properties\":{}}}]"
+  },
+  {
+   "id": "q04",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 4.9,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"type\":\"function\",\"function\":{\"name\":\"get-consumer-group-lag\",\"description\":\"Compute live offset lag for a single Kafka consumer group. Returns per-(topic, partition) {committedOffset, highWatermark, lag} rows and a total lag count across all topics the group has committed offsets on.\",\"parameters\":{\"type\":\"object\",\"required\":[\"groupId\"],\"properties\":{\"groupId\":{\"type\":\"string\",\"description\":\"Co"
+  },
+  {
+   "id": "q05",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.2,
+   "tools": [],
+   "args": [],
+   "answer": "[get-consumer-group-lag]{ \"groupId\": \"orders-fast\", \"topics\": [\"orders-fast\"] }"
+  },
+  {
+   "id": "q06",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.0,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"name\":\"describe-consumer-group\",\"parameters\":{\"groupId\":\"orders-slow\"}}]"
+  },
+  {
+   "id": "q07",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.0,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"name\":\"get-partition-offsets\",\"arguments\":{\"topicName\":\"bikes.orders\"}}]"
+  },
+  {
+   "id": "q08",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.3,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"name\": \"get-consumer-group-lag\", \"arguments\": {\"groupId\": \"orders-fast\", \"topics\": [\"orders-slow\"]}}, {\"name\": \"get-consumer-group-lag\", \"arguments\": {\"groupId\": \"orders-slow\", \"topics\": [\"orders-fast\"]}}]"
+  },
+  {
+   "id": "q09",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 3.5,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"name\":\"list-consumer-groups\",\"description\":\"List consumer groups on a Kafka cluster \u2014 wraps the broker's listGroups admin call. Optional filters narrow the result server-side. Response carries one entry per consumer group.\",\"parameters\":{\"matchStates\":[], \"matchType\":\"\"}}, {\"name\":\"describe-consumer-group\",\"description\":\"Describe a single consumer group on a Kafka cluster. Returns the group's s"
+  },
+  {
+   "id": "q10",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.2,
+   "tools": [],
+   "args": [],
+   "answer": "Yes, orders-slow has more lag. Lag for orders-slow: 500, Lag for orders-fast: 300."
+  },
+  {
+   "id": "q11",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.5,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"type\":\"function\",\"function\":{\"name\":\"list-topics\",\"function\":{\"description\":\"List all topics in the Kafka cluster.\",\"parameters\":{\"type\":\"object\",\"properties\":{}}}}}]"
+  },
+  {
+   "id": "q12",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.5,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"type\":\"function\",\"function\":{\"name\":\"describe-topic\",\"description\":\"Get detailed metadata about a specific Kafka topic, including retention time. Use this to understand topic properties and configurations.\",\"parameters\":{\"type\":\"object\",\"required\":[\"topicName\"],\"properties\":{\"topicName\":{\"type\":\"string\",\"description\":\"Name of the Kafka topic to fetch metadata for.\"}}}}}]"
+  }
+ ]
+}

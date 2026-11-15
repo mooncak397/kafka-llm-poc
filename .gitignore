@@ -1,0 +1,13 @@
+.env
+kubeconfig*
+*.kubeconfig
+evidence/raw/
+docs-cache/
+*.db
+*.sqlite
+
+.venv/
+__pycache__/
+.pytest_cache/
+*.tar
+STATUS.md

@@ -1,0 +1,25 @@
+vram_before_MiB 2024 avail_MB 4591
+q01 tool=NO args=NO answer=NO   5.1s tools=- err=-
+q02 tool=NO args=NO answer=NO   0.5s tools=- err=-
+q03 tool=ok args=ok answer=ok   1.1s tools=list-topics err=-
+q04 tool=NO args=NO answer=NO   0.8s tools=- err=-
+q05 tool=NO args=NO answer=NO   0.8s tools=- err=-
+q06 tool=NO args=NO answer=NO   0.6s tools=- err=-
+q07 tool=NO args=NO answer=NO   0.7s tools=- err=-
+q08 tool=ok args=NO answer=NO   3.1s tools=get-consumer-group-lag,get-consumer-group-lag err=-
+q09 tool=NO args=NO answer=ok   2.6s tools=list-consumer-groups,list-consumer-groups err=-
+q10 tool=NO args=NO answer=NO   0.8s tools=- err=-
+q11 tool=ok args=ok answer=NO   0.6s tools=- err=-
+q12 tool=ok args=ok answer=NO   0.6s tools=- err=empty answer (model hit the token cap while thinking)
+
+model granite3.3:2b | n = 12
+tool correct   4/12
+args correct   3/12
+answer correct 2/12
+empty answers  1
+errors         0 (+1 empty)
+seconds/answer median 0.8  max 5.1
+wrote loadtest/results/score-granite3-3-2b-20261115-152759.json
+vram_after_MiB 3896 avail_MB 4310
+NAME             ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL               
+granite3.3:2b    07bd1f170855    2.0 GB    100% GPU     4096       llamacpp    29 minutes from now    

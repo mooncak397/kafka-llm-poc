@@ -1,0 +1,161 @@
+{
+ "model": "phi4-mini:latest",
+ "date": "2026-11-15T15:11:36",
+ "summary": {
+  "n": 12,
+  "tool_correct": 2,
+  "args_correct": 2,
+  "answer_correct": 1,
+  "empty": 0,
+  "errors": 0,
+  "errors_total": 0,
+  "median_s": 0.9,
+  "max_s": 8.6
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 8.6,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"type\": \"function\", \"function\": {\"name\": \"list-topics\", \"description\": \"List all topics in the Kafka cluster.\", \"parameters\": {}}}]"
+  },
+  {
+   "id": "q02",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.6,
+   "tools": [],
+   "args": [],
+   "answer": "[list-consumer-groups]"
+  },
+  {
+   "id": "q03",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.9,
+   "tools": [],
+   "args": [],
+   "answer": "[list-topics]"
+  },
+  {
+   "id": "q04",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 4.6,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"type\":\"function\",\"function\":{\"name\":\"get-consumer-group-lag\",\"description\":\"Compute live offset lag for a single Kafka consumer group. Returns per-(topic, partition) {committedOffset, highWatermark, lag} rows and a total lag count across topics for the consumer group. Discovered groups via list-consumer-groups.\",\"parameters\":{\"type\":\"object\",\"required\":[\"groupId\"],\"properties\":{\"groupId\":{\"type"
+  },
+  {
+   "id": "q05",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.8,
+   "tools": [],
+   "args": [],
+   "answer": "[get-consumer-group-lag {\"groupId\":\"orders-fast\"}]"
+  },
+  {
+   "id": "q06",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 0.9,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"name\":\"describe-consumer-group\",\"parameters\":{\"groupId\":\"orders-slow\"}}]"
+  },
+  {
+   "id": "q07",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.8,
+   "tools": [],
+   "args": [],
+   "answer": "[get-partition-offsets]({\"topicName\": \"bikes.orders\"})"
+  },
+  {
+   "id": "q08",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.3,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"name\":\"get-consumer-group-lag\",\"parameters\":{\"groupId\":\"orders-fast\",\"topics\":[]}},{{\"name\":\"get-consumer-group-lag\",\"parameters\":{\"groupId\":\"orders-slow\",\"topics\":[]}},{{\"name\":\"compare-lags\",\"parameters\":{\"lagData1\":result1,\"lagData2\":result2}}}]"
+  },
+  {
+   "id": "q09",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.9,
+   "tools": [],
+   "args": [],
+   "answer": "[list-consumer-groups]\n\n[describe-consumer-group groupId=\"slow\"]"
+  },
+  {
+   "id": "q10",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.5,
+   "tools": [],
+   "args": [],
+   "answer": "list-consumer-groups, get-consumer-group-lag, get-partition-offsets\n\nNo, I cannot provide the requested numbers as I can only simulate API calls and cannot execute them."
+  },
+  {
+   "id": "q11",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.5,
+   "tools": [],
+   "args": [],
+   "answer": "[list-topics]"
+  },
+  {
+   "id": "q12",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.0,
+   "tools": [],
+   "args": [],
+   "answer": "[{\"name\":\"get-partition-offsets\",\"parameters\":{\"topicName\":\"bikes.orders\"}}]"
+  }
+ ]
+}

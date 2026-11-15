@@ -1,0 +1,946 @@
+{
+ "uid": "llm-load-comparison",
+ "title": "LLM load comparison",
+ "tags": [
+  "llm",
+  "poc"
+ ],
+ "timezone": "utc",
+ "schemaVersion": 39,
+ "version": 1,
+ "editable": true,
+ "refresh": "",
+ "time": {
+  "from": "2026-11-15T15:02:00.000Z",
+  "to": "2026-11-15T15:40:00.000Z"
+ },
+ "annotations": {
+  "list": []
+ },
+ "templating": {
+  "list": [
+   {
+    "name": "run",
+    "label": "run",
+    "type": "custom",
+    "query": "u1,u10,u20",
+    "hide": 2,
+    "multi": true,
+    "includeAll": false,
+    "current": {
+     "text": [
+      "u1",
+      "u10",
+      "u20"
+     ],
+     "value": [
+      "u1",
+      "u10",
+      "u20"
+     ]
+    },
+    "options": [
+     {
+      "text": "u1",
+      "value": "u1",
+      "selected": true
+     },
+     {
+      "text": "u10",
+      "value": "u10",
+      "selected": true
+     },
+     {
+      "text": "u20",
+      "value": "u20",
+      "selected": true
+     }
+    ]
+   }
+  ]
+ },
+ "panels": [
+  {
+   "id": 1,
+   "type": "table",
+   "title": "LLM load per run (u1, u10, u20)",
+   "description": "Cumulative histograms per run, read at the end of the time range (use a range that ends after the last run). Prometheus histogram buckets are coarse (\u20265, 10, 20, 30 s), so histogram_quantile interpolates inside one bucket: at 10 and 20 users p50 is within about 15 % and p95 about 30 % of the client values in evidence/results.md Table 1 (too high, bucket (5,10] and (10,20]); at 1 user within about 5 %. u10 and u20 hold both runs of the level. Label u1 also holds 19 requests from manual tests before S24 (19 of 293), so u1 is slightly mixed. The JSON files and Table 1 are clean.",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 24,
+    "h": 6
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "histogram_quantile(0.5, sum by (le, run) (llm_ttft_seconds_bucket{run=~\"$run\"}))",
+     "instant": true,
+     "refId": "A",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "histogram_quantile(0.95, sum by (le, run) (llm_ttft_seconds_bucket{run=~\"$run\"}))",
+     "instant": true,
+     "refId": "B",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "histogram_quantile(0.5, sum by (le, run) (llm_queue_wait_derived_seconds_bucket{run=~\"$run\"}))",
+     "instant": true,
+     "refId": "C",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "histogram_quantile(0.95, sum by (le, run) (llm_queue_wait_derived_seconds_bucket{run=~\"$run\"}))",
+     "instant": true,
+     "refId": "D",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "histogram_quantile(0.5, sum by (le, run) (llm_tokens_per_second_bucket{run=~\"$run\"}))",
+     "instant": true,
+     "refId": "E",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "(sum by (run) (llm_requests_total{run=~\"$run\",status!=\"200\"}) or sum by (run) (llm_requests_total{run=~\"$run\"}) * 0) / sum by (run) (llm_requests_total{run=~\"$run\"})",
+     "instant": true,
+     "refId": "F",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "sum by (run) (llm_requests_total{run=~\"$run\"})",
+     "instant": true,
+     "refId": "G",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    }
+   ],
+   "transformations": [
+    {
+     "id": "merge",
+     "options": {}
+    },
+    {
+     "id": "organize",
+     "options": {
+      "excludeByName": {
+       "Time": true
+      },
+      "indexByName": {
+       "run": 0
+      },
+      "renameByName": {
+       "Value #A": "TTFT p50 (s)",
+       "Value #B": "TTFT p95 (s)",
+       "Value #C": "Queue wait p50 (derived) (s)",
+       "Value #D": "Queue wait p95 (derived) (s)",
+       "Value #E": "Tokens/s median",
+       "Value #F": "Error rate",
+       "Value #G": "Requests",
+       "run": "Run"
+      }
+     }
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "align": "center",
+      "cellOptions": {
+       "type": "auto"
+      }
+     }
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "TTFT p50 (s)"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "s"
+       },
+       {
+        "id": "decimals",
+        "value": 1
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "TTFT p95 (s)"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "s"
+       },
+       {
+        "id": "decimals",
+        "value": 1
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Queue wait p50 (derived) (s)"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "s"
+       },
+       {
+        "id": "decimals",
+        "value": 1
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Queue wait p95 (derived) (s)"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "s"
+       },
+       {
+        "id": "decimals",
+        "value": 1
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Tokens/s median"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "suffix: tok/s"
+       },
+       {
+        "id": "decimals",
+        "value": 1
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Error rate"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "percentunit"
+       },
+       {
+        "id": "decimals",
+        "value": 1
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "Requests"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "none"
+       },
+       {
+        "id": "decimals",
+        "value": 0
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "showHeader": true,
+    "cellHeight": "md",
+    "sortBy": [
+     {
+      "displayName": "Run",
+      "desc": false
+     }
+    ]
+   }
+  },
+  {
+   "id": 2,
+   "type": "bargauge",
+   "title": "TTFT p50 per run",
+   "description": "Cumulative histograms per run, read at the end of the time range (use a range that ends after the last run). Prometheus histogram buckets are coarse (\u20265, 10, 20, 30 s), so histogram_quantile interpolates inside one bucket: at 10 and 20 users p50 is within about 15 % and p95 about 30 % of the client values in evidence/results.md Table 1 (too high, bucket (5,10] and (10,20]); at 1 user within about 5 %. u10 and u20 hold both runs of the level. Label u1 also holds 19 requests from manual tests before S24 (19 of 293), so u1 is slightly mixed. The JSON files and Table 1 are clean.",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 6,
+    "w": 8,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "histogram_quantile(0.5, sum by (le, run) (llm_ttft_seconds_bucket{run=~\"$run\"}))",
+     "instant": true,
+     "refId": "A",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    }
+   ],
+   "transformations": [
+    {
+     "id": "sortBy",
+     "options": {
+      "fields": {},
+      "sort": [
+       {
+        "field": "run"
+       }
+      ]
+     }
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "s",
+     "decimals": 1,
+     "min": 0,
+     "color": {
+      "mode": "palette-classic"
+     },
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "blue",
+        "value": null
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "top",
+    "sizing": "auto",
+    "minVizHeight": 16,
+    "minVizWidth": 8,
+    "reduceOptions": {
+     "calcs": [],
+     "fields": "/^Value/",
+     "values": true
+    }
+   }
+  },
+  {
+   "id": 3,
+   "type": "bargauge",
+   "title": "TTFT p95 per run",
+   "description": "Cumulative histograms per run, read at the end of the time range (use a range that ends after the last run). Prometheus histogram buckets are coarse (\u20265, 10, 20, 30 s), so histogram_quantile interpolates inside one bucket: at 10 and 20 users p50 is within about 15 % and p95 about 30 % of the client values in evidence/results.md Table 1 (too high, bucket (5,10] and (10,20]); at 1 user within about 5 %. u10 and u20 hold both runs of the level. Label u1 also holds 19 requests from manual tests before S24 (19 of 293), so u1 is slightly mixed. The JSON files and Table 1 are clean.",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 6,
+    "w": 8,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "histogram_quantile(0.95, sum by (le, run) (llm_ttft_seconds_bucket{run=~\"$run\"}))",
+     "instant": true,
+     "refId": "A",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    }
+   ],
+   "transformations": [
+    {
+     "id": "sortBy",
+     "options": {
+      "fields": {},
+      "sort": [
+       {
+        "field": "run"
+       }
+      ]
+     }
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "s",
+     "decimals": 1,
+     "min": 0,
+     "color": {
+      "mode": "palette-classic"
+     },
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "blue",
+        "value": null
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "top",
+    "sizing": "auto",
+    "minVizHeight": 16,
+    "minVizWidth": 8,
+    "reduceOptions": {
+     "calcs": [],
+     "fields": "/^Value/",
+     "values": true
+    }
+   }
+  },
+  {
+   "id": 4,
+   "type": "bargauge",
+   "title": "Tokens per second per request, median",
+   "description": "Cumulative histograms per run, read at the end of the time range (use a range that ends after the last run). Prometheus histogram buckets are coarse (\u20265, 10, 20, 30 s), so histogram_quantile interpolates inside one bucket: at 10 and 20 users p50 is within about 15 % and p95 about 30 % of the client values in evidence/results.md Table 1 (too high, bucket (5,10] and (10,20]); at 1 user within about 5 %. u10 and u20 hold both runs of the level. Label u1 also holds 19 requests from manual tests before S24 (19 of 293), so u1 is slightly mixed. The JSON files and Table 1 are clean.",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 6,
+    "w": 8,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "histogram_quantile(0.5, sum by (le, run) (llm_tokens_per_second_bucket{run=~\"$run\"}))",
+     "instant": true,
+     "refId": "A",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    }
+   ],
+   "transformations": [
+    {
+     "id": "sortBy",
+     "options": {
+      "fields": {},
+      "sort": [
+       {
+        "field": "run"
+       }
+      ]
+     }
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "suffix: tok/s",
+     "decimals": 1,
+     "min": 0,
+     "color": {
+      "mode": "palette-classic"
+     },
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "blue",
+        "value": null
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "top",
+    "sizing": "auto",
+    "minVizHeight": 16,
+    "minVizWidth": 8,
+    "reduceOptions": {
+     "calcs": [],
+     "fields": "/^Value/",
+     "values": true
+    }
+   }
+  },
+  {
+   "id": 5,
+   "type": "bargauge",
+   "title": "Queue wait p50 per run (derived)",
+   "description": "Cumulative histograms per run, read at the end of the time range (use a range that ends after the last run). Prometheus histogram buckets are coarse (\u20265, 10, 20, 30 s), so histogram_quantile interpolates inside one bucket: at 10 and 20 users p50 is within about 15 % and p95 about 30 % of the client values in evidence/results.md Table 1 (too high, bucket (5,10] and (10,20]); at 1 user within about 5 %. u10 and u20 hold both runs of the level. Label u1 also holds 19 requests from manual tests before S24 (19 of 293), so u1 is slightly mixed. The JSON files and Table 1 are clean. Derived: TTFT minus load duration minus prompt eval duration, minimum 0.",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 13,
+    "w": 6,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "histogram_quantile(0.5, sum by (le, run) (llm_queue_wait_derived_seconds_bucket{run=~\"$run\"}))",
+     "instant": true,
+     "refId": "A",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    }
+   ],
+   "transformations": [
+    {
+     "id": "sortBy",
+     "options": {
+      "fields": {},
+      "sort": [
+       {
+        "field": "run"
+       }
+      ]
+     }
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "s",
+     "decimals": 1,
+     "min": 0,
+     "color": {
+      "mode": "palette-classic"
+     },
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "blue",
+        "value": null
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "top",
+    "sizing": "auto",
+    "minVizHeight": 16,
+    "minVizWidth": 8,
+    "reduceOptions": {
+     "calcs": [],
+     "fields": "/^Value/",
+     "values": true
+    }
+   }
+  },
+  {
+   "id": 6,
+   "type": "bargauge",
+   "title": "Queue wait p95 per run (derived)",
+   "description": "Cumulative histograms per run, read at the end of the time range (use a range that ends after the last run). Prometheus histogram buckets are coarse (\u20265, 10, 20, 30 s), so histogram_quantile interpolates inside one bucket: at 10 and 20 users p50 is within about 15 % and p95 about 30 % of the client values in evidence/results.md Table 1 (too high, bucket (5,10] and (10,20]); at 1 user within about 5 %. u10 and u20 hold both runs of the level. Label u1 also holds 19 requests from manual tests before S24 (19 of 293), so u1 is slightly mixed. The JSON files and Table 1 are clean. Derived: TTFT minus load duration minus prompt eval duration, minimum 0.",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "gridPos": {
+    "x": 6,
+    "y": 13,
+    "w": 6,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "histogram_quantile(0.95, sum by (le, run) (llm_queue_wait_derived_seconds_bucket{run=~\"$run\"}))",
+     "instant": true,
+     "refId": "A",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    }
+   ],
+   "transformations": [
+    {
+     "id": "sortBy",
+     "options": {
+      "fields": {},
+      "sort": [
+       {
+        "field": "run"
+       }
+      ]
+     }
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "s",
+     "decimals": 1,
+     "min": 0,
+     "color": {
+      "mode": "palette-classic"
+     },
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "blue",
+        "value": null
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "top",
+    "sizing": "auto",
+    "minVizHeight": 16,
+    "minVizWidth": 8,
+    "reduceOptions": {
+     "calcs": [],
+     "fields": "/^Value/",
+     "values": true
+    }
+   }
+  },
+  {
+   "id": 7,
+   "type": "bargauge",
+   "title": "Error rate per run (status not 200)",
+   "description": "Share of llm_requests_total with status not 200, per run. 0 means no errors. Cumulative histograms per run, read at the end of the time range (use a range that ends after the last run). Prometheus histogram buckets are coarse (\u20265, 10, 20, 30 s), so histogram_quantile interpolates inside one bucket: at 10 and 20 users p50 is within about 15 % and p95 about 30 % of the client values in evidence/results.md Table 1 (too high, bucket (5,10] and (10,20]); at 1 user within about 5 %. u10 and u20 hold both runs of the level. Label u1 also holds 19 requests from manual tests before S24 (19 of 293), so u1 is slightly mixed. The JSON files and Table 1 are clean.",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "gridPos": {
+    "x": 12,
+    "y": 13,
+    "w": 6,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "(sum by (run) (llm_requests_total{run=~\"$run\",status!=\"200\"}) or sum by (run) (llm_requests_total{run=~\"$run\"}) * 0) / sum by (run) (llm_requests_total{run=~\"$run\"})",
+     "instant": true,
+     "refId": "A",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    }
+   ],
+   "transformations": [
+    {
+     "id": "sortBy",
+     "options": {
+      "fields": {},
+      "sort": [
+       {
+        "field": "run"
+       }
+      ]
+     }
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "percentunit",
+     "decimals": 1,
+     "min": 0,
+     "color": {
+      "mode": "palette-classic"
+     },
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "blue",
+        "value": null
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "top",
+    "sizing": "auto",
+    "minVizHeight": 16,
+    "minVizWidth": 8,
+    "reduceOptions": {
+     "calcs": [],
+     "fields": "/^Value/",
+     "values": true
+    }
+   }
+  },
+  {
+   "id": 9,
+   "type": "bargauge",
+   "title": "Request count per run",
+   "description": "llm_requests_total per run, cumulative. u10 and u20 hold two runs each; u1 also holds 19 manual-test requests (293 total vs 274 in the two u1 runs).",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "gridPos": {
+    "x": 18,
+    "y": 13,
+    "w": 6,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "sum by (run) (llm_requests_total{run=~\"$run\"})",
+     "instant": true,
+     "refId": "A",
+     "format": "table",
+     "legendFormat": "{{run}}"
+    }
+   ],
+   "transformations": [
+    {
+     "id": "sortBy",
+     "options": {
+      "fields": {},
+      "sort": [
+       {
+        "field": "run"
+       }
+      ]
+     }
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none",
+     "decimals": 0,
+     "min": 0,
+     "color": {
+      "mode": "palette-classic"
+     },
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "blue",
+        "value": null
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "top",
+    "sizing": "auto",
+    "minVizHeight": 16,
+    "minVizWidth": 8,
+    "reduceOptions": {
+     "calcs": [],
+     "fields": "/^Value/",
+     "values": true
+    }
+   }
+  },
+  {
+   "id": 8,
+   "type": "timeseries",
+   "title": "In flight and requests per second (six runs: u1 x2, u10 x2, u20 x2)",
+   "description": "All six runs in the fixed time range. In flight is the proxy gauge (no run label); requests per second is the 1 m rate of llm_requests_total for the selected runs. Gaps are the 2 min cooldowns. Three plateaus: about 1, 10, 20 in flight.",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 20,
+    "w": 24,
+    "h": 9
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "sum(llm_in_flight)",
+     "refId": "A",
+     "legendFormat": "in flight"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "prometheus"
+     },
+     "expr": "sum(rate(llm_requests_total{run=~\"$run\"}[1m]))",
+     "refId": "B",
+     "legendFormat": "requests per second"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "fillOpacity": 10,
+      "showPoints": "never",
+      "axisPlacement": "auto"
+     },
+     "min": 0,
+     "decimals": 1
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "requests per second"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "reqps"
+       },
+       {
+        "id": "custom.axisPlacement",
+        "value": "right"
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "in flight"
+      },
+      "properties": [
+       {
+        "id": "unit",
+        "value": "none"
+       }
+      ]
+     }
+    ]
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom"
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  }
+ ]
+}

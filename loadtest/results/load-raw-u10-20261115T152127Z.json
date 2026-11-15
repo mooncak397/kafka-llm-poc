@@ -1,0 +1,2948 @@
+{
+ "date": "2026-11-15T15:21:27+00:00",
+ "mode": "raw",
+ "run": "u10",
+ "users": 10,
+ "duration_s": 240,
+ "max_requests": 0,
+ "model": "qwen3:4b-instruct-2507-q4_K_M",
+ "ollama_version": "0.40.16",
+ "ollama_num_parallel": 1,
+ "num_ctx": 4096,
+ "num_predict": 600,
+ "gpu": {
+  "gpu_baseline_mib": 3891,
+  "gpu_min_mib": 3875,
+  "gpu_peak_mib": 3943
+ },
+ "summary": {
+  "requests_ok": 324,
+  "requests_total": 324,
+  "error_rate": 0.0,
+  "total_p50": 6.616846513999917,
+  "total_p95": 7.558540359350445,
+  "ttft_p50": 6.329675676999614,
+  "ttft_p95": 7.332943441297357,
+  "tokens_per_s_median": 39.83517610738542,
+  "queue_wait_derived_p50": 6.121107630499601,
+  "queue_wait_derived_p95": 7.1239625915973575
+ },
+ "requests": [
+  {
+   "i": 0,
+   "user": 0,
+   "start": 0.001,
+   "total": 0.444,
+   "status": "ok",
+   "ttft": 0.444,
+   "tokens": 17
+  },
+  {
+   "i": 4,
+   "user": 4,
+   "start": 0.002,
+   "total": 1.398,
+   "status": "ok",
+   "ttft": 0.655,
+   "tokens": 30
+  },
+  {
+   "i": 2,
+   "user": 2,
+   "start": 0.001,
+   "total": 2.491,
+   "status": "ok",
+   "ttft": 1.6,
+   "tokens": 36
+  },
+  {
+   "i": 1,
+   "user": 1,
+   "start": 0.001,
+   "total": 3.127,
+   "status": "ok",
+   "ttft": 3.127,
+   "tokens": 17
+  },
+  {
+   "i": 7,
+   "user": 7,
+   "start": 0.003,
+   "total": 3.574,
+   "status": "ok",
+   "ttft": 3.574,
+   "tokens": 17
+  },
+  {
+   "i": 5,
+   "user": 5,
+   "start": 0.002,
+   "total": 4.204,
+   "status": "ok",
+   "ttft": 4.204,
+   "tokens": 17
+  },
+  {
+   "i": 9,
+   "user": 9,
+   "start": 0.003,
+   "total": 4.808,
+   "status": "ok",
+   "ttft": 4.808,
+   "tokens": 17
+  },
+  {
+   "i": 8,
+   "user": 8,
+   "start": 0.003,
+   "total": 5.918,
+   "status": "ok",
+   "ttft": 5.019,
+   "tokens": 36
+  },
+  {
+   "i": 3,
+   "user": 3,
+   "start": 0.001,
+   "total": 6.537,
+   "status": "ok",
+   "ttft": 6.537,
+   "tokens": 17
+  },
+  {
+   "i": 6,
+   "user": 6,
+   "start": 0.002,
+   "total": 7.172,
+   "status": "ok",
+   "ttft": 7.171,
+   "tokens": 17
+  },
+  {
+   "i": 10,
+   "user": 0,
+   "start": 1.446,
+   "total": 6.362,
+   "status": "ok",
+   "ttft": 6.362,
+   "tokens": 17
+  },
+  {
+   "i": 11,
+   "user": 4,
+   "start": 2.4,
+   "total": 6.035,
+   "status": "ok",
+   "ttft": 6.035,
+   "tokens": 17
+  },
+  {
+   "i": 12,
+   "user": 2,
+   "start": 3.493,
+   "total": 5.557,
+   "status": "ok",
+   "ttft": 5.556,
+   "tokens": 17
+  },
+  {
+   "i": 13,
+   "user": 1,
+   "start": 4.128,
+   "total": 6.031,
+   "status": "ok",
+   "ttft": 5.131,
+   "tokens": 36
+  },
+  {
+   "i": 14,
+   "user": 7,
+   "start": 4.577,
+   "total": 6.515,
+   "status": "ok",
+   "ttft": 5.611,
+   "tokens": 36
+  },
+  {
+   "i": 15,
+   "user": 5,
+   "start": 5.207,
+   "total": 6.522,
+   "status": "ok",
+   "ttft": 6.522,
+   "tokens": 17
+  },
+  {
+   "i": 16,
+   "user": 9,
+   "start": 5.812,
+   "total": 6.854,
+   "status": "ok",
+   "ttft": 6.126,
+   "tokens": 29
+  },
+  {
+   "i": 17,
+   "user": 8,
+   "start": 6.922,
+   "total": 6.364,
+   "status": "ok",
+   "ttft": 6.364,
+   "tokens": 17
+  },
+  {
+   "i": 18,
+   "user": 3,
+   "start": 7.539,
+   "total": 6.671,
+   "status": "ok",
+   "ttft": 5.951,
+   "tokens": 29
+  },
+  {
+   "i": 19,
+   "user": 6,
+   "start": 8.175,
+   "total": 6.657,
+   "status": "ok",
+   "ttft": 6.656,
+   "tokens": 17
+  },
+  {
+   "i": 20,
+   "user": 0,
+   "start": 8.809,
+   "total": 7.075,
+   "status": "ok",
+   "ttft": 6.228,
+   "tokens": 33
+  },
+  {
+   "i": 21,
+   "user": 4,
+   "start": 9.435,
+   "total": 7.082,
+   "status": "ok",
+   "ttft": 7.081,
+   "tokens": 17
+  },
+  {
+   "i": 22,
+   "user": 2,
+   "start": 10.051,
+   "total": 7.423,
+   "status": "ok",
+   "ttft": 6.669,
+   "tokens": 29
+  },
+  {
+   "i": 23,
+   "user": 1,
+   "start": 11.16,
+   "total": 6.945,
+   "status": "ok",
+   "ttft": 6.945,
+   "tokens": 17
+  },
+  {
+   "i": 24,
+   "user": 7,
+   "start": 12.093,
+   "total": 6.465,
+   "status": "ok",
+   "ttft": 6.465,
+   "tokens": 17
+  },
+  {
+   "i": 25,
+   "user": 5,
+   "start": 12.729,
+   "total": 6.469,
+   "status": "ok",
+   "ttft": 6.469,
+   "tokens": 17
+  },
+  {
+   "i": 26,
+   "user": 9,
+   "start": 13.666,
+   "total": 6.143,
+   "status": "ok",
+   "ttft": 6.143,
+   "tokens": 17
+  },
+  {
+   "i": 27,
+   "user": 8,
+   "start": 14.287,
+   "total": 6.556,
+   "status": "ok",
+   "ttft": 5.727,
+   "tokens": 33
+  },
+  {
+   "i": 28,
+   "user": 3,
+   "start": 15.212,
+   "total": 6.251,
+   "status": "ok",
+   "ttft": 6.251,
+   "tokens": 17
+  },
+  {
+   "i": 29,
+   "user": 6,
+   "start": 15.832,
+   "total": 6.768,
+   "status": "ok",
+   "ttft": 5.84,
+   "tokens": 36
+  },
+  {
+   "i": 30,
+   "user": 0,
+   "start": 16.884,
+   "total": 6.349,
+   "status": "ok",
+   "ttft": 6.349,
+   "tokens": 17
+  },
+  {
+   "i": 31,
+   "user": 4,
+   "start": 17.518,
+   "total": 6.338,
+   "status": "ok",
+   "ttft": 6.338,
+   "tokens": 17
+  },
+  {
+   "i": 32,
+   "user": 2,
+   "start": 18.474,
+   "total": 6.0,
+   "status": "ok",
+   "ttft": 6.0,
+   "tokens": 17
+  },
+  {
+   "i": 33,
+   "user": 1,
+   "start": 19.106,
+   "total": 6.333,
+   "status": "ok",
+   "ttft": 5.579,
+   "tokens": 29
+  },
+  {
+   "i": 34,
+   "user": 7,
+   "start": 19.559,
+   "total": 6.679,
+   "status": "ok",
+   "ttft": 5.91,
+   "tokens": 30
+  },
+  {
+   "i": 35,
+   "user": 5,
+   "start": 20.199,
+   "total": 7.072,
+   "status": "ok",
+   "ttft": 6.276,
+   "tokens": 31
+  },
+  {
+   "i": 36,
+   "user": 9,
+   "start": 20.811,
+   "total": 7.101,
+   "status": "ok",
+   "ttft": 7.101,
+   "tokens": 17
+  },
+  {
+   "i": 37,
+   "user": 8,
+   "start": 21.843,
+   "total": 6.693,
+   "status": "ok",
+   "ttft": 6.693,
+   "tokens": 17
+  },
+  {
+   "i": 38,
+   "user": 3,
+   "start": 22.463,
+   "total": 6.692,
+   "status": "ok",
+   "ttft": 6.692,
+   "tokens": 17
+  },
+  {
+   "i": 39,
+   "user": 6,
+   "start": 23.601,
+   "total": 6.186,
+   "status": "ok",
+   "ttft": 6.186,
+   "tokens": 17
+  },
+  {
+   "i": 40,
+   "user": 0,
+   "start": 24.234,
+   "total": 6.512,
+   "status": "ok",
+   "ttft": 5.765,
+   "tokens": 29
+  },
+  {
+   "i": 41,
+   "user": 4,
+   "start": 24.857,
+   "total": 7.01,
+   "status": "ok",
+   "ttft": 6.097,
+   "tokens": 36
+  },
+  {
+   "i": 42,
+   "user": 2,
+   "start": 25.474,
+   "total": 7.021,
+   "status": "ok",
+   "ttft": 7.021,
+   "tokens": 17
+  },
+  {
+   "i": 43,
+   "user": 1,
+   "start": 26.44,
+   "total": 6.685,
+   "status": "ok",
+   "ttft": 6.685,
+   "tokens": 17
+  },
+  {
+   "i": 44,
+   "user": 7,
+   "start": 27.24,
+   "total": 6.339,
+   "status": "ok",
+   "ttft": 6.339,
+   "tokens": 17
+  },
+  {
+   "i": 45,
+   "user": 5,
+   "start": 28.272,
+   "total": 5.932,
+   "status": "ok",
+   "ttft": 5.932,
+   "tokens": 17
+  },
+  {
+   "i": 46,
+   "user": 9,
+   "start": 28.914,
+   "total": 5.908,
+   "status": "ok",
+   "ttft": 5.908,
+   "tokens": 17
+  },
+  {
+   "i": 47,
+   "user": 8,
+   "start": 29.537,
+   "total": 5.924,
+   "status": "ok",
+   "ttft": 5.924,
+   "tokens": 17
+  },
+  {
+   "i": 48,
+   "user": 3,
+   "start": 30.156,
+   "total": 5.949,
+   "status": "ok",
+   "ttft": 5.949,
+   "tokens": 17
+  },
+  {
+   "i": 49,
+   "user": 6,
+   "start": 30.788,
+   "total": 6.302,
+   "status": "ok",
+   "ttft": 5.526,
+   "tokens": 29
+  },
+  {
+   "i": 50,
+   "user": 0,
+   "start": 31.747,
+   "total": 5.96,
+   "status": "ok",
+   "ttft": 5.96,
+   "tokens": 17
+  },
+  {
+   "i": 51,
+   "user": 4,
+   "start": 32.867,
+   "total": 5.463,
+   "status": "ok",
+   "ttft": 5.463,
+   "tokens": 17
+  },
+  {
+   "i": 52,
+   "user": 2,
+   "start": 33.497,
+   "total": 5.47,
+   "status": "ok",
+   "ttft": 5.469,
+   "tokens": 17
+  },
+  {
+   "i": 53,
+   "user": 1,
+   "start": 34.126,
+   "total": 5.501,
+   "status": "ok",
+   "ttft": 5.5,
+   "tokens": 17
+  },
+  {
+   "i": 54,
+   "user": 7,
+   "start": 34.581,
+   "total": 5.506,
+   "status": "ok",
+   "ttft": 5.506,
+   "tokens": 17
+  },
+  {
+   "i": 55,
+   "user": 5,
+   "start": 35.206,
+   "total": 5.818,
+   "status": "ok",
+   "ttft": 5.089,
+   "tokens": 29
+  },
+  {
+   "i": 56,
+   "user": 9,
+   "start": 35.823,
+   "total": 6.312,
+   "status": "ok",
+   "ttft": 5.425,
+   "tokens": 33
+  },
+  {
+   "i": 57,
+   "user": 8,
+   "start": 36.461,
+   "total": 6.305,
+   "status": "ok",
+   "ttft": 6.305,
+   "tokens": 17
+  },
+  {
+   "i": 58,
+   "user": 3,
+   "start": 37.106,
+   "total": 6.72,
+   "status": "ok",
+   "ttft": 5.873,
+   "tokens": 33
+  },
+  {
+   "i": 59,
+   "user": 6,
+   "start": 38.091,
+   "total": 6.366,
+   "status": "ok",
+   "ttft": 6.366,
+   "tokens": 17
+  },
+  {
+   "i": 60,
+   "user": 0,
+   "start": 38.709,
+   "total": 6.371,
+   "status": "ok",
+   "ttft": 6.371,
+   "tokens": 17
+  },
+  {
+   "i": 61,
+   "user": 4,
+   "start": 39.331,
+   "total": 6.644,
+   "status": "ok",
+   "ttft": 5.964,
+   "tokens": 27
+  },
+  {
+   "i": 62,
+   "user": 2,
+   "start": 39.967,
+   "total": 7.124,
+   "status": "ok",
+   "ttft": 6.217,
+   "tokens": 36
+  },
+  {
+   "i": 63,
+   "user": 1,
+   "start": 40.627,
+   "total": 7.104,
+   "status": "ok",
+   "ttft": 7.104,
+   "tokens": 17
+  },
+  {
+   "i": 64,
+   "user": 7,
+   "start": 41.088,
+   "total": 7.089,
+   "status": "ok",
+   "ttft": 7.089,
+   "tokens": 17
+  },
+  {
+   "i": 65,
+   "user": 5,
+   "start": 42.024,
+   "total": 6.781,
+   "status": "ok",
+   "ttft": 6.781,
+   "tokens": 17
+  },
+  {
+   "i": 66,
+   "user": 9,
+   "start": 43.136,
+   "total": 6.304,
+   "status": "ok",
+   "ttft": 6.304,
+   "tokens": 17
+  },
+  {
+   "i": 67,
+   "user": 8,
+   "start": 43.767,
+   "total": 7.04,
+   "status": "ok",
+   "ttft": 5.891,
+   "tokens": 45
+  },
+  {
+   "i": 68,
+   "user": 3,
+   "start": 44.826,
+   "total": 6.619,
+   "status": "ok",
+   "ttft": 6.619,
+   "tokens": 17
+  },
+  {
+   "i": 69,
+   "user": 6,
+   "start": 45.457,
+   "total": 6.621,
+   "status": "ok",
+   "ttft": 6.621,
+   "tokens": 17
+  },
+  {
+   "i": 70,
+   "user": 0,
+   "start": 46.081,
+   "total": 6.644,
+   "status": "ok",
+   "ttft": 6.644,
+   "tokens": 17
+  },
+  {
+   "i": 71,
+   "user": 4,
+   "start": 46.976,
+   "total": 6.408,
+   "status": "ok",
+   "ttft": 6.408,
+   "tokens": 17
+  },
+  {
+   "i": 72,
+   "user": 2,
+   "start": 48.091,
+   "total": 5.947,
+   "status": "ok",
+   "ttft": 5.947,
+   "tokens": 17
+  },
+  {
+   "i": 73,
+   "user": 1,
+   "start": 48.733,
+   "total": 6.382,
+   "status": "ok",
+   "ttft": 5.517,
+   "tokens": 33
+  },
+  {
+   "i": 74,
+   "user": 7,
+   "start": 49.177,
+   "total": 6.899,
+   "status": "ok",
+   "ttft": 5.967,
+   "tokens": 37
+  },
+  {
+   "i": 75,
+   "user": 5,
+   "start": 49.806,
+   "total": 6.903,
+   "status": "ok",
+   "ttft": 6.903,
+   "tokens": 17
+  },
+  {
+   "i": 76,
+   "user": 9,
+   "start": 50.44,
+   "total": 7.166,
+   "status": "ok",
+   "ttft": 6.477,
+   "tokens": 27
+  },
+  {
+   "i": 77,
+   "user": 8,
+   "start": 51.808,
+   "total": 6.434,
+   "status": "ok",
+   "ttft": 6.434,
+   "tokens": 17
+  },
+  {
+   "i": 78,
+   "user": 3,
+   "start": 52.447,
+   "total": 6.762,
+   "status": "ok",
+   "ttft": 5.997,
+   "tokens": 29
+  },
+  {
+   "i": 79,
+   "user": 6,
+   "start": 53.08,
+   "total": 6.764,
+   "status": "ok",
+   "ttft": 6.764,
+   "tokens": 17
+  },
+  {
+   "i": 80,
+   "user": 0,
+   "start": 53.726,
+   "total": 7.183,
+   "status": "ok",
+   "ttft": 6.334,
+   "tokens": 33
+  },
+  {
+   "i": 81,
+   "user": 4,
+   "start": 54.384,
+   "total": 7.151,
+   "status": "ok",
+   "ttft": 7.151,
+   "tokens": 17
+  },
+  {
+   "i": 82,
+   "user": 2,
+   "start": 55.039,
+   "total": 7.417,
+   "status": "ok",
+   "ttft": 6.703,
+   "tokens": 27
+  },
+  {
+   "i": 83,
+   "user": 1,
+   "start": 56.116,
+   "total": 6.982,
+   "status": "ok",
+   "ttft": 6.982,
+   "tokens": 17
+  },
+  {
+   "i": 84,
+   "user": 7,
+   "start": 57.077,
+   "total": 6.471,
+   "status": "ok",
+   "ttft": 6.47,
+   "tokens": 17
+  },
+  {
+   "i": 85,
+   "user": 5,
+   "start": 57.71,
+   "total": 6.493,
+   "status": "ok",
+   "ttft": 6.492,
+   "tokens": 17
+  },
+  {
+   "i": 86,
+   "user": 9,
+   "start": 58.608,
+   "total": 6.248,
+   "status": "ok",
+   "ttft": 6.248,
+   "tokens": 17
+  },
+  {
+   "i": 87,
+   "user": 8,
+   "start": 59.243,
+   "total": 6.484,
+   "status": "ok",
+   "ttft": 5.829,
+   "tokens": 26
+  },
+  {
+   "i": 88,
+   "user": 3,
+   "start": 60.21,
+   "total": 6.149,
+   "status": "ok",
+   "ttft": 6.149,
+   "tokens": 17
+  },
+  {
+   "i": 89,
+   "user": 6,
+   "start": 60.844,
+   "total": 6.855,
+   "status": "ok",
+   "ttft": 5.734,
+   "tokens": 43
+  },
+  {
+   "i": 90,
+   "user": 0,
+   "start": 61.909,
+   "total": 6.441,
+   "status": "ok",
+   "ttft": 6.441,
+   "tokens": 17
+  },
+  {
+   "i": 91,
+   "user": 4,
+   "start": 62.536,
+   "total": 6.487,
+   "status": "ok",
+   "ttft": 6.486,
+   "tokens": 17
+  },
+  {
+   "i": 92,
+   "user": 2,
+   "start": 63.457,
+   "total": 6.201,
+   "status": "ok",
+   "ttft": 6.201,
+   "tokens": 17
+  },
+  {
+   "i": 93,
+   "user": 1,
+   "start": 64.099,
+   "total": 6.502,
+   "status": "ok",
+   "ttft": 5.766,
+   "tokens": 29
+  },
+  {
+   "i": 94,
+   "user": 7,
+   "start": 64.55,
+   "total": 6.837,
+   "status": "ok",
+   "ttft": 6.081,
+   "tokens": 30
+  },
+  {
+   "i": 95,
+   "user": 5,
+   "start": 65.204,
+   "total": 7.574,
+   "status": "ok",
+   "ttft": 6.4,
+   "tokens": 46
+  },
+  {
+   "i": 96,
+   "user": 9,
+   "start": 65.856,
+   "total": 7.553,
+   "status": "ok",
+   "ttft": 7.552,
+   "tokens": 17
+  },
+  {
+   "i": 97,
+   "user": 8,
+   "start": 66.729,
+   "total": 7.311,
+   "status": "ok",
+   "ttft": 7.311,
+   "tokens": 17
+  },
+  {
+   "i": 98,
+   "user": 3,
+   "start": 67.36,
+   "total": 7.331,
+   "status": "ok",
+   "ttft": 7.331,
+   "tokens": 17
+  },
+  {
+   "i": 99,
+   "user": 6,
+   "start": 68.7,
+   "total": 6.627,
+   "status": "ok",
+   "ttft": 6.627,
+   "tokens": 17
+  },
+  {
+   "i": 100,
+   "user": 0,
+   "start": 69.351,
+   "total": 6.958,
+   "status": "ok",
+   "ttft": 6.189,
+   "tokens": 30
+  },
+  {
+   "i": 101,
+   "user": 4,
+   "start": 70.024,
+   "total": 7.419,
+   "status": "ok",
+   "ttft": 6.502,
+   "tokens": 36
+  },
+  {
+   "i": 102,
+   "user": 2,
+   "start": 70.66,
+   "total": 7.425,
+   "status": "ok",
+   "ttft": 7.425,
+   "tokens": 17
+  },
+  {
+   "i": 103,
+   "user": 1,
+   "start": 71.602,
+   "total": 7.149,
+   "status": "ok",
+   "ttft": 7.148,
+   "tokens": 17
+  },
+  {
+   "i": 104,
+   "user": 7,
+   "start": 72.388,
+   "total": 6.851,
+   "status": "ok",
+   "ttft": 6.851,
+   "tokens": 17
+  },
+  {
+   "i": 105,
+   "user": 5,
+   "start": 73.779,
+   "total": 6.102,
+   "status": "ok",
+   "ttft": 6.101,
+   "tokens": 17
+  },
+  {
+   "i": 106,
+   "user": 9,
+   "start": 74.409,
+   "total": 6.113,
+   "status": "ok",
+   "ttft": 6.113,
+   "tokens": 17
+  },
+  {
+   "i": 107,
+   "user": 8,
+   "start": 75.042,
+   "total": 6.109,
+   "status": "ok",
+   "ttft": 6.109,
+   "tokens": 17
+  },
+  {
+   "i": 108,
+   "user": 3,
+   "start": 75.692,
+   "total": 6.088,
+   "status": "ok",
+   "ttft": 6.087,
+   "tokens": 17
+  },
+  {
+   "i": 109,
+   "user": 6,
+   "start": 76.328,
+   "total": 6.424,
+   "status": "ok",
+   "ttft": 5.668,
+   "tokens": 29
+  },
+  {
+   "i": 110,
+   "user": 0,
+   "start": 77.309,
+   "total": 6.076,
+   "status": "ok",
+   "ttft": 6.076,
+   "tokens": 17
+  },
+  {
+   "i": 111,
+   "user": 4,
+   "start": 78.444,
+   "total": 5.583,
+   "status": "ok",
+   "ttft": 5.582,
+   "tokens": 17
+  },
+  {
+   "i": 112,
+   "user": 2,
+   "start": 79.086,
+   "total": 5.572,
+   "status": "ok",
+   "ttft": 5.572,
+   "tokens": 17
+  },
+  {
+   "i": 113,
+   "user": 1,
+   "start": 79.751,
+   "total": 5.561,
+   "status": "ok",
+   "ttft": 5.561,
+   "tokens": 17
+  },
+  {
+   "i": 114,
+   "user": 7,
+   "start": 80.24,
+   "total": 5.529,
+   "status": "ok",
+   "ttft": 5.529,
+   "tokens": 17
+  },
+  {
+   "i": 115,
+   "user": 5,
+   "start": 80.882,
+   "total": 5.786,
+   "status": "ok",
+   "ttft": 5.106,
+   "tokens": 27
+  },
+  {
+   "i": 116,
+   "user": 9,
+   "start": 81.523,
+   "total": 6.156,
+   "status": "ok",
+   "ttft": 5.358,
+   "tokens": 31
+  },
+  {
+   "i": 117,
+   "user": 8,
+   "start": 82.153,
+   "total": 6.188,
+   "status": "ok",
+   "ttft": 6.188,
+   "tokens": 17
+  },
+  {
+   "i": 118,
+   "user": 3,
+   "start": 82.78,
+   "total": 6.562,
+   "status": "ok",
+   "ttft": 5.781,
+   "tokens": 31
+  },
+  {
+   "i": 119,
+   "user": 6,
+   "start": 83.753,
+   "total": 6.243,
+   "status": "ok",
+   "ttft": 6.243,
+   "tokens": 17
+  },
+  {
+   "i": 120,
+   "user": 0,
+   "start": 84.386,
+   "total": 6.251,
+   "status": "ok",
+   "ttft": 6.251,
+   "tokens": 17
+  },
+  {
+   "i": 121,
+   "user": 4,
+   "start": 85.027,
+   "total": 6.493,
+   "status": "ok",
+   "ttft": 5.818,
+   "tokens": 27
+  },
+  {
+   "i": 122,
+   "user": 2,
+   "start": 85.659,
+   "total": 7.028,
+   "status": "ok",
+   "ttft": 6.077,
+   "tokens": 37
+  },
+  {
+   "i": 123,
+   "user": 1,
+   "start": 86.313,
+   "total": 7.014,
+   "status": "ok",
+   "ttft": 7.014,
+   "tokens": 17
+  },
+  {
+   "i": 124,
+   "user": 7,
+   "start": 86.77,
+   "total": 7.013,
+   "status": "ok",
+   "ttft": 7.013,
+   "tokens": 17
+  },
+  {
+   "i": 125,
+   "user": 5,
+   "start": 87.669,
+   "total": 6.739,
+   "status": "ok",
+   "ttft": 6.739,
+   "tokens": 17
+  },
+  {
+   "i": 126,
+   "user": 9,
+   "start": 88.68,
+   "total": 6.354,
+   "status": "ok",
+   "ttft": 6.354,
+   "tokens": 17
+  },
+  {
+   "i": 127,
+   "user": 8,
+   "start": 89.342,
+   "total": 6.811,
+   "status": "ok",
+   "ttft": 5.914,
+   "tokens": 35
+  },
+  {
+   "i": 128,
+   "user": 3,
+   "start": 90.342,
+   "total": 6.456,
+   "status": "ok",
+   "ttft": 6.456,
+   "tokens": 17
+  },
+  {
+   "i": 129,
+   "user": 6,
+   "start": 90.997,
+   "total": 6.459,
+   "status": "ok",
+   "ttft": 6.459,
+   "tokens": 17
+  },
+  {
+   "i": 130,
+   "user": 0,
+   "start": 91.637,
+   "total": 6.44,
+   "status": "ok",
+   "ttft": 6.44,
+   "tokens": 17
+  },
+  {
+   "i": 131,
+   "user": 4,
+   "start": 92.522,
+   "total": 6.19,
+   "status": "ok",
+   "ttft": 6.19,
+   "tokens": 17
+  },
+  {
+   "i": 132,
+   "user": 2,
+   "start": 93.688,
+   "total": 5.68,
+   "status": "ok",
+   "ttft": 5.68,
+   "tokens": 17
+  },
+  {
+   "i": 133,
+   "user": 1,
+   "start": 94.33,
+   "total": 6.274,
+   "status": "ok",
+   "ttft": 5.266,
+   "tokens": 39
+  },
+  {
+   "i": 134,
+   "user": 7,
+   "start": 94.784,
+   "total": 6.784,
+   "status": "ok",
+   "ttft": 5.852,
+   "tokens": 36
+  },
+  {
+   "i": 135,
+   "user": 5,
+   "start": 95.409,
+   "total": 6.792,
+   "status": "ok",
+   "ttft": 6.792,
+   "tokens": 17
+  },
+  {
+   "i": 136,
+   "user": 9,
+   "start": 96.034,
+   "total": 7.129,
+   "status": "ok",
+   "ttft": 6.375,
+   "tokens": 29
+  },
+  {
+   "i": 137,
+   "user": 8,
+   "start": 97.153,
+   "total": 6.633,
+   "status": "ok",
+   "ttft": 6.632,
+   "tokens": 17
+  },
+  {
+   "i": 138,
+   "user": 3,
+   "start": 97.798,
+   "total": 6.97,
+   "status": "ok",
+   "ttft": 6.194,
+   "tokens": 30
+  },
+  {
+   "i": 139,
+   "user": 6,
+   "start": 98.457,
+   "total": 6.952,
+   "status": "ok",
+   "ttft": 6.952,
+   "tokens": 17
+  },
+  {
+   "i": 140,
+   "user": 0,
+   "start": 99.078,
+   "total": 7.471,
+   "status": "ok",
+   "ttft": 6.551,
+   "tokens": 36
+  },
+  {
+   "i": 141,
+   "user": 4,
+   "start": 99.712,
+   "total": 7.459,
+   "status": "ok",
+   "ttft": 7.459,
+   "tokens": 17
+  },
+  {
+   "i": 142,
+   "user": 2,
+   "start": 100.368,
+   "total": 7.707,
+   "status": "ok",
+   "ttft": 7.019,
+   "tokens": 27
+  },
+  {
+   "i": 143,
+   "user": 1,
+   "start": 101.605,
+   "total": 7.107,
+   "status": "ok",
+   "ttft": 7.106,
+   "tokens": 17
+  },
+  {
+   "i": 144,
+   "user": 7,
+   "start": 102.568,
+   "total": 6.594,
+   "status": "ok",
+   "ttft": 6.593,
+   "tokens": 17
+  },
+  {
+   "i": 145,
+   "user": 5,
+   "start": 103.202,
+   "total": 6.593,
+   "status": "ok",
+   "ttft": 6.593,
+   "tokens": 17
+  },
+  {
+   "i": 146,
+   "user": 9,
+   "start": 104.164,
+   "total": 6.291,
+   "status": "ok",
+   "ttft": 6.291,
+   "tokens": 17
+  },
+  {
+   "i": 147,
+   "user": 8,
+   "start": 104.787,
+   "total": 6.618,
+   "status": "ok",
+   "ttft": 5.884,
+   "tokens": 29
+  },
+  {
+   "i": 148,
+   "user": 3,
+   "start": 105.768,
+   "total": 6.287,
+   "status": "ok",
+   "ttft": 6.287,
+   "tokens": 17
+  },
+  {
+   "i": 149,
+   "user": 6,
+   "start": 106.41,
+   "total": 6.985,
+   "status": "ok",
+   "ttft": 5.871,
+   "tokens": 43
+  },
+  {
+   "i": 150,
+   "user": 0,
+   "start": 107.549,
+   "total": 6.506,
+   "status": "ok",
+   "ttft": 6.506,
+   "tokens": 17
+  },
+  {
+   "i": 151,
+   "user": 4,
+   "start": 108.172,
+   "total": 6.517,
+   "status": "ok",
+   "ttft": 6.517,
+   "tokens": 17
+  },
+  {
+   "i": 152,
+   "user": 2,
+   "start": 109.076,
+   "total": 6.245,
+   "status": "ok",
+   "ttft": 6.245,
+   "tokens": 17
+  },
+  {
+   "i": 153,
+   "user": 1,
+   "start": 109.713,
+   "total": 6.555,
+   "status": "ok",
+   "ttft": 5.825,
+   "tokens": 29
+  },
+  {
+   "i": 154,
+   "user": 7,
+   "start": 110.163,
+   "total": 6.874,
+   "status": "ok",
+   "ttft": 6.138,
+   "tokens": 29
+  },
+  {
+   "i": 155,
+   "user": 5,
+   "start": 110.797,
+   "total": 7.567,
+   "status": "ok",
+   "ttft": 6.458,
+   "tokens": 42
+  },
+  {
+   "i": 156,
+   "user": 9,
+   "start": 111.455,
+   "total": 7.535,
+   "status": "ok",
+   "ttft": 7.535,
+   "tokens": 17
+  },
+  {
+   "i": 157,
+   "user": 8,
+   "start": 112.406,
+   "total": 7.222,
+   "status": "ok",
+   "ttft": 7.222,
+   "tokens": 17
+  },
+  {
+   "i": 158,
+   "user": 3,
+   "start": 113.057,
+   "total": 7.197,
+   "status": "ok",
+   "ttft": 7.197,
+   "tokens": 17
+  },
+  {
+   "i": 159,
+   "user": 6,
+   "start": 114.396,
+   "total": 6.497,
+   "status": "ok",
+   "ttft": 6.497,
+   "tokens": 17
+  },
+  {
+   "i": 160,
+   "user": 0,
+   "start": 115.056,
+   "total": 6.751,
+   "status": "ok",
+   "ttft": 6.051,
+   "tokens": 28
+  },
+  {
+   "i": 161,
+   "user": 4,
+   "start": 115.69,
+   "total": 7.273,
+   "status": "ok",
+   "ttft": 6.326,
+   "tokens": 37
+  },
+  {
+   "i": 162,
+   "user": 2,
+   "start": 116.322,
+   "total": 7.268,
+   "status": "ok",
+   "ttft": 7.268,
+   "tokens": 17
+  },
+  {
+   "i": 163,
+   "user": 1,
+   "start": 117.269,
+   "total": 6.969,
+   "status": "ok",
+   "ttft": 6.968,
+   "tokens": 17
+  },
+  {
+   "i": 164,
+   "user": 7,
+   "start": 118.038,
+   "total": 6.655,
+   "status": "ok",
+   "ttft": 6.655,
+   "tokens": 17
+  },
+  {
+   "i": 165,
+   "user": 5,
+   "start": 119.364,
+   "total": 5.969,
+   "status": "ok",
+   "ttft": 5.969,
+   "tokens": 17
+  },
+  {
+   "i": 166,
+   "user": 9,
+   "start": 119.992,
+   "total": 5.978,
+   "status": "ok",
+   "ttft": 5.978,
+   "tokens": 17
+  },
+  {
+   "i": 167,
+   "user": 8,
+   "start": 120.629,
+   "total": 5.983,
+   "status": "ok",
+   "ttft": 5.983,
+   "tokens": 17
+  },
+  {
+   "i": 168,
+   "user": 3,
+   "start": 121.255,
+   "total": 5.992,
+   "status": "ok",
+   "ttft": 5.992,
+   "tokens": 17
+  },
+  {
+   "i": 169,
+   "user": 6,
+   "start": 121.894,
+   "total": 6.293,
+   "status": "ok",
+   "ttft": 5.57,
+   "tokens": 29
+  },
+  {
+   "i": 170,
+   "user": 0,
+   "start": 122.808,
+   "total": 6.009,
+   "status": "ok",
+   "ttft": 6.009,
+   "tokens": 17
+  },
+  {
+   "i": 171,
+   "user": 4,
+   "start": 123.965,
+   "total": 5.5,
+   "status": "ok",
+   "ttft": 5.499,
+   "tokens": 17
+  },
+  {
+   "i": 172,
+   "user": 2,
+   "start": 124.591,
+   "total": 5.54,
+   "status": "ok",
+   "ttft": 5.54,
+   "tokens": 17
+  },
+  {
+   "i": 173,
+   "user": 1,
+   "start": 125.239,
+   "total": 5.527,
+   "status": "ok",
+   "ttft": 5.527,
+   "tokens": 17
+  },
+  {
+   "i": 174,
+   "user": 7,
+   "start": 125.693,
+   "total": 5.517,
+   "status": "ok",
+   "ttft": 5.516,
+   "tokens": 17
+  },
+  {
+   "i": 175,
+   "user": 5,
+   "start": 126.334,
+   "total": 5.848,
+   "status": "ok",
+   "ttft": 5.098,
+   "tokens": 29
+  },
+  {
+   "i": 176,
+   "user": 9,
+   "start": 126.971,
+   "total": 6.336,
+   "status": "ok",
+   "ttft": 5.421,
+   "tokens": 36
+  },
+  {
+   "i": 177,
+   "user": 8,
+   "start": 127.614,
+   "total": 6.309,
+   "status": "ok",
+   "ttft": 6.309,
+   "tokens": 17
+  },
+  {
+   "i": 178,
+   "user": 3,
+   "start": 128.248,
+   "total": 7.005,
+   "status": "ok",
+   "ttft": 5.894,
+   "tokens": 43
+  },
+  {
+   "i": 179,
+   "user": 6,
+   "start": 129.187,
+   "total": 6.715,
+   "status": "ok",
+   "ttft": 6.715,
+   "tokens": 17
+  },
+  {
+   "i": 180,
+   "user": 0,
+   "start": 129.819,
+   "total": 6.711,
+   "status": "ok",
+   "ttft": 6.711,
+   "tokens": 17
+  },
+  {
+   "i": 181,
+   "user": 4,
+   "start": 130.465,
+   "total": 7.045,
+   "status": "ok",
+   "ttft": 6.269,
+   "tokens": 30
+  },
+  {
+   "i": 182,
+   "user": 2,
+   "start": 131.132,
+   "total": 7.675,
+   "status": "ok",
+   "ttft": 6.606,
+   "tokens": 41
+  },
+  {
+   "i": 183,
+   "user": 1,
+   "start": 131.766,
+   "total": 7.685,
+   "status": "ok",
+   "ttft": 7.685,
+   "tokens": 17
+  },
+  {
+   "i": 184,
+   "user": 7,
+   "start": 132.21,
+   "total": 7.683,
+   "status": "ok",
+   "ttft": 7.683,
+   "tokens": 17
+  },
+  {
+   "i": 185,
+   "user": 5,
+   "start": 133.182,
+   "total": 7.364,
+   "status": "ok",
+   "ttft": 7.361,
+   "tokens": 17
+  },
+  {
+   "i": 186,
+   "user": 9,
+   "start": 134.307,
+   "total": 6.874,
+   "status": "ok",
+   "ttft": 6.874,
+   "tokens": 17
+  },
+  {
+   "i": 187,
+   "user": 8,
+   "start": 134.923,
+   "total": 7.4,
+   "status": "ok",
+   "ttft": 6.475,
+   "tokens": 36
+  },
+  {
+   "i": 188,
+   "user": 3,
+   "start": 136.254,
+   "total": 6.694,
+   "status": "ok",
+   "ttft": 6.694,
+   "tokens": 17
+  },
+  {
+   "i": 189,
+   "user": 6,
+   "start": 136.903,
+   "total": 6.675,
+   "status": "ok",
+   "ttft": 6.675,
+   "tokens": 17
+  },
+  {
+   "i": 190,
+   "user": 0,
+   "start": 137.53,
+   "total": 6.676,
+   "status": "ok",
+   "ttft": 6.676,
+   "tokens": 17
+  },
+  {
+   "i": 191,
+   "user": 4,
+   "start": 138.51,
+   "total": 6.33,
+   "status": "ok",
+   "ttft": 6.33,
+   "tokens": 17
+  },
+  {
+   "i": 192,
+   "user": 2,
+   "start": 139.808,
+   "total": 5.665,
+   "status": "ok",
+   "ttft": 5.665,
+   "tokens": 17
+  },
+  {
+   "i": 193,
+   "user": 1,
+   "start": 140.453,
+   "total": 6.166,
+   "status": "ok",
+   "ttft": 5.241,
+   "tokens": 36
+  },
+  {
+   "i": 194,
+   "user": 7,
+   "start": 140.894,
+   "total": 6.675,
+   "status": "ok",
+   "ttft": 5.754,
+   "tokens": 36
+  },
+  {
+   "i": 195,
+   "user": 5,
+   "start": 141.546,
+   "total": 6.651,
+   "status": "ok",
+   "ttft": 6.651,
+   "tokens": 17
+  },
+  {
+   "i": 196,
+   "user": 9,
+   "start": 142.182,
+   "total": 6.976,
+   "status": "ok",
+   "ttft": 6.23,
+   "tokens": 29
+  },
+  {
+   "i": 197,
+   "user": 8,
+   "start": 143.324,
+   "total": 6.515,
+   "status": "ok",
+   "ttft": 6.515,
+   "tokens": 17
+  },
+  {
+   "i": 198,
+   "user": 3,
+   "start": 143.949,
+   "total": 6.85,
+   "status": "ok",
+   "ttft": 6.112,
+   "tokens": 29
+  },
+  {
+   "i": 199,
+   "user": 6,
+   "start": 144.58,
+   "total": 6.846,
+   "status": "ok",
+   "ttft": 6.846,
+   "tokens": 17
+  },
+  {
+   "i": 200,
+   "user": 0,
+   "start": 145.207,
+   "total": 7.593,
+   "status": "ok",
+   "ttft": 6.431,
+   "tokens": 45
+  },
+  {
+   "i": 201,
+   "user": 4,
+   "start": 145.841,
+   "total": 7.588,
+   "status": "ok",
+   "ttft": 7.587,
+   "tokens": 17
+  },
+  {
+   "i": 202,
+   "user": 2,
+   "start": 146.475,
+   "total": 7.881,
+   "status": "ok",
+   "ttft": 7.165,
+   "tokens": 28
+  },
+  {
+   "i": 203,
+   "user": 1,
+   "start": 147.62,
+   "total": 7.368,
+   "status": "ok",
+   "ttft": 7.368,
+   "tokens": 17
+  },
+  {
+   "i": 204,
+   "user": 7,
+   "start": 148.57,
+   "total": 6.867,
+   "status": "ok",
+   "ttft": 6.867,
+   "tokens": 17
+  },
+  {
+   "i": 205,
+   "user": 5,
+   "start": 149.199,
+   "total": 6.883,
+   "status": "ok",
+   "ttft": 6.881,
+   "tokens": 17
+  },
+  {
+   "i": 206,
+   "user": 9,
+   "start": 150.16,
+   "total": 6.566,
+   "status": "ok",
+   "ttft": 6.566,
+   "tokens": 17
+  },
+  {
+   "i": 207,
+   "user": 8,
+   "start": 150.84,
+   "total": 6.847,
+   "status": "ok",
+   "ttft": 6.105,
+   "tokens": 29
+  },
+  {
+   "i": 208,
+   "user": 3,
+   "start": 151.799,
+   "total": 6.527,
+   "status": "ok",
+   "ttft": 6.526,
+   "tokens": 17
+  },
+  {
+   "i": 209,
+   "user": 6,
+   "start": 152.428,
+   "total": 7.046,
+   "status": "ok",
+   "ttft": 6.124,
+   "tokens": 36
+  },
+  {
+   "i": 210,
+   "user": 0,
+   "start": 153.801,
+   "total": 6.341,
+   "status": "ok",
+   "ttft": 6.341,
+   "tokens": 17
+  },
+  {
+   "i": 211,
+   "user": 4,
+   "start": 154.429,
+   "total": 6.377,
+   "status": "ok",
+   "ttft": 6.377,
+   "tokens": 17
+  },
+  {
+   "i": 212,
+   "user": 2,
+   "start": 155.357,
+   "total": 6.079,
+   "status": "ok",
+   "ttft": 6.079,
+   "tokens": 17
+  },
+  {
+   "i": 213,
+   "user": 1,
+   "start": 155.989,
+   "total": 6.424,
+   "status": "ok",
+   "ttft": 5.662,
+   "tokens": 29
+  },
+  {
+   "i": 214,
+   "user": 7,
+   "start": 156.438,
+   "total": 6.702,
+   "status": "ok",
+   "ttft": 6.006,
+   "tokens": 27
+  },
+  {
+   "i": 215,
+   "user": 5,
+   "start": 157.083,
+   "total": 7.208,
+   "status": "ok",
+   "ttft": 6.289,
+   "tokens": 36
+  },
+  {
+   "i": 216,
+   "user": 9,
+   "start": 157.726,
+   "total": 7.205,
+   "status": "ok",
+   "ttft": 7.204,
+   "tokens": 17
+  },
+  {
+   "i": 217,
+   "user": 8,
+   "start": 158.688,
+   "total": 6.895,
+   "status": "ok",
+   "ttft": 6.894,
+   "tokens": 17
+  },
+  {
+   "i": 218,
+   "user": 3,
+   "start": 159.327,
+   "total": 6.891,
+   "status": "ok",
+   "ttft": 6.891,
+   "tokens": 17
+  },
+  {
+   "i": 219,
+   "user": 6,
+   "start": 160.476,
+   "total": 6.387,
+   "status": "ok",
+   "ttft": 6.387,
+   "tokens": 17
+  },
+  {
+   "i": 220,
+   "user": 0,
+   "start": 161.143,
+   "total": 6.616,
+   "status": "ok",
+   "ttft": 5.93,
+   "tokens": 27
+  },
+  {
+   "i": 221,
+   "user": 4,
+   "start": 161.807,
+   "total": 7.112,
+   "status": "ok",
+   "ttft": 6.162,
+   "tokens": 36
+  },
+  {
+   "i": 222,
+   "user": 2,
+   "start": 162.437,
+   "total": 7.113,
+   "status": "ok",
+   "ttft": 7.112,
+   "tokens": 17
+  },
+  {
+   "i": 223,
+   "user": 1,
+   "start": 163.415,
+   "total": 6.779,
+   "status": "ok",
+   "ttft": 6.779,
+   "tokens": 17
+  },
+  {
+   "i": 224,
+   "user": 7,
+   "start": 164.141,
+   "total": 6.554,
+   "status": "ok",
+   "ttft": 6.552,
+   "tokens": 17
+  },
+  {
+   "i": 225,
+   "user": 5,
+   "start": 165.291,
+   "total": 6.058,
+   "status": "ok",
+   "ttft": 6.058,
+   "tokens": 17
+  },
+  {
+   "i": 226,
+   "user": 9,
+   "start": 165.933,
+   "total": 6.057,
+   "status": "ok",
+   "ttft": 6.057,
+   "tokens": 17
+  },
+  {
+   "i": 227,
+   "user": 8,
+   "start": 166.585,
+   "total": 6.048,
+   "status": "ok",
+   "ttft": 6.047,
+   "tokens": 17
+  },
+  {
+   "i": 228,
+   "user": 3,
+   "start": 167.219,
+   "total": 6.042,
+   "status": "ok",
+   "ttft": 6.042,
+   "tokens": 17
+  },
+  {
+   "i": 229,
+   "user": 6,
+   "start": 167.865,
+   "total": 6.35,
+   "status": "ok",
+   "ttft": 5.61,
+   "tokens": 29
+  },
+  {
+   "i": 230,
+   "user": 0,
+   "start": 168.76,
+   "total": 6.098,
+   "status": "ok",
+   "ttft": 6.098,
+   "tokens": 17
+  },
+  {
+   "i": 231,
+   "user": 4,
+   "start": 169.92,
+   "total": 5.573,
+   "status": "ok",
+   "ttft": 5.573,
+   "tokens": 17
+  },
+  {
+   "i": 232,
+   "user": 2,
+   "start": 170.55,
+   "total": 5.58,
+   "status": "ok",
+   "ttft": 5.579,
+   "tokens": 17
+  },
+  {
+   "i": 233,
+   "user": 1,
+   "start": 171.196,
+   "total": 5.588,
+   "status": "ok",
+   "ttft": 5.587,
+   "tokens": 17
+  },
+  {
+   "i": 234,
+   "user": 7,
+   "start": 171.698,
+   "total": 5.539,
+   "status": "ok",
+   "ttft": 5.539,
+   "tokens": 17
+  },
+  {
+   "i": 235,
+   "user": 5,
+   "start": 172.351,
+   "total": 5.865,
+   "status": "ok",
+   "ttft": 5.103,
+   "tokens": 29
+  },
+  {
+   "i": 236,
+   "user": 9,
+   "start": 172.992,
+   "total": 6.419,
+   "status": "ok",
+   "ttft": 5.44,
+   "tokens": 37
+  },
+  {
+   "i": 237,
+   "user": 8,
+   "start": 173.633,
+   "total": 6.435,
+   "status": "ok",
+   "ttft": 6.435,
+   "tokens": 17
+  },
+  {
+   "i": 238,
+   "user": 3,
+   "start": 174.262,
+   "total": 6.848,
+   "status": "ok",
+   "ttft": 6.025,
+   "tokens": 31
+  },
+  {
+   "i": 239,
+   "user": 6,
+   "start": 175.215,
+   "total": 6.537,
+   "status": "ok",
+   "ttft": 6.536,
+   "tokens": 17
+  },
+  {
+   "i": 240,
+   "user": 0,
+   "start": 175.859,
+   "total": 6.55,
+   "status": "ok",
+   "ttft": 6.55,
+   "tokens": 17
+  },
+  {
+   "i": 241,
+   "user": 4,
+   "start": 176.494,
+   "total": 6.894,
+   "status": "ok",
+   "ttft": 6.134,
+   "tokens": 29
+  },
+  {
+   "i": 242,
+   "user": 2,
+   "start": 177.132,
+   "total": 7.434,
+   "status": "ok",
+   "ttft": 6.48,
+   "tokens": 37
+  },
+  {
+   "i": 243,
+   "user": 1,
+   "start": 177.784,
+   "total": 7.409,
+   "status": "ok",
+   "ttft": 7.409,
+   "tokens": 17
+  },
+  {
+   "i": 244,
+   "user": 7,
+   "start": 178.238,
+   "total": 7.419,
+   "status": "ok",
+   "ttft": 7.418,
+   "tokens": 17
+  },
+  {
+   "i": 245,
+   "user": 5,
+   "start": 179.217,
+   "total": 7.09,
+   "status": "ok",
+   "ttft": 7.09,
+   "tokens": 17
+  },
+  {
+   "i": 246,
+   "user": 9,
+   "start": 180.411,
+   "total": 6.541,
+   "status": "ok",
+   "ttft": 6.541,
+   "tokens": 17
+  },
+  {
+   "i": 247,
+   "user": 8,
+   "start": 181.07,
+   "total": 7.22,
+   "status": "ok",
+   "ttft": 6.104,
+   "tokens": 43
+  },
+  {
+   "i": 248,
+   "user": 3,
+   "start": 182.111,
+   "total": 6.824,
+   "status": "ok",
+   "ttft": 6.824,
+   "tokens": 17
+  },
+  {
+   "i": 249,
+   "user": 6,
+   "start": 182.754,
+   "total": 6.832,
+   "status": "ok",
+   "ttft": 6.831,
+   "tokens": 17
+  },
+  {
+   "i": 250,
+   "user": 0,
+   "start": 183.409,
+   "total": 6.822,
+   "status": "ok",
+   "ttft": 6.822,
+   "tokens": 17
+  },
+  {
+   "i": 251,
+   "user": 4,
+   "start": 184.389,
+   "total": 6.498,
+   "status": "ok",
+   "ttft": 6.498,
+   "tokens": 17
+  },
+  {
+   "i": 252,
+   "user": 2,
+   "start": 185.568,
+   "total": 5.948,
+   "status": "ok",
+   "ttft": 5.948,
+   "tokens": 17
+  },
+  {
+   "i": 253,
+   "user": 1,
+   "start": 186.195,
+   "total": 6.465,
+   "status": "ok",
+   "ttft": 5.534,
+   "tokens": 36
+  },
+  {
+   "i": 254,
+   "user": 7,
+   "start": 186.66,
+   "total": 6.949,
+   "status": "ok",
+   "ttft": 6.031,
+   "tokens": 36
+  },
+  {
+   "i": 255,
+   "user": 5,
+   "start": 187.307,
+   "total": 6.958,
+   "status": "ok",
+   "ttft": 6.958,
+   "tokens": 17
+  },
+  {
+   "i": 256,
+   "user": 9,
+   "start": 187.954,
+   "total": 7.302,
+   "status": "ok",
+   "ttft": 6.527,
+   "tokens": 30
+  },
+  {
+   "i": 257,
+   "user": 8,
+   "start": 189.291,
+   "total": 6.599,
+   "status": "ok",
+   "ttft": 6.599,
+   "tokens": 17
+  },
+  {
+   "i": 258,
+   "user": 3,
+   "start": 189.936,
+   "total": 6.936,
+   "status": "ok",
+   "ttft": 6.164,
+   "tokens": 30
+  },
+  {
+   "i": 259,
+   "user": 6,
+   "start": 190.586,
+   "total": 6.957,
+   "status": "ok",
+   "ttft": 6.957,
+   "tokens": 17
+  },
+  {
+   "i": 260,
+   "user": 0,
+   "start": 191.233,
+   "total": 7.47,
+   "status": "ok",
+   "ttft": 6.525,
+   "tokens": 36
+  },
+  {
+   "i": 261,
+   "user": 4,
+   "start": 191.888,
+   "total": 7.47,
+   "status": "ok",
+   "ttft": 7.47,
+   "tokens": 17
+  },
+  {
+   "i": 262,
+   "user": 2,
+   "start": 192.516,
+   "total": 7.76,
+   "status": "ok",
+   "ttft": 7.064,
+   "tokens": 27
+  },
+  {
+   "i": 263,
+   "user": 1,
+   "start": 193.662,
+   "total": 7.248,
+   "status": "ok",
+   "ttft": 7.248,
+   "tokens": 17
+  },
+  {
+   "i": 264,
+   "user": 7,
+   "start": 194.609,
+   "total": 6.755,
+   "status": "ok",
+   "ttft": 6.755,
+   "tokens": 17
+  },
+  {
+   "i": 265,
+   "user": 5,
+   "start": 195.266,
+   "total": 6.759,
+   "status": "ok",
+   "ttft": 6.759,
+   "tokens": 17
+  },
+  {
+   "i": 266,
+   "user": 9,
+   "start": 196.256,
+   "total": 6.402,
+   "status": "ok",
+   "ttft": 6.402,
+   "tokens": 17
+  },
+  {
+   "i": 267,
+   "user": 8,
+   "start": 196.891,
+   "total": 6.745,
+   "status": "ok",
+   "ttft": 5.982,
+   "tokens": 30
+  },
+  {
+   "i": 268,
+   "user": 3,
+   "start": 197.872,
+   "total": 6.4,
+   "status": "ok",
+   "ttft": 6.4,
+   "tokens": 17
+  },
+  {
+   "i": 269,
+   "user": 6,
+   "start": 198.544,
+   "total": 7.114,
+   "status": "ok",
+   "ttft": 5.944,
+   "tokens": 45
+  },
+  {
+   "i": 270,
+   "user": 0,
+   "start": 199.704,
+   "total": 6.6,
+   "status": "ok",
+   "ttft": 6.6,
+   "tokens": 17
+  },
+  {
+   "i": 271,
+   "user": 4,
+   "start": 200.358,
+   "total": 6.595,
+   "status": "ok",
+   "ttft": 6.595,
+   "tokens": 17
+  },
+  {
+   "i": 272,
+   "user": 2,
+   "start": 201.276,
+   "total": 6.321,
+   "status": "ok",
+   "ttft": 6.321,
+   "tokens": 17
+  },
+  {
+   "i": 273,
+   "user": 1,
+   "start": 201.911,
+   "total": 6.67,
+   "status": "ok",
+   "ttft": 5.936,
+   "tokens": 29
+  },
+  {
+   "i": 274,
+   "user": 7,
+   "start": 202.365,
+   "total": 6.815,
+   "status": "ok",
+   "ttft": 6.246,
+   "tokens": 23
+  },
+  {
+   "i": 275,
+   "user": 5,
+   "start": 203.026,
+   "total": 7.168,
+   "status": "ok",
+   "ttft": 6.378,
+   "tokens": 31
+  },
+  {
+   "i": 276,
+   "user": 9,
+   "start": 203.659,
+   "total": 7.177,
+   "status": "ok",
+   "ttft": 7.177,
+   "tokens": 17
+  },
+  {
+   "i": 277,
+   "user": 8,
+   "start": 204.637,
+   "total": 6.839,
+   "status": "ok",
+   "ttft": 6.839,
+   "tokens": 17
+  },
+  {
+   "i": 278,
+   "user": 3,
+   "start": 205.273,
+   "total": 6.838,
+   "status": "ok",
+   "ttft": 6.838,
+   "tokens": 17
+  },
+  {
+   "i": 279,
+   "user": 6,
+   "start": 206.66,
+   "total": 6.105,
+   "status": "ok",
+   "ttft": 6.105,
+   "tokens": 17
+  },
+  {
+   "i": 280,
+   "user": 0,
+   "start": 207.304,
+   "total": 6.441,
+   "status": "ok",
+   "ttft": 5.683,
+   "tokens": 29
+  },
+  {
+   "i": 281,
+   "user": 4,
+   "start": 207.953,
+   "total": 6.946,
+   "status": "ok",
+   "ttft": 6.013,
+   "tokens": 36
+  },
+  {
+   "i": 282,
+   "user": 2,
+   "start": 208.598,
+   "total": 6.945,
+   "status": "ok",
+   "ttft": 6.945,
+   "tokens": 17
+  },
+  {
+   "i": 283,
+   "user": 1,
+   "start": 209.583,
+   "total": 6.603,
+   "status": "ok",
+   "ttft": 6.602,
+   "tokens": 17
+  },
+  {
+   "i": 284,
+   "user": 7,
+   "start": 210.181,
+   "total": 6.471,
+   "status": "ok",
+   "ttft": 6.47,
+   "tokens": 17
+  },
+  {
+   "i": 285,
+   "user": 5,
+   "start": 211.195,
+   "total": 6.09,
+   "status": "ok",
+   "ttft": 6.09,
+   "tokens": 17
+  },
+  {
+   "i": 286,
+   "user": 9,
+   "start": 211.836,
+   "total": 6.074,
+   "status": "ok",
+   "ttft": 6.074,
+   "tokens": 17
+  },
+  {
+   "i": 287,
+   "user": 8,
+   "start": 212.477,
+   "total": 6.085,
+   "status": "ok",
+   "ttft": 6.084,
+   "tokens": 17
+  },
+  {
+   "i": 288,
+   "user": 3,
+   "start": 213.112,
+   "total": 6.097,
+   "status": "ok",
+   "ttft": 6.097,
+   "tokens": 17
+  },
+  {
+   "i": 289,
+   "user": 6,
+   "start": 213.766,
+   "total": 6.437,
+   "status": "ok",
+   "ttft": 5.657,
+   "tokens": 30
+  },
+  {
+   "i": 290,
+   "user": 0,
+   "start": 214.746,
+   "total": 6.12,
+   "status": "ok",
+   "ttft": 6.12,
+   "tokens": 17
+  },
+  {
+   "i": 291,
+   "user": 4,
+   "start": 215.901,
+   "total": 5.61,
+   "status": "ok",
+   "ttft": 5.61,
+   "tokens": 17
+  },
+  {
+   "i": 292,
+   "user": 2,
+   "start": 216.545,
+   "total": 5.614,
+   "status": "ok",
+   "ttft": 5.614,
+   "tokens": 17
+  },
+  {
+   "i": 293,
+   "user": 1,
+   "start": 217.188,
+   "total": 5.611,
+   "status": "ok",
+   "ttft": 5.611,
+   "tokens": 17
+  },
+  {
+   "i": 294,
+   "user": 7,
+   "start": 217.652,
+   "total": 5.597,
+   "status": "ok",
+   "ttft": 5.597,
+   "tokens": 17
+  },
+  {
+   "i": 295,
+   "user": 5,
+   "start": 218.285,
+   "total": 5.93,
+   "status": "ok",
+   "ttft": 5.168,
+   "tokens": 30
+  },
+  {
+   "i": 296,
+   "user": 9,
+   "start": 218.911,
+   "total": 6.464,
+   "status": "ok",
+   "ttft": 5.523,
+   "tokens": 35
+  },
+  {
+   "i": 297,
+   "user": 8,
+   "start": 219.562,
+   "total": 6.445,
+   "status": "ok",
+   "ttft": 6.445,
+   "tokens": 17
+  },
+  {
+   "i": 298,
+   "user": 3,
+   "start": 220.21,
+   "total": 6.952,
+   "status": "ok",
+   "ttft": 6.014,
+   "tokens": 37
+  },
+  {
+   "i": 299,
+   "user": 6,
+   "start": 221.203,
+   "total": 6.611,
+   "status": "ok",
+   "ttft": 6.611,
+   "tokens": 17
+  },
+  {
+   "i": 300,
+   "user": 0,
+   "start": 221.867,
+   "total": 6.626,
+   "status": "ok",
+   "ttft": 6.626,
+   "tokens": 17
+  },
+  {
+   "i": 301,
+   "user": 4,
+   "start": 222.512,
+   "total": 6.933,
+   "status": "ok",
+   "ttft": 6.2,
+   "tokens": 29
+  },
+  {
+   "i": 302,
+   "user": 2,
+   "start": 223.16,
+   "total": 7.597,
+   "status": "ok",
+   "ttft": 6.494,
+   "tokens": 43
+  },
+  {
+   "i": 303,
+   "user": 1,
+   "start": 223.801,
+   "total": 7.597,
+   "status": "ok",
+   "ttft": 7.597,
+   "tokens": 17
+  },
+  {
+   "i": 304,
+   "user": 7,
+   "start": 224.25,
+   "total": 7.602,
+   "status": "ok",
+   "ttft": 7.602,
+   "tokens": 17
+  },
+  {
+   "i": 305,
+   "user": 5,
+   "start": 225.216,
+   "total": 7.278,
+   "status": "ok",
+   "ttft": 7.278,
+   "tokens": 17
+  },
+  {
+   "i": 306,
+   "user": 9,
+   "start": 226.376,
+   "total": 6.75,
+   "status": "ok",
+   "ttft": 6.75,
+   "tokens": 17
+  },
+  {
+   "i": 307,
+   "user": 8,
+   "start": 227.008,
+   "total": 7.273,
+   "status": "ok",
+   "ttft": 6.33,
+   "tokens": 36
+  },
+  {
+   "i": 308,
+   "user": 3,
+   "start": 228.164,
+   "total": 6.757,
+   "status": "ok",
+   "ttft": 6.757,
+   "tokens": 17
+  },
+  {
+   "i": 309,
+   "user": 6,
+   "start": 228.815,
+   "total": 6.747,
+   "status": "ok",
+   "ttft": 6.747,
+   "tokens": 17
+  },
+  {
+   "i": 310,
+   "user": 0,
+   "start": 229.493,
+   "total": 6.706,
+   "status": "ok",
+   "ttft": 6.706,
+   "tokens": 17
+  },
+  {
+   "i": 311,
+   "user": 4,
+   "start": 230.447,
+   "total": 6.414,
+   "status": "ok",
+   "ttft": 6.413,
+   "tokens": 17
+  },
+  {
+   "i": 312,
+   "user": 2,
+   "start": 231.757,
+   "total": 5.784,
+   "status": "ok",
+   "ttft": 5.784,
+   "tokens": 17
+  },
+  {
+   "i": 313,
+   "user": 1,
+   "start": 232.4,
+   "total": 6.473,
+   "status": "ok",
+   "ttft": 5.36,
+   "tokens": 43
+  },
+  {
+   "i": 314,
+   "user": 7,
+   "start": 232.853,
+   "total": 7.131,
+   "status": "ok",
+   "ttft": 6.05,
+   "tokens": 42
+  },
+  {
+   "i": 315,
+   "user": 5,
+   "start": 233.494,
+   "total": 7.121,
+   "status": "ok",
+   "ttft": 7.121,
+   "tokens": 17
+  },
+  {
+   "i": 316,
+   "user": 9,
+   "start": 234.128,
+   "total": 7.56,
+   "status": "ok",
+   "ttft": 6.701,
+   "tokens": 33
+  },
+  {
+   "i": 317,
+   "user": 8,
+   "start": 235.283,
+   "total": 7.032,
+   "status": "ok",
+   "ttft": 7.031,
+   "tokens": 17
+  },
+  {
+   "i": 318,
+   "user": 3,
+   "start": 235.922,
+   "total": 7.33,
+   "status": "ok",
+   "ttft": 6.605,
+   "tokens": 28
+  },
+  {
+   "i": 319,
+   "user": 6,
+   "start": 236.563,
+   "total": 7.363,
+   "status": "ok",
+   "ttft": 7.362,
+   "tokens": 17
+  },
+  {
+   "i": 320,
+   "user": 0,
+   "start": 237.2,
+   "total": 7.762,
+   "status": "ok",
+   "ttft": 6.96,
+   "tokens": 31
+  },
+  {
+   "i": 321,
+   "user": 4,
+   "start": 237.862,
+   "total": 7.769,
+   "status": "ok",
+   "ttft": 7.769,
+   "tokens": 17
+  },
+  {
+   "i": 322,
+   "user": 2,
+   "start": 238.542,
+   "total": 8.019,
+   "status": "ok",
+   "ttft": 7.305,
+   "tokens": 28
+  },
+  {
+   "i": 323,
+   "user": 1,
+   "start": 239.874,
+   "total": 7.334,
+   "status": "ok",
+   "ttft": 7.333,
+   "tokens": 17
+  }
+ ]
+}

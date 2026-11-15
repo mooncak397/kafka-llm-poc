@@ -1,0 +1,20 @@
+{
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "stream": true,
+  "options": {
+    "num_ctx": 4096,
+    "num_predict": 600,
+    "temperature": 0.6
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Answer in one short sentence. Think as little as possible: do not plan or draft. If a tool fits, call it at once with no other text."
+    },
+    {
+      "role": "user",
+      "content": "QUESTION"
+    }
+  ],
+  "tools": "TOOLS_FROM_MCP"
+}

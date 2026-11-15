@@ -1,0 +1,90 @@
+# S17: mcp-confluent v1.6.1, Kafka only, read-only tools (plan A9, A10). Layer 1 of the three read-only layers.
+# Runs in ns kafka so it can read the Secret `mcp-reader` directly (no copy of the password). Password goes in as an
+# env var from the Secret and is interpolated into the config at start: it is never in git, a ConfigMap or a log.
+# Secret `mcp-api-key` (HTTP header cflt-mcp-api-key) is made by `make mcp-deploy` if missing, never printed.
+# Transport: streamable HTTP on :8080 path /mcp (the server also has stdio and sse).
+# Placeholders __MCP_READ_ONLY__ and __MCP_EXTRA__ are filled by the Makefile: never `kubectl apply` this file by hand.
+# Image is built by `make mcp-deploy` (podman) and loaded into kind (no registry). Bump the tag with mcp/ changes.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mcp-confluent-config
+  namespace: kafka
+data:
+  config.yaml: |
+    server:
+      transports: [http]
+      log_level: info
+      do_not_track: true          # no usage analytics and no Sentry
+      http:
+        port: 8080
+        host: "0.0.0.0"
+      auth:
+        api_key: "${MCP_API_KEY}"
+        allowed_hosts: [localhost, "127.0.0.1", mcp-confluent, mcp-confluent.kafka, mcp-confluent.kafka.svc, mcp-confluent.kafka.svc.cluster.local]
+    connections:
+      poc:
+        type: direct
+        description: "PoC Kafka, read-only"
+        read_only: __MCP_READ_ONLY__  # extra: the server drops every tool that writes. "true" always, except `make unsafe-demo` (sed)
+        kafka:                    # no schema_registry, confluent_cloud, flink, tableflow or telemetry block
+          bootstrap_servers: "poc-kafka-bootstrap.kafka:9092"
+          auth:
+            type: api_key         # becomes sasl.username / sasl.password
+            key: mcp-reader
+            secret: "${KAFKA_PASSWORD}"
+          extra_properties:       # defaults are sasl_ssl + PLAIN; our internal listener has no TLS
+            security.protocol: SASL_PLAINTEXT
+            sasl.mechanisms: SCRAM-SHA-512
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcp-confluent
+  namespace: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: mcp-confluent}
+  template:
+    metadata:
+      labels: {app: mcp-confluent}
+    spec:
+      containers:
+        - name: mcp-confluent
+          image: localhost/mcp-confluent:1.6.1
+          imagePullPolicy: IfNotPresent
+          args:
+            - --config=/config/config.yaml
+            # A10: exactly these six. NOT consume-messages (message content stays out of the LLM context).
+            - --allow-tools=list-topics,get-topic-config,list-consumer-groups,describe-consumer-group,get-consumer-group-lag,get-partition-offsets__MCP_EXTRA__
+            # __MCP_EXTRA__ is empty (safe) or ",delete-topics" (`make unsafe-demo`, negative test only). Applied by sed in the Makefile.
+          env:
+            - {name: NODE_OPTIONS, value: "--max-old-space-size=160"}
+            - {name: DO_NOT_TRACK, value: "true"}
+            - name: KAFKA_PASSWORD
+              valueFrom: {secretKeyRef: {name: mcp-reader, key: password}}
+            - name: MCP_API_KEY
+              valueFrom: {secretKeyRef: {name: mcp-api-key, key: key}}
+          ports:
+            - {name: http, containerPort: 8080}
+          readinessProbe:
+            tcpSocket: {port: http}
+          volumeMounts:
+            - {name: config, mountPath: /config, readOnly: true}
+          resources:
+            requests: {memory: 128Mi, cpu: 20m}
+            limits: {memory: 256Mi}
+      volumes:
+        - name: config
+          configMap: {name: mcp-confluent-config}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mcp-confluent
+  namespace: kafka
+spec:
+  selector: {app: mcp-confluent}
+  ports:
+    - {name: http, port: 8080, targetPort: http}

@@ -1,0 +1,25 @@
+vram_before_MiB 2045 avail_MB 4530
+q01 tool=ok args=ok answer=NO  26.5s tools=list-topics err=empty answer (model hit the token cap while thinking)
+q02 tool=ok args=ok answer=ok  12.6s tools=list-consumer-groups err=-
+q03 tool=ok args=ok answer=ok   8.4s tools=list-topics err=-
+q04 tool=ok args=ok answer=ok  29.8s tools=get-consumer-group-lag err=-
+q05 tool=ok args=ok answer=ok  18.2s tools=get-consumer-group-lag err=-
+q06 tool=ok args=ok answer=ok  10.7s tools=describe-consumer-group err=-
+q07 tool=ok args=ok answer=ok  14.0s tools=get-partition-offsets err=-
+q08 tool=NO args=NO answer=NO  16.9s tools=- err=empty answer (model hit the token cap while thinking)
+q09 tool=NO args=NO answer=NO  16.6s tools=- err=empty answer (model hit the token cap while thinking)
+q10 tool=NO args=NO answer=NO  16.7s tools=- err=empty answer (model hit the token cap while thinking)
+q11 tool=ok args=ok answer=NO  16.7s tools=- err=empty answer (model hit the token cap while thinking)
+q12 tool=ok args=ok answer=NO   8.1s tools=- err=-
+
+model qwen3:4b | n = 12
+tool correct   9/12
+args correct   9/12
+answer correct 6/12
+empty answers  5
+errors         0 (+5 empty)
+seconds/answer median 16.6  max 29.8
+wrote loadtest/results/score-qwen3-4b-20261115-145752.json
+vram_after_MiB 5071 avail_MB 4071
+NAME        ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL               
+qwen3:4b    359d7dd4bcda    3.2 GB    100% GPU     4096       llamacpp    29 minutes from now    

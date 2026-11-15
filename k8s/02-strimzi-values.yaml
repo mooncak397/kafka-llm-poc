@@ -1,0 +1,7 @@
+# Helm values for the Strimzi operator. Chart version is pinned in the Makefile (STRIMZI_VERSION=1.3.1).
+# Chart: oci://quay.io/strimzi-helm/strimzi-kafka-operator (Apache-2.0, see NOTICE).
+defaultImageTag: 1.3.1        # pins the operator image and the default Kafka-side images
+watchNamespaces: [kafka]      # operator in "strimzi" watches only "kafka"
+resources:                    # RAM is tight: hard cap, same value for request and limit
+  requests: {cpu: 200m, memory: 384Mi}
+  limits:   {cpu: 1000m, memory: 384Mi}

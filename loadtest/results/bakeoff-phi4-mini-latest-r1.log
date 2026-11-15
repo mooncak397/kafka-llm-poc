@@ -1,0 +1,25 @@
+vram_before_MiB 2026 avail_MB 4624
+q01 tool=NO args=NO answer=NO   6.9s tools=- err=-
+q02 tool=NO args=NO answer=NO   0.5s tools=- err=-
+q03 tool=NO args=NO answer=NO   1.3s tools=- err=-
+q04 tool=NO args=NO answer=NO   4.9s tools=- err=-
+q05 tool=NO args=NO answer=NO   1.2s tools=- err=-
+q06 tool=NO args=NO answer=ok   1.0s tools=- err=-
+q07 tool=NO args=NO answer=NO   1.0s tools=- err=-
+q08 tool=NO args=NO answer=NO   2.3s tools=- err=-
+q09 tool=NO args=NO answer=NO   3.5s tools=- err=-
+q10 tool=NO args=NO answer=NO   1.2s tools=- err=-
+q11 tool=ok args=ok answer=NO   1.5s tools=- err=-
+q12 tool=ok args=ok answer=NO   2.5s tools=- err=-
+
+model phi4-mini:latest | n = 12
+tool correct   2/12
+args correct   2/12
+answer correct 1/12
+empty answers  0
+errors         0 (+0 empty)
+seconds/answer median 1.4  max 6.9
+wrote loadtest/results/score-phi4-mini-latest-20261115-152632.json
+vram_after_MiB 5001 avail_MB 3940
+NAME                ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL               
+phi4-mini:latest    78fad5d182a7    3.1 GB    100% GPU     4096       llamacpp    29 minutes from now    

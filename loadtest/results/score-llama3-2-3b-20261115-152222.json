@@ -1,0 +1,249 @@
+{
+ "model": "llama3.2:3b",
+ "date": "2026-11-15T15:22:22",
+ "summary": {
+  "n": 12,
+  "tool_correct": 9,
+  "args_correct": 7,
+  "answer_correct": 5,
+  "empty": 0,
+  "errors": 0,
+  "errors_total": 0,
+  "median_s": 3.4,
+  "max_s": 7.3
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 7.3,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "{\"name\": \"kafka-topics\", \"parameters\": {\"topics\": \"['bikes.orders', 'bikes.payments', 'bikes.sensor-events', '__consumer_offsets']\"}}"
+  },
+  {
+   "id": "q02",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 4.2,
+   "tools": [
+    "list-consumer-groups"
+   ],
+   "args": [
+    {
+     "matchType": "Consumer",
+     "matchStates": [
+      "Unknown",
+      "PreparingRebalance",
+      "CompletingRebalance",
+      "Stable",
+      "Dead",
+      "Empty"
+     ]
+    }
+   ],
+   "answer": "Consumer groups are used to manage tasks in a distributed manner, and they can be created, deleted, and managed using the `consumer_groups` command."
+  },
+  {
+   "id": "q03",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.7,
+   "tools": [],
+   "args": [],
+   "answer": "{\"name\":\"list-topics\",\"parameters\":{\"}}"
+  },
+  {
+   "id": "q04",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.9,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" has 19540 messages of lag across 3 topics."
+  },
+  {
+   "id": "q05",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.8,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "The current lag for the consumer group \"orders-fast\" is 3 messages across 3 topics."
+  },
+  {
+   "id": "q06",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.5,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "{\"name\": \"consumer-group-description\", \"parameters\": {\"groupId\":\"orders-slow\"}}"
+  },
+  {
+   "id": "q07",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 4.2,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "Partition offsets for \"bikes.orders\" (1 partition(s)): \n- Partition 0: Low watermark = 0, High watermark = 7030, Message count = 7030"
+  },
+  {
+   "id": "q08",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.4,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast",
+     "topics": [
+      "*"
+     ]
+    },
+    {
+     "groupId": "orders-slow",
+     "topics": [
+      "*"
+     ]
+    }
+   ],
+   "answer": "orders-fast is further behind."
+  },
+  {
+   "id": "q09",
+   "tool_ok": true,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.4,
+   "tools": [
+    "list-consumer-groups",
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "matchStates": null,
+     "matchType": null
+    },
+    {
+     "groupId": "slow"
+    }
+   ],
+   "answer": "Consumer group \"slow\" not found on this cluster."
+  },
+  {
+   "id": "q10",
+   "tool_ok": true,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.8,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "topics": [
+      "orders-fast"
+     ],
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "No, 0, 0"
+  },
+  {
+   "id": "q11",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 3.3,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "The users who can read the topic `bikes.orders` are Kafka topic subscribers and consumers."
+  },
+  {
+   "id": "q12",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 5.3,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "The retention time for the topic \"bikes.orders\" can be estimated based on the partition offset. Assuming a 7-day retention policy, the partition with the earliest offset (partition 0) is considered for retention. The earliest offset is 0, which means that all messages in partition 0 are still retained. Therefore, the retention time for the topic \"bikes.orders\" is at least 7 days."
+  }
+ ]
+}

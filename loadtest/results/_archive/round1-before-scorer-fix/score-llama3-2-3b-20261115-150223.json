@@ -1,0 +1,245 @@
+{
+ "model": "llama3.2:3b",
+ "date": "2026-11-15T15:02:23",
+ "summary": {
+  "n": 12,
+  "tool_correct": 11,
+  "args_correct": 9,
+  "answer_correct": 6,
+  "empty": 0,
+  "errors": 0,
+  "errors_total": 0,
+  "median_s": 2.5,
+  "max_s": 7.7
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 7.7,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "{\"name\": \"kafka-topics\", \"parameters\": {\"topics\": \"['bikes.orders', 'bikes.payments', 'bikes.sensor-events', '__consumer_offsets']\"}}"
+  },
+  {
+   "id": "q02",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.5,
+   "tools": [
+    "list-consumer-groups"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "There are two consumer groups: orders-fast and orders-slow."
+  },
+  {
+   "id": "q03",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 1.8,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.payments"
+    }
+   ],
+   "answer": "{\"name\": \"bikes.payments\", \"parameters\": {}}"
+  },
+  {
+   "id": "q04",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.9,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" has 16051 messages of lag across 3 topics."
+  },
+  {
+   "id": "q05",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.7,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "The current lag of the consumer group \"orders-fast\" is 9 messages."
+  },
+  {
+   "id": "q06",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 3.8,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "Consumer group \"orders-slow\" with 0 member(s); coordinator poc-combined-0.poc-kafka-brokers.kafka.svc:9092"
+  },
+  {
+   "id": "q07",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.3,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "Partition offsets for \"bikes.orders\" (1 partition(s)):\nTopic: bikes.orders\nPartition 0: low=0, high=5841, messages=5841"
+  },
+  {
+   "id": "q08",
+   "tool_ok": true,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.4,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast",
+     "topics": [
+      "orders-slow"
+     ]
+    }
+   ],
+   "answer": "The \"orders-slow\" topic is not found on this cluster. I don't have information to compare the lag of the consumer groups orders-fast and orders-slow."
+  },
+  {
+   "id": "q09",
+   "tool_ok": true,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.2,
+   "tools": [
+    "list-consumer-groups",
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "matchType": "Consumer",
+     "matchStates": [
+      "Stable"
+     ]
+    },
+    {
+     "groupId": "slow"
+    }
+   ],
+   "answer": "Consumer group \"slow\" not found on this cluster."
+  },
+  {
+   "id": "q10",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.5,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow",
+     "topics": [
+      "orders-fast"
+     ]
+    },
+    {
+     "groupId": "orders-fast",
+     "topics": [
+      "orders-slow"
+     ]
+    }
+   ],
+   "answer": "No results found."
+  },
+  {
+   "id": "q11",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 2.6,
+   "tools": [
+    "list-topics",
+    "list-topics"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    },
+    {}
+   ],
+   "answer": "Users with \"bikes\" permission can read the topics \"bikes.orders\", \"bikes.payments\", and \"bikes.sensor-events\"."
+  },
+  {
+   "id": "q12",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": false,
+   "empty": false,
+   "error": null,
+   "seconds": 0.7,
+   "tools": [],
+   "args": [],
+   "answer": "{\"name\":\"list-topics\",\"parameters\":{\"}}"
+  }
+ ]
+}
