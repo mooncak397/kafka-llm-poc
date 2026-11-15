@@ -149,6 +149,10 @@ uv run --project loadtest python loadtest/load.py --mode raw --users 10 --durati
 
 Open Grafana with `make pf-grafana`. Dashboard notes and kiosk URLs are in `grafana/README.md`. Stop everything with `make stop`. `make leakscan` runs the secret and denylist scan.
 
+## How this was made
+
+I built this PoC with the help of AI coding assistants (Claude), and I reviewed and ran it myself. All numbers in this repository come from the runs described here.
+
 ## Licence
 
 MIT, see `LICENSE`. Third-party parts keep their own licences, see `NOTICE`. No endorsement by Apache Kafka, Strimzi, Confluent or any other project is implied.
