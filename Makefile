@@ -17,9 +17,16 @@ MCP_IMAGE = localhost/mcp-confluent:1.6.1  # keep in sync with k8s/11-mcp-conflu
 OLLAMA_MODEL = qwen3:4b-instruct-2507-q4_K_M
 # The agent backend and model, filled into k8s/12-agent.yaml by sed at deploy. Default = local Ollama.
 # Hosted Claude (needs `make anthropic-key` once): make agent-deploy AGENT_BACKEND=anthropic AGENT_MODEL=claude-sonnet-5-5
-# (or claude-haiku-5-5). Any later plain agent-deploy (up, down-unsafe) goes back to Ollama.
-AGENT_BACKEND = ollama
+# (or claude-haiku-5-5). A redeploy without these variables (agent-deploy, up, unsafe-demo, down-unsafe) keeps the deployed
+# backend and model; no deployment = Ollama. Back to local: make agent-deploy AGENT_BACKEND=ollama
+# Reads only the LLM_BACKEND and MODEL env values of deploy/agent (never the key). Recursive `=`, so kubectl runs only when used.
+DEPLOYED_ENV = $(K) -n llm get deploy agent -o jsonpath='{.spec.template.spec.containers[0].env[?(@.name=="$(1)")].value}' 2>/dev/null
+ifeq ($(origin AGENT_BACKEND),command line)
 AGENT_MODEL = $(OLLAMA_MODEL)
+else
+AGENT_BACKEND = $(or $(shell $(call DEPLOYED_ENV,LLM_BACKEND)),ollama)
+AGENT_MODEL = $(or $(shell $(call DEPLOYED_ENV,MODEL)),$(OLLAMA_MODEL))
+endif
 AGENT_EFFORT = medium
 AGENT_DAILY_MAX_USD = 5
 # Profile knobs. Defaults = SAFE profile (layer 1 on). Only `make unsafe-demo` overrides them, for the negative test (S21).

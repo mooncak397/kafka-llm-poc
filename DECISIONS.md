@@ -76,7 +76,7 @@ Rejected: a cache-hit-ratio metric and dashboard. At a few cents per run it woul
 
 ## 10. Same Deployment, backend switched by a Makefile variable
 
-Decision: `AGENT_BACKEND` and `AGENT_MODEL` in the `Makefile` are filled into `k8s/12-agent.yaml` at `make agent-deploy`. Any plain `agent-deploy` goes back to Ollama.
+Decision: `AGENT_BACKEND` and `AGENT_MODEL` in the `Makefile` are filled into `k8s/12-agent.yaml` at `make agent-deploy`. Without them on the command line, a redeploy keeps the backend and model of the deployed agent, so `unsafe-demo` and `down-unsafe` cannot switch a Claude run back to Ollama without anyone noticing. With no deployment, the default is Ollama.
 
 Reason: `score.py`, `load.py`, `make ask` and `check-profile.sh` all talk to `deploy/agent`, so they keep working with no change.
 

@@ -143,8 +143,10 @@ make anthropic-key   # asks for the key (input hidden), stores it as Secret anth
 make agent-deploy AGENT_BACKEND=anthropic AGENT_MODEL=claude-sonnet-5-5   # or claude-haiku-5-5
 make check
 make ask Q="Which topics exist?"
-make agent-deploy    # back to local Ollama
+make agent-deploy AGENT_BACKEND=ollama   # back to local Ollama
 ```
+
+A redeploy without `AGENT_BACKEND` (also `make up`, `unsafe-demo`, `down-unsafe`) keeps the backend and model that are deployed now.
 
 The key is never printed and never written to a file in the repository. The pod refuses to start on the Claude backend without it.
 
