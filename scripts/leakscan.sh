@@ -51,7 +51,7 @@ done
 me=$(git config user.email)
 case "$me" in *@users.noreply.github.com) ;; *) echo "git user.email is not a noreply address"; fail=1 ;; esac
 if git rev-parse --verify -q HEAD >/dev/null; then
-  git log --all --format='%ae%n%ce' | grep -vxF "$me" | grep -q . && { echo "COMMIT EMAIL differs from configured noreply"; fail=1; }
+  ./scripts/check-commit-emails.sh . || fail=1  # skips only the accepted full hashes listed in that script
 fi
 # LEAKSCAN_ALLOW_REMOTE=1 skips this rule (a fresh clone has origin; S51 adds the real remote). Env passes through make and the hook.
 [ -n "$(git remote)" ] && [ "${LEAKSCAN_ALLOW_REMOTE:-}" != 1 ] && { echo "REMOTE configured (the Owner adds it at S51; a clone or S52 runs LEAKSCAN_ALLOW_REMOTE=1 make leakscan)"; fail=1; }

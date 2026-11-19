@@ -105,3 +105,13 @@ Decision: a refusal (`stop_reason: refusal`) is recorded as its own outcome with
 Reason: a fallback model answering some questions would mix two models inside one scored run, the same problem as decision 4's rejected Haiku switch.
 
 Rejected: Anthropic's server-side fallback, which is the SDK guidance for Sonnet 5.5 in general but would make the per-model results ambiguous here.
+
+## 14. Accept merge commit 9d07d87 in leak scan rule 5
+
+Decision: the merge commit of PR #1 (`9d07d87016882fee2693f401725a4b0a6859cd82`, 2026-11-19) stays in the history. It was made on GitHub with the account's primary email as author, not the noreply address. `scripts/check-commit-emails.sh` skips exactly this full hash; every other commit must still use the configured noreply address for author and committer.
+
+Reason: the commit is already public on `main`. The owner accepted it on 2026-11-19, so rule 5 must not block every new commit because of it.
+
+Rejected: rewriting `main` with a force-push to replace the address. It cannot be undone, it breaks every existing clone, and copies of the old commit stay in caches and forks anyway.
+
+Follow-up: the owner turns on "Keep my email addresses private" and "Block command line pushes that expose my email" in the GitHub email settings, so later merges made on GitHub use the noreply address.

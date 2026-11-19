@@ -1,4 +1,4 @@
-.PHONY: mcp-deploy mcp-test ollama-start ollama-stop up stop reset status check leakscan hooks data-start data-stop pf-prometheus pf-grafana grafana proxy-deploy proxy-test agent-deploy agent-test anthropic-key unsafe-demo down-unsafe ask score-test load-test load-dryrun results
+.PHONY: mcp-deploy mcp-test ollama-start ollama-stop up stop reset status check leakscan hooks data-start data-stop pf-prometheus pf-grafana grafana proxy-deploy proxy-test agent-deploy agent-test anthropic-key unsafe-demo down-unsafe ask score-test load-test load-dryrun results leakscan-test
 # kind runs on rootless podman. Context name kind-kafka-poc holds no OS user name.
 export KIND_EXPERIMENTAL_PROVIDER = podman
 CLUSTER = kafka-poc
@@ -152,5 +152,7 @@ check:    ## each step adds its own line
 	@./scripts/check-profile.sh $(CTX)
 leakscan:
 	@./scripts/leakscan.sh
+leakscan-test: ## rule 5 skips only the accepted merge hash; a non-noreply commit in a throwaway repo still fails
+	@./scripts/test-commit-emails.sh
 hooks:    ## install the tracked pre-commit hook (runs leakscan) into .git/hooks
 	@install -m 755 scripts/pre-commit-hook.sh .git/hooks/pre-commit && echo "pre-commit hook installed"
