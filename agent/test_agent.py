@@ -290,3 +290,10 @@ def test_cost_edges():
     assert 0.1 < pricing.worst_case_question_usd(SONNET) < 0.2 and pricing.worst_case_question_usd(agent.MODEL) == 0.0
     assert pricing.CALLS_PER_QUESTION == agent.MAX_TOOL_TURNS + 1
     assert pricing.PRICE_SOURCE.startswith("https://") and pricing.PRICE_CHECKED
+
+
+async def test_cost_series_exist_at_start(aiohttp_client):
+    c = await aiohttp_client(agent.make_app())
+    text = await (await c.get("/metrics")).text()
+    assert f'agent_llm_cost_usd_total{{model="{agent.MODEL}"}} 0.0' in text
+    assert f'agent_llm_tokens_total{{kind="cache_read",model="{agent.MODEL}"}} 0.0' in text

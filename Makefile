@@ -11,7 +11,7 @@ K       = kubectl --context $(CTX)
 OLLAMA_URL = http://10.89.1.1:11435
 OLLAMA_UNIT = ollama-poc.service
 PROXY_IMAGE = localhost/llm-proxy:0.2.0  # keep in sync with k8s/10-llm-proxy.yaml
-AGENT_IMAGE = localhost/kafka-agent:0.1.4  # keep in sync with k8s/12-agent.yaml
+AGENT_IMAGE = localhost/kafka-agent:0.1.5  # keep in sync with k8s/12-agent.yaml
 MCP_IMAGE = localhost/mcp-confluent:1.6.1  # keep in sync with k8s/11-mcp-confluent.yaml
 # The local model: ONE place. check-ollama.sh and the raw load mode use it (S20 recommendation).
 OLLAMA_MODEL = qwen3:4b-instruct-2507-q4_K_M

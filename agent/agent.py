@@ -290,6 +290,11 @@ async def healthz(request): return web.Response(text="ok")
 
 def make_app() -> web.Application:
     app = web.Application()
+    # Export this model's cost series at 0 from pod start, so increase() in Grafana also counts the first question after a restart.
+    for k in USAGE_KINDS:
+        LLM_TOKENS.labels(MODEL, k)
+    LLM_COST.labels(MODEL)
+    QUESTION_COST.labels(MODEL)
     if BACKEND not in ("ollama", "anthropic"):
         sys.exit(f"LLM_BACKEND must be ollama or anthropic, got {BACKEND!r}")
     if BACKEND == "anthropic":
