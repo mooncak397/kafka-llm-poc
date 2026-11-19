@@ -1,4 +1,4 @@
-.PHONY: mcp-deploy mcp-test ollama-start ollama-stop up stop reset status check leakscan hooks data-start data-stop pf-prometheus pf-grafana grafana proxy-deploy proxy-test agent-deploy agent-test anthropic-key unsafe-demo down-unsafe ask score-test load-test load-dryrun results leakscan-test
+.PHONY: mcp-deploy mcp-test ollama-start ollama-stop up stop reset status check leakscan hooks data-start data-stop pf-prometheus pf-grafana grafana proxy-deploy proxy-test agent-deploy agent-test anthropic-key unsafe-demo down-unsafe ask score-test load-test load-dryrun results leakscan-test langchain-test
 # kind runs on rootless podman. Context name kind-kafka-poc holds no OS user name.
 export KIND_EXPERIMENTAL_PROVIDER = podman
 CLUSTER = kafka-poc
@@ -105,6 +105,8 @@ load-test: ## unit tests of the load stats code and the results generator (no cl
 load-dryrun: ## 1 user, 2 questions, both modes, label dry (ignored by make results). Needs the cluster (make up)
 	@$(LOAD) --model $(OLLAMA_MODEL) --mode raw --users 1 --duration 60 --max-requests 2 --run dry
 	@$(LOAD) --model $(AGENT_MODEL) --mode agent --users 1 --duration 120 --max-requests 2 --run dry
+langchain-test: ## unit tests of the LangChain demo (own venv, no cluster, no API)
+	@uv run --project demos/langchain pytest demos/langchain -q
 results:  ## evidence/results.md from loadtest/results/load-*.json (skips label dry)
 	@uv run --project loadtest python loadtest/make_results.py
 ask: ## make ask Q="Which topics exist?" [RUN=u1] : asks the agent pod (kubectl exec, no port-forward)

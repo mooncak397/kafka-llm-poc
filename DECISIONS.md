@@ -8,7 +8,7 @@ Decision: Claude runs through the official `anthropic` Python SDK (pinned to 2.1
 
 Reason: the loop already carries the turn cap, the `unknown_tool` status, the per-call log lines, result truncation and the error outcomes. Keeping it means a difference between models comes from the model, not from the harness around it.
 
-Rejected: LangChain with `langchain.mcp`. The old `langchain-mcp-adapters` package is archived, its successor is in beta and needs `mcp` 2.x while the agent pins `mcp==1.27.1`, and a framework agent loop next to our own would mix model differences with harness differences. A small LangChain demo outside the measured path may come later as a separate task.
+Rejected: LangChain with `langchain.mcp`. The old `langchain-mcp-adapters` package is archived, its successor is in beta and needs `mcp` 2.x while the agent pins `mcp==1.27.1`, and a framework agent loop next to our own would mix model differences with harness differences. A small LangChain demo outside the measured path was built on 2026-11-19 (`demos/langchain/`, own venv with `langchain.mcp` and `mcp` 2.x). It reuses the allow-list and `agent/pricing.py` but stays out of Table 2, for the same reasons: a different harness, and a different `mcp` major version.
 
 ## 2. One loop, one allow-list, checked at listing and at execution, for every backend
 

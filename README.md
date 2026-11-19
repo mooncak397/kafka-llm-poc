@@ -181,6 +181,10 @@ Each LLM call is priced from the four usage fields the Anthropic API returns: un
 
 Status: the Claude path ran on 2026-11-19 with Haiku 5.5 and Sonnet 5.5, 3 runs of 48 questions each (see the model comparison above and Table 2 in `evidence/results.md`). The negative test also ran on Claude (rows d and e above). The logged cost was compared with the Anthropic Console on 2026-11-19, and the totals match.
 
+## LangChain demo
+
+`demos/langchain/` holds a small LangChain agent (`create_agent`, `ChatAnthropic` on Haiku 5.5, MCP tools through `langchain.mcp`) that uses the same read-only MCP server, the same allow-list and the same price table. It answered 12 of the 12 original questions on 2026-11-19 for $0.005. It is a demo with its own venv, 12 questions and one run, and it is not part of Table 2, because its harness differs. Details and limits are in `demos/langchain/README.md`.
+
 ## How to run it
 
 You need a Linux machine with rootless podman, kind, kubectl, helm, uv, node, Ollama and exiftool. The scripts use `systemctl --user`, so you also need systemd. A GPU with `nvidia-smi` is needed for the GPU memory column. `scripts/preflight.sh` checks the tools. `make leakscan` also needs gitleaks and ripgrep.
