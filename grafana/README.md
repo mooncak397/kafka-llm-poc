@@ -25,6 +25,9 @@ purpose: one broker, replication 1.
 `llm-overview.json` is our own (uid `llm-overview`), data source uid `prometheus`, metrics from the proxy v2. No GPU panels
 (S15 skipped, cut line L2). Rate windows are 2 m (15 s scrape). Queue wait is DERIVED. In-flight, errors and token
 rates have no `run` label, so the `run` variable does not filter them. The three bar panels use cumulative histograms per run.
+The bottom row (agent LLM cost) reads the agent's `agent_llm_*` metrics: cost per model, mean cost per question and tokens by kind
+(uncached input, cache read, cache write, output) over the selected time range. They use increase(), so pod restarts and model switches keep their data (Prometheus keeps it in an emptyDir, so a Prometheus restart loses it).
+increase() extrapolates a little at the edges of a series, so these panels read about 2% higher than `evidence/results.md` Table 2. The table is the reference.
 
 ## LLM load comparison (S26)
 

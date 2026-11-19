@@ -107,3 +107,29 @@ def test_results_generator():
     assert "| x | 1 |" in text and "not | table" not in text  # table 3 copied verbatim, stops at the table end
     assert "label `dry`" in text and "dry" not in "".join(l for l in text.splitlines() if l.startswith("- `load-"))
     assert "0.0.1" in text and "OLLAMA_NUM_PARALLEL=1" in text and "GTX 1060 6 GB" in text
+
+
+def score_fixture(label, date, ok, cost, n=48, agent_model=None):
+    rows = [{"id": f"q{i}", "tool_ok": i < ok, "args_ok": i < ok, "answer_ok": i < ok, "seconds": 2.0, "cost_usd": cost} for i in range(n)]
+    return {"model": label, "agent_model": agent_model or label.rsplit("-r", 1)[0], "date": date,
+            "summary": {"n": n, "answer_correct": ok}, "rows": rows}
+
+
+def test_model_comparison_table():
+    with tempfile.TemporaryDirectory() as d:
+        d = Path(d)
+        files = [score_fixture(f"claude-x-r{r}", f"2026-11-19T06:0{r}:00", 47, 0.001) for r in (1, 2, 3)]
+        files += [score_fixture(f"local-r{r}", f"2026-11-19T07:0{r}:00", 20, 0.0, agent_model="qwen:4b") for r in (1, 2, 3, 4)]  # last 3 kept
+        files += [score_fixture("claude-x-validate48", "2026-11-19T05:00:00", 10, 0.001),        # no -rN label: not a comparison run
+                  score_fixture("qwen-r1", "2026-11-15T10:00:00", 12, 0.0, n=12)]                 # old 12-question set: skipped
+        for i, f in enumerate(files):
+            (d / f"score-{i}.json").write_text(json.dumps(f))
+        scores = mr.load_scores(d)
+        assert sorted(scores) == ["claude-x", "local"] and len(scores["local"]) == 3
+        text = "\n".join(mr.table2_models(scores))
+    assert "| `claude-x` | 3 | 47, 47, 47 | 47/48 (98%" in text and "| 141/144 (98%" in text
+    assert "| $0.00100 | $0.00102 | $0.14400 |" in text      # per question, per correct answer (144 / 141), total
+    assert "| `qwen:4b` | 3 | 20, 20, 20 |" in text and text.count("$0 API") == 3
+    assert "answer correctness: `claude-x` is higher than `qwen:4b`; the pooled and the per-run intervals both separate." in text
+    assert "- `claude-x`: q47" in text and "- `qwen:4b`: q20, q21," in text    # missed in most runs
+    assert "q16 and q18" in text and "refusal fallback" in text and "effort `medium`" in text

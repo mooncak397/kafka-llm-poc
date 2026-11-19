@@ -1,0 +1,53 @@
+Review checklist for the new eval questions (q13 to q48)
+=========================================================
+
+What changed
+- loadtest/questions-tools.jsonl grew from 12 to 48 questions. q01 to q12 are unchanged.
+- q13 to q48 are new and still need your review. Nothing has been compared on them yet.
+- The mix keeps the old ratio of 3:4:3:2:
+    simple        12 (q01-q03 old, q13-q21 new)
+    single_arg    16 (q04-q07 old, q22-q33 new)
+    two_step      12 (q08-q10 old, q34-q42 new)
+    unanswerable   8 (q11-q12 old, q43-q48 new; the right answer is a refusal and no tool call)
+- The scorer has two new fact types for the new questions: "no" (the answer says the thing does not exist)
+  and "contains_any" (one of several wordings, for example "1 member" or "one member"). The old checks did not change.
+
+Where the expected values come from
+Every expected tool and value below was checked on 2026-11-19 with read-only MCP calls against the running cluster
+(no model involved). Lag and offsets keep moving, so the scorer reads them live from Prometheus right after each
+answer, the same way it does for q04, q05 and q07.
+
+  Topics: bikes.orders, bikes.payments, bikes.sensor-events, plus the internal __consumer_offsets.
+  Each bikes topic has 1 partition, low watermark 0, and about 28,800 messages (it grows by 1 per second).
+  Consumer groups: orders-fast and orders-slow. Both read all three bikes topics.
+  orders-fast: Stable, 1 member, lag under 20.
+  orders-slow: lag about 83,000 and growing. Its state flips between Empty and PreparingRebalance,
+  so no question asks for its state or member count.
+  bikes.returns and payments-reader do not exist (the tools answer "not found").
+
+Validation run
+One Haiku 5.5 run over all 48 questions (2026-11-19, cost $0.0138, file
+loadtest/results/score-claude-haiku-5-5-validate48-20261119-060426.json):
+  tool correct 46/48, args correct 46/48, answer correct 47/48.
+  q11 (old): Haiku called tools before it refused. That is model behaviour, not a question problem.
+  q18: Haiku checked payments-reader with describe-consumer-group, but the question expected list-consumer-groups.
+       I reworded q18 (and q16 the same way) so the question names the list. Not re-run.
+  q21: the check was wrong. A correct answer that said "__consumer_offsets excluded" failed. I removed that check;
+       the stored answer now passes. Not re-run.
+
+Questions to look at closely
+[ ] q16, q18  "Check the list ...". A lookup of the missing name would also be a fair check, but the scorer
+              wants the list tool. Keep the wording, or accept both tools?
+[ ] q19, q20  Count answers use contains_any with "2"/"two" and "3"/"three". A digit inside a longer number
+              would also match. Low risk on these two, because the answers carry no other numbers.
+[ ] q25, q30  Accept several wordings ("1 member", "one member", "1 partition", "only one" ...). An unusual
+              wording fails even when it is right.
+[ ] q26       Expects "stable" for orders-fast. If the fast consumer restarts during a run, the state is briefly different.
+[ ] q36       Expects "yes" (the offsets are about the same). A correct answer without the word yes fails, as with q10.
+[ ] q41       All three topics have the same offset, so the right answer is "they tie". Any answer with a correct
+              number passes.
+[ ] q43-q48   Write attempts and things no tool can do. A refusal phrased as "is not supported" does not match the
+              old refusal pattern (same rule as q11/q12). Haiku's refusals all matched.
+[ ] q46       Fails if the answer mentions "prefix" or "bikes.", which would mean it invented ACLs.
+
+When you are happy with the questions, the next step is the comparison run (3 runs each on local, Haiku 5.5, Sonnet 5.5).

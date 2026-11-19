@@ -1,0 +1,82 @@
+# HELP agent_tool_calls_total Tool calls by tool and status
+# TYPE agent_tool_calls_total counter
+agent_tool_calls_total{status="ok",tool="list-topics"} 28.0
+agent_tool_calls_total{status="ok",tool="list-consumer-groups"} 54.0
+agent_tool_calls_total{status="ok",tool="get-consumer-group-lag"} 29.0
+agent_tool_calls_total{status="ok",tool="describe-consumer-group"} 18.0
+agent_tool_calls_total{status="ok",tool="get-partition-offsets"} 33.0
+agent_tool_calls_total{status="error",tool="get-consumer-group-lag"} 9.0
+agent_tool_calls_total{status="error",tool="get-partition-offsets"} 9.0
+# HELP agent_tool_calls_created Tool calls by tool and status
+# TYPE agent_tool_calls_created gauge
+agent_tool_calls_created{status="ok",tool="list-topics"} 1.79506601756912e+09
+agent_tool_calls_created{status="ok",tool="list-consumer-groups"} 1.7950660194228537e+09
+agent_tool_calls_created{status="ok",tool="get-consumer-group-lag"} 1.7950660233378386e+09
+agent_tool_calls_created{status="ok",tool="describe-consumer-group"} 1.7950660272992654e+09
+agent_tool_calls_created{status="ok",tool="get-partition-offsets"} 1.7950660300260026e+09
+agent_tool_calls_created{status="error",tool="get-consumer-group-lag"} 1.7950660432034512e+09
+agent_tool_calls_created{status="error",tool="get-partition-offsets"} 1.7950661229088414e+09
+# HELP agent_questions_total Questions by outcome
+# TYPE agent_questions_total counter
+agent_questions_total{outcome="answered"} 143.0
+agent_questions_total{outcome="turn_limit"} 1.0
+# HELP agent_questions_created Questions by outcome
+# TYPE agent_questions_created gauge
+agent_questions_created{outcome="answered"} 1.7950660184136424e+09
+agent_questions_created{outcome="turn_limit"} 1.7950661556147623e+09
+# HELP agent_tool_turns Tool turns per question
+# TYPE agent_tool_turns histogram
+agent_tool_turns_bucket{le="0.0"} 24.0
+agent_tool_turns_bucket{le="1.0"} 117.0
+agent_tool_turns_bucket{le="2.0"} 130.0
+agent_tool_turns_bucket{le="3.0"} 138.0
+agent_tool_turns_bucket{le="4.0"} 143.0
+agent_tool_turns_bucket{le="5.0"} 144.0
+agent_tool_turns_bucket{le="+Inf"} 144.0
+agent_tool_turns_count 144.0
+agent_tool_turns_sum 168.0
+# HELP agent_tool_turns_created Tool turns per question
+# TYPE agent_tool_turns_created gauge
+agent_tool_turns_created 1.7950659755535448e+09
+# HELP agent_llm_tokens_total LLM tokens by model and kind (input, cache_read, cache_write, output)
+# TYPE agent_llm_tokens_total counter
+agent_llm_tokens_total{kind="input",model="qwen3:4b-instruct-2507-q4_K_M"} 284905.0
+agent_llm_tokens_total{kind="cache_read",model="qwen3:4b-instruct-2507-q4_K_M"} 0.0
+agent_llm_tokens_total{kind="cache_write",model="qwen3:4b-instruct-2507-q4_K_M"} 0.0
+agent_llm_tokens_total{kind="output",model="qwen3:4b-instruct-2507-q4_K_M"} 7913.0
+# HELP agent_llm_tokens_created LLM tokens by model and kind (input, cache_read, cache_write, output)
+# TYPE agent_llm_tokens_created gauge
+agent_llm_tokens_created{kind="input",model="qwen3:4b-instruct-2507-q4_K_M"} 1.795065975553856e+09
+agent_llm_tokens_created{kind="cache_read",model="qwen3:4b-instruct-2507-q4_K_M"} 1.795065975553868e+09
+agent_llm_tokens_created{kind="cache_write",model="qwen3:4b-instruct-2507-q4_K_M"} 1.7950659755538754e+09
+agent_llm_tokens_created{kind="output",model="qwen3:4b-instruct-2507-q4_K_M"} 1.7950659755538812e+09
+# HELP agent_llm_cost_usd_total LLM API cost in USD (Ollama: 0)
+# TYPE agent_llm_cost_usd_total counter
+agent_llm_cost_usd_total{model="qwen3:4b-instruct-2507-q4_K_M"} 0.0
+# HELP agent_llm_cost_usd_created LLM API cost in USD (Ollama: 0)
+# TYPE agent_llm_cost_usd_created gauge
+agent_llm_cost_usd_created{model="qwen3:4b-instruct-2507-q4_K_M"} 1.7950659755538864e+09
+# HELP agent_llm_calls_total LLM calls by model and outcome
+# TYPE agent_llm_calls_total counter
+agent_llm_calls_total{model="qwen3:4b-instruct-2507-q4_K_M",outcome="ok"} 312.0
+# HELP agent_llm_calls_created LLM calls by model and outcome
+# TYPE agent_llm_calls_created gauge
+agent_llm_calls_created{model="qwen3:4b-instruct-2507-q4_K_M",outcome="ok"} 1.7950660175640533e+09
+# HELP agent_question_cost_usd LLM API cost per question in USD
+# TYPE agent_question_cost_usd histogram
+agent_question_cost_usd_bucket{le="0.0",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_bucket{le="0.0005",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_bucket{le="0.001",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_bucket{le="0.0025",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_bucket{le="0.005",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_bucket{le="0.01",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_bucket{le="0.025",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_bucket{le="0.05",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_bucket{le="0.1",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_bucket{le="0.25",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_bucket{le="+Inf",model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_count{model="qwen3:4b-instruct-2507-q4_K_M"} 144.0
+agent_question_cost_usd_sum{model="qwen3:4b-instruct-2507-q4_K_M"} 0.0
+# HELP agent_question_cost_usd_created LLM API cost per question in USD
+# TYPE agent_question_cost_usd_created gauge
+agent_question_cost_usd_created{model="qwen3:4b-instruct-2507-q4_K_M"} 1.7950659755538974e+09

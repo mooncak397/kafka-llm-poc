@@ -1,0 +1,76 @@
+# HELP agent_tool_calls_total Tool calls by tool and status
+# TYPE agent_tool_calls_total counter
+agent_tool_calls_total{status="ok",tool="list-topics"} 31.0
+agent_tool_calls_total{status="ok",tool="list-consumer-groups"} 27.0
+agent_tool_calls_total{status="ok",tool="get-consumer-group-lag"} 45.0
+agent_tool_calls_total{status="ok",tool="describe-consumer-group"} 24.0
+agent_tool_calls_total{status="ok",tool="get-partition-offsets"} 53.0
+# HELP agent_tool_calls_created Tool calls by tool and status
+# TYPE agent_tool_calls_created gauge
+agent_tool_calls_created{status="ok",tool="list-topics"} 1.795065540380162e+09
+agent_tool_calls_created{status="ok",tool="list-consumer-groups"} 1.7950655427683287e+09
+agent_tool_calls_created{status="ok",tool="get-consumer-group-lag"} 1.795065547699527e+09
+agent_tool_calls_created{status="ok",tool="describe-consumer-group"} 1.795065552823669e+09
+agent_tool_calls_created{status="ok",tool="get-partition-offsets"} 1.7950655556259532e+09
+# HELP agent_questions_total Questions by outcome
+# TYPE agent_questions_total counter
+agent_questions_total{outcome="answered"} 144.0
+# HELP agent_questions_created Questions by outcome
+# TYPE agent_questions_created gauge
+agent_questions_created{outcome="answered"} 1.7950655414560475e+09
+# HELP agent_tool_turns Tool turns per question
+# TYPE agent_tool_turns histogram
+agent_tool_turns_bucket{le="0.0"} 18.0
+agent_tool_turns_bucket{le="1.0"} 123.0
+agent_tool_turns_bucket{le="2.0"} 144.0
+agent_tool_turns_bucket{le="3.0"} 144.0
+agent_tool_turns_bucket{le="4.0"} 144.0
+agent_tool_turns_bucket{le="5.0"} 144.0
+agent_tool_turns_bucket{le="+Inf"} 144.0
+agent_tool_turns_count 144.0
+agent_tool_turns_sum 147.0
+# HELP agent_tool_turns_created Tool turns per question
+# TYPE agent_tool_turns_created gauge
+agent_tool_turns_created 1.7950655178251135e+09
+# HELP agent_llm_tokens_total LLM tokens by model and kind (input, cache_read, cache_write, output)
+# TYPE agent_llm_tokens_total counter
+agent_llm_tokens_total{kind="input",model="claude-sonnet-5-5"} 870.0
+agent_llm_tokens_total{kind="cache_read",model="claude-sonnet-5-5"} 362775.0
+agent_llm_tokens_total{kind="cache_write",model="claude-sonnet-5-5"} 90062.0
+agent_llm_tokens_total{kind="output",model="claude-sonnet-5-5"} 16782.0
+# HELP agent_llm_tokens_created LLM tokens by model and kind (input, cache_read, cache_write, output)
+# TYPE agent_llm_tokens_created gauge
+agent_llm_tokens_created{kind="input",model="claude-sonnet-5-5"} 1.7950655178254244e+09
+agent_llm_tokens_created{kind="cache_read",model="claude-sonnet-5-5"} 1.7950655178254364e+09
+agent_llm_tokens_created{kind="cache_write",model="claude-sonnet-5-5"} 1.7950655178254435e+09
+agent_llm_tokens_created{kind="output",model="claude-sonnet-5-5"} 1.7950655178254492e+09
+# HELP agent_llm_cost_usd_total LLM API cost in USD (Ollama: 0)
+# TYPE agent_llm_cost_usd_total counter
+agent_llm_cost_usd_total{model="claude-sonnet-5-5"} 0.43099250000000056
+# HELP agent_llm_cost_usd_created LLM API cost in USD (Ollama: 0)
+# TYPE agent_llm_cost_usd_created gauge
+agent_llm_cost_usd_created{model="claude-sonnet-5-5"} 1.7950655178254542e+09
+# HELP agent_llm_calls_total LLM calls by model and outcome
+# TYPE agent_llm_calls_total counter
+agent_llm_calls_total{model="claude-sonnet-5-5",outcome="ok"} 291.0
+# HELP agent_llm_calls_created LLM calls by model and outcome
+# TYPE agent_llm_calls_created gauge
+agent_llm_calls_created{model="claude-sonnet-5-5",outcome="ok"} 1.7950655403730264e+09
+# HELP agent_question_cost_usd LLM API cost per question in USD
+# TYPE agent_question_cost_usd histogram
+agent_question_cost_usd_bucket{le="0.0",model="claude-sonnet-5-5"} 0.0
+agent_question_cost_usd_bucket{le="0.0005",model="claude-sonnet-5-5"} 0.0
+agent_question_cost_usd_bucket{le="0.001",model="claude-sonnet-5-5"} 11.0
+agent_question_cost_usd_bucket{le="0.0025",model="claude-sonnet-5-5"} 80.0
+agent_question_cost_usd_bucket{le="0.005",model="claude-sonnet-5-5"} 114.0
+agent_question_cost_usd_bucket{le="0.01",model="claude-sonnet-5-5"} 144.0
+agent_question_cost_usd_bucket{le="0.025",model="claude-sonnet-5-5"} 144.0
+agent_question_cost_usd_bucket{le="0.05",model="claude-sonnet-5-5"} 144.0
+agent_question_cost_usd_bucket{le="0.1",model="claude-sonnet-5-5"} 144.0
+agent_question_cost_usd_bucket{le="0.25",model="claude-sonnet-5-5"} 144.0
+agent_question_cost_usd_bucket{le="+Inf",model="claude-sonnet-5-5"} 144.0
+agent_question_cost_usd_count{model="claude-sonnet-5-5"} 144.0
+agent_question_cost_usd_sum{model="claude-sonnet-5-5"} 0.4309925000000003
+# HELP agent_question_cost_usd_created LLM API cost per question in USD
+# TYPE agent_question_cost_usd_created gauge
+agent_question_cost_usd_created{model="claude-sonnet-5-5"} 1.7950655178254652e+09
