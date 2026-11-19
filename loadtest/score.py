@@ -4,13 +4,17 @@
 Expected values come from the FAKE DATA design (questions-tools.jsonl), never from model output. Numbers that change over
 time (lag, offsets) are checked against live values that THIS script reads from Prometheus (Kafka exporter metrics).
 Transport: `kubectl exec` into the agent pod (no port-forward). --model only labels the output; the model is set in the agent env.
-Stdlib only. Unit tests: test_score.py (`make score-test`).
+Cost: each row keeps the agent's usage and cost_usd. Before the run, a worst-case estimate for the DEPLOYED model
+(read from the agent env, not from --model) must stay under --max-usd, or the script refuses to start.
+Stdlib only (plus agent/pricing.py, also stdlib). Unit tests: test_score.py (`make score-test`).
 """
 import argparse, json, re, statistics, subprocess, sys, time
 from datetime import datetime
 from pathlib import Path
 
 HERE = Path(__file__).parent
+sys.path.insert(0, str(HERE.parent / "agent"))
+import pricing  # noqa: E402  one price table for the agent and the scripts
 TOOLS = {"list-topics", "list-consumer-groups", "describe-consumer-group", "get-consumer-group-lag", "get-partition-offsets"}
 CTX = "kind-kafka-poc"
 TOLERANCE = 0.15   # reported number vs live value
@@ -107,7 +111,8 @@ def score_one(q, resp, live, seconds):
     calls = resp.get("tool_calls") or []
     return {"id": q["id"], "tool_ok": tool_correct(q, calls), "args_ok": args_correct(q, calls), "answer_ok": answer_correct(q, resp, live),
             "empty": not (resp.get("answer") or "").strip(), "error": resp.get("error"), "seconds": round(seconds, 1),
-            "tools": [c["tool"] for c in calls], "args": [c.get("args") for c in calls], "answer": (resp.get("answer") or "")[:400]}
+            "tools": [c["tool"] for c in calls], "args": [c.get("args") for c in calls], "answer": (resp.get("answer") or "")[:400],
+            "usage": resp.get("usage"), "cost_usd": resp.get("cost_usd") or 0.0}
 
 
 def summarize(rows):
@@ -115,7 +120,20 @@ def summarize(rows):
     return {"n": len(rows), "tool_correct": sum(r["tool_ok"] for r in rows), "args_correct": sum(r["args_ok"] for r in rows),
             "answer_correct": sum(r["answer_ok"] for r in rows), "empty": sum(r["empty"] for r in rows),
             "errors": sum(bool(r["error"]) and not r["empty"] for r in rows), "errors_total": sum(bool(r["error"]) for r in rows),
-            "median_s": round(statistics.median(secs), 1) if secs else None, "max_s": max(secs) if secs else None}
+            "median_s": round(statistics.median(secs), 1) if secs else None, "max_s": max(secs) if secs else None,
+            "cost_usd": round(sum(r.get("cost_usd") or 0.0 for r in rows), 6)}
+
+
+def estimate_usd(n_questions, model):
+    """Worst-case API cost of n questions on the deployed model (Ollama: 0)."""
+    return n_questions * pricing.worst_case_question_usd(model)
+
+
+def budget_gate(n_questions, model, max_usd):
+    est = estimate_usd(n_questions, model)
+    print(f"cost estimate (worst case): {n_questions} questions on {model} <= ${est:.4f} (limit --max-usd {max_usd})", flush=True)
+    if est > max_usd:
+        sys.exit(f"refused: worst-case estimate ${est:.4f} is above --max-usd {max_usd}")
 
 
 # ---- live side (needs the cluster) ----
@@ -142,6 +160,13 @@ ASK = ("import json,sys,urllib.request,urllib.error\n"
        "print(json.dumps(j))")
 
 
+def deployed_model():
+    r = kubectl("-n", "llm", "get", "deploy", "agent", "-o", "jsonpath={.spec.template.spec.containers[0].env[?(@.name==\"MODEL\")].value}", timeout=30)
+    if r.returncode or not r.stdout.strip():
+        sys.exit("cannot read MODEL from deploy/agent (is the cluster up?)")
+    return r.stdout.strip()
+
+
 def ask_agent(question):
     r = kubectl("-n", "llm", "exec", "-i", "deploy/agent", "--", "python", "-I", "-c", ASK, stdin=question)
     try:
@@ -155,11 +180,14 @@ def main():
     ap.add_argument("--model", required=True, help="label only; the model is set in the agent env (MODEL)")
     ap.add_argument("--questions", default=str(HERE / "questions-tools.jsonl"))
     ap.add_argument("--out", default=str(HERE / "results"))
+    ap.add_argument("--max-usd", type=float, default=1.0, help="refuse to start if the worst-case API cost is above this (default 1.0)")
     a = ap.parse_args()
     qs = load_questions(a.questions)
     bad = validate_questions(qs)
     if bad:
         sys.exit("bad question file: " + "; ".join(bad))
+    agent_model = deployed_model()
+    budget_gate(len(qs), agent_model, a.max_usd)
     rows = []
     for q in qs:
         t0 = time.monotonic()
@@ -168,16 +196,17 @@ def main():
         row = score_one(q, resp, read_live(), secs)  # live values read right after the answer
         rows.append(row)
         print(f"{q['id']} tool={'ok' if row['tool_ok'] else 'NO'} args={'ok' if row['args_ok'] else 'NO'} answer={'ok' if row['answer_ok'] else 'NO'} "
-              f"{secs:5.1f}s tools={','.join(row['tools']) or '-'} err={row['error'] or '-'}", flush=True)
+              f"{secs:5.1f}s ${row['cost_usd']:.5f} tools={','.join(row['tools']) or '-'} err={row['error'] or '-'}", flush=True)
     s = summarize(rows)
     n = s["n"]
     print(f"\nmodel {a.model} | n = {n}\ntool correct   {s['tool_correct']}/{n}\nargs correct   {s['args_correct']}/{n}\nanswer correct {s['answer_correct']}/{n}\n"
-          f"empty answers  {s['empty']}\nerrors         {s['errors']} (+{s['empty']} empty)\nseconds/answer median {s['median_s']}  max {s['max_s']}")
+          f"empty answers  {s['empty']}\nerrors         {s['errors']} (+{s['empty']} empty)\nseconds/answer median {s['median_s']}  max {s['max_s']}\n"
+          f"API cost       ${s['cost_usd']:.5f} total, ${s['cost_usd'] / n if n else 0:.5f} per question ({agent_model})")
     out = Path(a.out)
     out.mkdir(exist_ok=True)
     stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     f = out / f"score-{re.sub(r'[^a-z0-9]+', '-', a.model.lower()).strip('-')}-{stamp}.json"
-    f.write_text(json.dumps({"model": a.model, "date": datetime.now().isoformat(timespec="seconds"), "summary": s, "rows": rows}, indent=1) + "\n")
+    f.write_text(json.dumps({"model": a.model, "agent_model": agent_model, "prices": {"source": pricing.PRICE_SOURCE, "checked": pricing.PRICE_CHECKED}, "date": datetime.now().isoformat(timespec="seconds"), "summary": s, "rows": rows}, indent=1) + "\n")
     print("wrote", f.relative_to(HERE.parent))
 
 

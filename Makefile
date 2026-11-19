@@ -1,4 +1,4 @@
-.PHONY: mcp-deploy mcp-test ollama-start ollama-stop up stop reset status check leakscan hooks data-start data-stop pf-prometheus pf-grafana grafana proxy-deploy proxy-test agent-deploy agent-test unsafe-demo down-unsafe ask score-test load-test load-dryrun results
+.PHONY: mcp-deploy mcp-test ollama-start ollama-stop up stop reset status check leakscan hooks data-start data-stop pf-prometheus pf-grafana grafana proxy-deploy proxy-test agent-deploy agent-test anthropic-key unsafe-demo down-unsafe ask score-test load-test load-dryrun results
 # kind runs on rootless podman. Context name kind-kafka-poc holds no OS user name.
 export KIND_EXPERIMENTAL_PROVIDER = podman
 CLUSTER = kafka-poc
@@ -11,16 +11,24 @@ K       = kubectl --context $(CTX)
 OLLAMA_URL = http://10.89.1.1:11435
 OLLAMA_UNIT = ollama-poc.service
 PROXY_IMAGE = localhost/llm-proxy:0.2.0  # keep in sync with k8s/10-llm-proxy.yaml
-AGENT_IMAGE = localhost/kafka-agent:0.1.3  # keep in sync with k8s/12-agent.yaml
+AGENT_IMAGE = localhost/kafka-agent:0.1.4  # keep in sync with k8s/12-agent.yaml
 MCP_IMAGE = localhost/mcp-confluent:1.6.1  # keep in sync with k8s/11-mcp-confluent.yaml
-# The agent model: ONE place. Filled into k8s/12-agent.yaml by sed at deploy; check-ollama.sh uses it too (S20 recommendation).
-AGENT_MODEL = qwen3:4b-instruct-2507-q4_K_M
+# The local model: ONE place. check-ollama.sh and the raw load mode use it (S20 recommendation).
+OLLAMA_MODEL = qwen3:4b-instruct-2507-q4_K_M
+# The agent backend and model, filled into k8s/12-agent.yaml by sed at deploy. Default = local Ollama.
+# Hosted Claude (needs `make anthropic-key` once): make agent-deploy AGENT_BACKEND=anthropic AGENT_MODEL=claude-sonnet-5-5
+# (or claude-haiku-5-5). Any later plain agent-deploy (up, down-unsafe) goes back to Ollama.
+AGENT_BACKEND = ollama
+AGENT_MODEL = $(OLLAMA_MODEL)
+AGENT_EFFORT = medium
+AGENT_DAILY_MAX_USD = 5
 # Profile knobs. Defaults = SAFE profile (layer 1 on). Only `make unsafe-demo` overrides them, for the negative test (S21).
 MCP_EXTRA =
 MCP_READ_ONLY = true
 AGENT_EXTRA_TOOLS =
 MCP_SED = sed -e 's|__MCP_EXTRA__|$(MCP_EXTRA)|' -e 's|__MCP_READ_ONLY__|$(MCP_READ_ONLY)|'
-AGENT_SED = sed -e 's|__AGENT_MODEL__|$(AGENT_MODEL)|' -e 's|__AGENT_EXTRA_TOOLS__|$(AGENT_EXTRA_TOOLS)|'
+AGENT_SED = sed -e 's|__AGENT_MODEL__|$(AGENT_MODEL)|' -e 's|__AGENT_EXTRA_TOOLS__|$(AGENT_EXTRA_TOOLS)|' -e 's|__AGENT_BACKEND__|$(AGENT_BACKEND)|' \
+	-e 's|__AGENT_EFFORT__|$(AGENT_EFFORT)|' -e 's|__AGENT_DAILY_MAX_USD__|$(AGENT_DAILY_MAX_USD)|'
 
 up:       ## create the cluster if missing, start the node if stopped, wait Ready, then check
 	@if ! kind get clusters 2>/dev/null | grep -qx $(CLUSTER); then kind create cluster --config k8s/00-kind.yaml --wait 180s; \
@@ -74,17 +82,22 @@ agent-deploy: ## build the agent image (podman), load it into kind (no registry)
 	@podman save -o agent/image.tar $(AGENT_IMAGE) 2>/dev/null && kind load image-archive agent/image.tar --name $(CLUSTER) && rm -f agent/image.tar
 	@$(K) apply -f k8s/01-namespaces.yaml >/dev/null
 	@$(K) -n kafka get secret mcp-api-key -o jsonpath='{.data.key}' | base64 -d | $(K) -n llm create secret generic mcp-api-key --from-file=key=/dev/stdin --dry-run=client -o yaml | $(K) apply -f - >/dev/null
+	@[ "$(AGENT_BACKEND)" != anthropic ] || $(K) -n llm get secret anthropic-api-key >/dev/null 2>&1 || { echo "no Secret anthropic-api-key in ns llm: run make anthropic-key first"; exit 1; }
 	@$(AGENT_SED) k8s/12-agent.yaml | $(K) apply -f - >/dev/null
 	@$(K) apply -f k8s/08-prometheus.yaml >/dev/null
 	@$(K) -n llm rollout status deploy/agent --timeout=120s
+anthropic-key: ## store the Anthropic API key as Secret anthropic-api-key in ns llm (hidden prompt, pipe; never printed, never a file)
+	@$(K) apply -f k8s/01-namespaces.yaml >/dev/null
+	@printf 'Anthropic API key (input hidden): '; stty -echo; read -r k; stty echo; echo; [ -n "$$k" ] || { echo "empty, nothing stored"; exit 1; }; \
+	printf '%s' "$$k" | $(K) -n llm create secret generic anthropic-api-key --from-file=key=/dev/stdin --dry-run=client -o yaml | $(K) apply -f - >/dev/null && echo "Secret anthropic-api-key stored"
 score-test: ## unit tests of the S20 scorer (no cluster needed)
 	@cd loadtest && python3 -m unittest -q test_score
-LOAD = uv run --project loadtest python loadtest/load.py --model $(AGENT_MODEL)
+LOAD = uv run --project loadtest python loadtest/load.py
 load-test: ## unit tests of the load stats code and the results generator (no cluster needed)
 	@uv run --project loadtest pytest loadtest -q
 load-dryrun: ## 1 user, 2 questions, both modes, label dry (ignored by make results). Needs the cluster (make up)
-	@$(LOAD) --mode raw --users 1 --duration 60 --max-requests 2 --run dry
-	@$(LOAD) --mode agent --users 1 --duration 120 --max-requests 2 --run dry
+	@$(LOAD) --model $(OLLAMA_MODEL) --mode raw --users 1 --duration 60 --max-requests 2 --run dry
+	@$(LOAD) --model $(AGENT_MODEL) --mode agent --users 1 --duration 120 --max-requests 2 --run dry
 results:  ## evidence/results.md from loadtest/results/load-*.json (skips label dry)
 	@uv run --project loadtest python loadtest/make_results.py
 ask: ## make ask Q="Which topics exist?" [RUN=u1] : asks the agent pod (kubectl exec, no port-forward)
@@ -125,7 +138,7 @@ check:    ## each step adds its own line
 	@./scripts/check-fake-data.sh $(CTX)
 	@./scripts/check-prometheus.sh $(CTX)
 	@./scripts/check-grafana.sh $(CTX)
-	@./scripts/check-ollama.sh $(OLLAMA_URL) $(CTX) $(AGENT_MODEL)
+	@./scripts/check-ollama.sh $(OLLAMA_URL) $(CTX) $(OLLAMA_MODEL)
 	@./scripts/check-proxy.sh $(CTX)
 	@./scripts/check-mcp.sh $(CTX)
 	@./scripts/check-agent.sh $(CTX)

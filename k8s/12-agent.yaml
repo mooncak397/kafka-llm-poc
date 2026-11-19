@@ -1,6 +1,8 @@
-# S19: agent loop (question -> Ollama via llm-proxy -> MCP tools -> answer). Ns llm, small pod.
+# S19: agent loop (question -> LLM backend -> MCP tools -> answer). Ns llm, small pod.
+# Backend: Ollama via llm-proxy (local, default) or Anthropic (hosted Claude), chosen by AGENT_BACKEND in the Makefile.
 # Secret `mcp-api-key` in ns llm is a COPY made by `make agent-deploy` through a pipe (never printed, never in git).
-# Placeholders __AGENT_MODEL__ and __AGENT_EXTRA_TOOLS__ are filled by the Makefile: never `kubectl apply` this file by hand.
+# Secret `anthropic-api-key` in ns llm is made by `make anthropic-key` (hidden prompt, pipe); optional, so Ollama needs none.
+# Placeholders __AGENT_*__ are filled by the Makefile: never `kubectl apply` this file by hand.
 # Image is built locally with podman and loaded into kind (no registry). Bump the tag with agent/ changes.
 apiVersion: apps/v1
 kind: Deployment
@@ -17,23 +19,28 @@ spec:
     spec:
       containers:
         - name: agent
-          image: localhost/kafka-agent:0.1.3
+          image: localhost/kafka-agent:0.1.4
           imagePullPolicy: IfNotPresent
           env:
             - {name: LLM_URL, value: "http://llm-proxy.llm.svc.cluster.local:8080/api/chat"}
             - {name: MCP_URL, value: "http://mcp-confluent.kafka:8080/mcp"}
             - {name: MODEL, value: "__AGENT_MODEL__"}   # the one place is AGENT_MODEL in the Makefile (sed at deploy)
+            - {name: LLM_BACKEND, value: "__AGENT_BACKEND__"}   # ollama | anthropic
+            - {name: AGENT_EFFORT, value: "__AGENT_EFFORT__"}   # Anthropic only
+            - {name: AGENT_DAILY_MAX_USD, value: "__AGENT_DAILY_MAX_USD__"}   # in-process daily cap
             # Empty = closed (five read tools). Set to "delete-topics" ONLY by `make unsafe-demo`, for the negative test.
             - {name: AGENT_EXTRA_TOOLS, value: "__AGENT_EXTRA_TOOLS__"}
             - name: MCP_API_KEY
               valueFrom: {secretKeyRef: {name: mcp-api-key, key: key}}
+            - name: ANTHROPIC_API_KEY
+              valueFrom: {secretKeyRef: {name: anthropic-api-key, key: key, optional: true}}
           ports:
             - {name: http, containerPort: 8080}
           readinessProbe:
             httpGet: {path: /healthz, port: http}
           resources:
-            requests: {memory: 96Mi, cpu: 20m}
-            limits: {memory: 192Mi}
+            requests: {memory: 128Mi, cpu: 20m}
+            limits: {memory: 256Mi}   # the anthropic SDK adds about 42 MiB at import
 ---
 apiVersion: v1
 kind: Service

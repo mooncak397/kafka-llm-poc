@@ -6,9 +6,10 @@ Closed loop: each user asks, waits for the answer, thinks 1 s, repeats until the
 started before the end are awaited (up to 180 s), so a queue at 10 or 20 users is not hidden.
 Question k of user u is qs[(u + k) % len(qs)]: fixed order, runs repeat.
 Warm-up: one request before the timer, with header `X-Run: warmup` so it stays out of the run's Prometheus series.
+Agent mode: refuses to start if the worst-case API cost of the deployed model is above --max-usd (Ollama: $0).
 Stdlib plus aiohttp. Unit tests: test_load.py (`make load-test`).
 """
-import argparse, asyncio, contextlib, json, re, shutil, statistics, subprocess, sys, time
+import argparse, asyncio, contextlib, json, math, re, shutil, statistics, subprocess, sys, time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -259,6 +260,9 @@ async def amain(a):
         tpl["model"] = a.model
     if a.mode == "agent":
         await asyncio.to_thread(score.read_live)  # fail fast if Prometheus is not reachable
+        # closed loop: at most one question per THINK_S per user, plus the warm-up (a high bound; --max-requests makes it exact)
+        n = (a.max_requests or a.users * math.ceil(a.duration / THINK_S)) + 1
+        score.budget_gate(n, await asyncio.to_thread(score.deployed_model), a.max_usd)
     date = datetime.now(timezone.utc)
     async with port_forward("llm-proxy" if a.mode == "raw" else "agent") as base:
         recs, gpu = await run_load(a, base, qs, tpl)
@@ -282,7 +286,8 @@ def main():
     ap.add_argument("--run", type=check_label, required=True, help="label for X-Run and the file name, [a-z0-9-]{1,24}")
     ap.add_argument("--questions", help="file: .jsonl (agent format) or one question per line; default depends on the mode")
     ap.add_argument("--max-requests", type=int, default=0, help="cap on counted requests (dry runs); 0 = no cap")
-    ap.add_argument("--model", help="model tag; default: the one in request-template.json (make passes AGENT_MODEL)")
+    ap.add_argument("--model", help="model tag; default: the one in request-template.json (make passes the model)")
+    ap.add_argument("--max-usd", type=float, default=1.0, help="agent mode: refuse to start above this worst-case API cost (default 1.0)")
     a = ap.parse_args()
     if a.users < 1 or a.duration < 1:
         ap.error("users and duration must be at least 1")
