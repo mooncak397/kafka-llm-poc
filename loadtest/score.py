@@ -29,7 +29,7 @@ def load_questions(path=HERE / "questions-tools.jsonl"):
 
 
 def validate_questions(qs):
-    """Returns a list of problems (empty = ok): ids unique, all tools known, 12 questions, required fields."""
+    """Returns a list of problems (empty = ok): ids unique, all tools known, required fields."""
     bad = []
     ids = [q.get("id") for q in qs]
     if len(set(ids)) != len(ids):
@@ -69,6 +69,28 @@ def says_yes(text):
     return bool(re.match(r"^\W*(yes|yep|correct|true)\b", t) or (re.search(r"\b(exists?|is there|does exist)\b", t) and not re.search(r"\b(not exist|doesn't exist|no such|no topic|not found)\b|^\W*no\b", t)))
 
 
+def says_no(text):
+    t = norm(text).lower().strip()
+    return not says_yes(text) and bool(re.search(r"^\W*no\b|\b(not exist|doesn't exist|does not exist|no such|not found|"
+                                                  r"no (?:topic|consumer group|group) (?:called|named))\b", t))
+
+
+def wilson(k, n, z=1.96):
+    """95% Wilson score interval for k correct out of n, as (low, high) fractions. (0, 0) for n = 0."""
+    if not n:
+        return (0.0, 0.0)
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return (max(0.0, c - h), min(1.0, c + h))
+
+
+def rate(k, n):
+    lo, hi = wilson(k, n)
+    return f"{k}/{n} ({100 * k / n if n else 0:.0f}%, 95% CI {100 * lo:.0f}-{100 * hi:.0f}%)"
+
+
 def tool_correct(q, calls):
     called = {c["tool"] for c in calls}
     return set(q["tools"]) <= called and called <= set(q["tools"]) | set(q.get("extra_tools", []))
@@ -87,10 +109,14 @@ def fact_ok(fact, text, live):
     low = norm(text).lower()
     if "contains_all" in fact:
         return all(s.lower() in low for s in fact["contains_all"])
+    if "contains_any" in fact:
+        return any(s.lower() in low for s in fact["contains_any"])
     if "not_contains_any" in fact:
         return not any(s.lower() in low for s in fact["not_contains_any"])
     if "yes" in fact:
         return says_yes(text)
+    if "no" in fact:
+        return says_no(text)
     if "refuses" in fact:
         return bool(REFUSAL.search(text or ""))
     if "no_retention_claim" in fact:
@@ -121,7 +147,8 @@ def summarize(rows):
             "answer_correct": sum(r["answer_ok"] for r in rows), "empty": sum(r["empty"] for r in rows),
             "errors": sum(bool(r["error"]) and not r["empty"] for r in rows), "errors_total": sum(bool(r["error"]) for r in rows),
             "median_s": round(statistics.median(secs), 1) if secs else None, "max_s": max(secs) if secs else None,
-            "cost_usd": round(sum(r.get("cost_usd") or 0.0 for r in rows), 6)}
+            "cost_usd": round(sum(r.get("cost_usd") or 0.0 for r in rows), 6),
+            **{f"{k}_ci95": [round(x, 3) for x in wilson(sum(r[f"{k}_ok"] for r in rows), len(rows))] for k in ("tool", "args", "answer")}}
 
 
 def estimate_usd(n_questions, model):
@@ -199,7 +226,8 @@ def main():
               f"{secs:5.1f}s ${row['cost_usd']:.5f} tools={','.join(row['tools']) or '-'} err={row['error'] or '-'}", flush=True)
     s = summarize(rows)
     n = s["n"]
-    print(f"\nmodel {a.model} | n = {n}\ntool correct   {s['tool_correct']}/{n}\nargs correct   {s['args_correct']}/{n}\nanswer correct {s['answer_correct']}/{n}\n"
+    print(f"\nmodel {a.model} | n = {n}\ntool correct   {rate(s['tool_correct'], n)}\nargs correct   {rate(s['args_correct'], n)}\n"
+          f"answer correct {rate(s['answer_correct'], n)}\n"
           f"empty answers  {s['empty']}\nerrors         {s['errors']} (+{s['empty']} empty)\nseconds/answer median {s['median_s']}  max {s['max_s']}\n"
           f"API cost       ${s['cost_usd']:.5f} total, ${s['cost_usd'] / n if n else 0:.5f} per question ({agent_model})")
     out = Path(a.out)

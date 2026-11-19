@@ -14,7 +14,7 @@ A small LLM agent answers questions about a Kafka cluster. It reads topics, cons
 - An agent loop that calls five read-only tools from mcp-confluent. It stops after 5 tool turns.
 - A small proxy between the agent and Ollama. It records time to first token (TTFT), tokens per second and a derived queue wait.
 - Prometheus and Grafana with four dashboards (two from the Strimzi examples, two of our own).
-- A load test script for 1, 10 and 20 users, and a scorer for a 12-question set.
+- A load test script for 1, 10 and 20 users, and a scorer for a 48-question set with 95% Wilson intervals (q13 to q48 are new and under review, see `loadtest/questions-review.txt`).
 
 ## Architecture
 

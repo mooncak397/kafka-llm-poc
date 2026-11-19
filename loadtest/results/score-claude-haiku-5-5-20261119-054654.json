@@ -1,0 +1,331 @@
+{
+ "model": "claude-haiku-5-5",
+ "agent_model": "claude-haiku-5-5",
+ "prices": {
+  "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+  "checked": "2026-11-19"
+ },
+ "date": "2026-11-19T05:46:54",
+ "summary": {
+  "n": 12,
+  "tool_correct": 10,
+  "args_correct": 10,
+  "answer_correct": 12,
+  "empty": 0,
+  "errors": 0,
+  "errors_total": 0,
+  "median_s": 1.9,
+  "max_s": 5.0,
+  "cost_usd": 0.003561
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.2,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "The cluster has four topics: bikes.orders, bikes.payments, bikes.sensor-events, and __consumer_offsets.",
+   "usage": {
+    "input": 6,
+    "cache_read": 2959,
+    "cache_write": 0,
+    "output": 72
+   },
+   "cost_usd": 6.6e-05
+  },
+  {
+   "id": "q02",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.7,
+   "tools": [
+    "list-consumer-groups"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "There are two consumer groups: `orders-fast` (Stable) and `orders-slow` (PreparingRebalance).",
+   "usage": {
+    "input": 6,
+    "cache_read": 1446,
+    "cache_write": 1662,
+    "output": 72
+   },
+   "cost_usd": 0.000259
+  },
+  {
+   "id": "q03",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.5,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "Yes, a topic called bikes.payments exists.",
+   "usage": {
+    "input": 6,
+    "cache_read": 1450,
+    "cache_write": 1523,
+    "output": 46
+   },
+   "cost_usd": 0.000228
+  },
+  {
+   "id": "q04",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.7,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" has a total lag of 81,249 messages across 3 topics.",
+   "usage": {
+    "input": 6,
+    "cache_read": 1453,
+    "cache_write": 1553,
+    "output": 94
+   },
+   "cost_usd": 0.000256
+  },
+  {
+   "id": "q05",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.0,
+   "tools": [
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "The consumer group orders-fast currently has a total lag of 9 messages across 3 topics.",
+   "usage": {
+    "input": 6,
+    "cache_read": 1454,
+    "cache_write": 1553,
+    "output": 92
+   },
+   "cost_usd": 0.000255
+  },
+  {
+   "id": "q06",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.8,
+   "tools": [
+    "describe-consumer-group"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group \"orders-slow\" is in the Empty state with 0 members, and its coordinator is poc-combined-0.poc-kafka-brokers.kafka.svc:9092.",
+   "usage": {
+    "input": 6,
+    "cache_read": 1450,
+    "cache_write": 1572,
+    "output": 121
+   },
+   "cost_usd": 0.000272
+  },
+  {
+   "id": "q07",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.7,
+   "tools": [
+    "get-partition-offsets"
+   ],
+   "args": [
+    {
+     "topicName": "bikes.orders"
+    }
+   ],
+   "answer": "The topic bikes.orders has one partition (0), with a low watermark of 0 and a high watermark of 28048 (28,048 messages).",
+   "usage": {
+    "input": 6,
+    "cache_read": 1455,
+    "cache_write": 1628,
+    "output": 106
+   },
+   "cost_usd": 0.000272
+  },
+  {
+   "id": "q08",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.9,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-fast"
+    },
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "orders-slow is further behind, with 81,273 messages of lag versus 12 for orders-fast.",
+   "usage": {
+    "input": 6,
+    "cache_read": 1469,
+    "cache_write": 1723,
+    "output": 152
+   },
+   "cost_usd": 0.000307
+  },
+  {
+   "id": "q09",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.4,
+   "tools": [
+    "list-consumer-groups",
+    "describe-consumer-group"
+   ],
+   "args": [
+    {},
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "The consumer group whose name ends in \"slow\" is `orders-slow`; it is Empty, with 0 members, and its coordinator is poc-combined-0.poc-kafka-brokers.kafka.svc:9092.",
+   "usage": {
+    "input": 8,
+    "cache_read": 3129,
+    "cache_write": 1790,
+    "output": 163
+   },
+   "cost_usd": 0.000337
+  },
+  {
+   "id": "q10",
+   "tool_ok": true,
+   "args_ok": true,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 1.9,
+   "tools": [
+    "get-consumer-group-lag",
+    "get-consumer-group-lag"
+   ],
+   "args": [
+    {
+     "groupId": "orders-slow"
+    },
+    {
+     "groupId": "orders-fast"
+    }
+   ],
+   "answer": "Yes. orders-slow has 81,288 messages of lag, and orders-fast has 12.",
+   "usage": {
+    "input": 6,
+    "cache_read": 1468,
+    "cache_write": 1722,
+    "output": 150
+   },
+   "cost_usd": 0.000306
+  },
+  {
+   "id": "q11",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 5.0,
+   "tools": [
+    "list-consumer-groups",
+    "describe-consumer-group",
+    "describe-consumer-group"
+   ],
+   "args": [
+    {},
+    {
+     "groupId": "orders-fast"
+    },
+    {
+     "groupId": "orders-slow"
+    }
+   ],
+   "answer": "I can't determine this: my tools don't expose ACLs or user principals, and the two consumer groups that might read bikes.orders (orders-fast, Stable with 1 member, and orders-slow, Empty) don't show their members or topics.",
+   "usage": {
+    "input": 8,
+    "cache_read": 3289,
+    "cache_write": 2189,
+    "output": 701
+   },
+   "cost_usd": 0.000658
+  },
+  {
+   "id": "q12",
+   "tool_ok": false,
+   "args_ok": false,
+   "answer_ok": true,
+   "empty": false,
+   "error": null,
+   "seconds": 2.5,
+   "tools": [
+    "list-topics"
+   ],
+   "args": [
+    {}
+   ],
+   "answer": "I can't tell you the retention time: the available tools only list topics, report partition offsets, and describe consumer groups, and none of them return topic configuration. The topic bikes.orders does exist, so you'd need to check its `retention.ms` setting directly with the Kafka admin tooling or the cluster configuration.",
+   "usage": {
+    "input": 6,
+    "cache_read": 1453,
+    "cache_write": 1646,
+    "output": 248
+   },
+   "cost_usd": 0.000345
+  }
+ ]
+}
