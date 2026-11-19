@@ -105,7 +105,7 @@ Run date 2026-11-19. The same agent loop, the same five read-only tools and the 
 
 Both Claude models answered every question correctly in all three runs. The local 4B model answered 89%. The pooled intervals separate, but the per-run intervals still overlap (93-100% and 77-95%), so the gap is a strong hint and not a proven difference. Haiku and Sonnet cannot be told apart on this set. All Claude tool-choice misses are on questions that have no answer (q11, q12, q47): the model checks once with a read-only tool and then refuses correctly, and the scorer counts the extra call as a wrong tool. The local model misses mostly through wrong arguments, for example a "Stable" state filter that hides `orders-slow`.
 
-Sonnet cost about 17 times as much as Haiku per question, with no measurable gain here. The cost comes from the usage fields the API returns. It has not yet been compared with the usage page in the Anthropic Console. The local model has no API cost; its power and hardware are not priced.
+Sonnet cost about 17 times as much as Haiku per question, with no measurable gain here. The cost comes from the usage fields the API returns. On 2026-11-19 it was compared with the usage page in the Anthropic Console, and the totals match. The local model has no API cost; its power and hardware are not priced.
 
 ## How it was measured
 
@@ -179,7 +179,7 @@ Each LLM call is priced from the four usage fields the Anthropic API returns: un
 - `score.py` and `load.py` (agent mode) estimate the worst-case cost of a run for the deployed model before they start, and stop if it is above `--max-usd` (default 1.0). The estimate assumes every call hits the turn cap and `max_tokens`.
 - The agent keeps a daily total in memory and refuses new LLM calls above `AGENT_DAILY_MAX_USD` (default 5). It resets at midnight UTC and on a pod restart. The Console spend limit is the outer cap.
 
-Status: the Claude path ran on 2026-11-19 with Haiku 5.5 and Sonnet 5.5, 3 runs of 48 questions each (see the model comparison above and Table 2 in `evidence/results.md`). The negative test also ran on Claude (rows d and e above). The logged cost has not yet been compared with the Anthropic Console.
+Status: the Claude path ran on 2026-11-19 with Haiku 5.5 and Sonnet 5.5, 3 runs of 48 questions each (see the model comparison above and Table 2 in `evidence/results.md`). The negative test also ran on Claude (rows d and e above). The logged cost was compared with the Anthropic Console on 2026-11-19, and the totals match.
 
 ## How to run it
 
